@@ -7,7 +7,7 @@ using namespace Renderer;
 //----------------------------------------------------------------------------------------------------------
 //  Renderer::Shader_Program
 //----------------------------------------------------------------------------------------------------------
-Renderer::Shader_Program::~Shader_Program()
+Shader_Program::~Shader_Program()
 {
 	glDeleteProgram(ID);
 }
