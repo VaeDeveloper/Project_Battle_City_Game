@@ -8,6 +8,9 @@ add_executable(${PROJECT_NAME}
 	source/main.cpp
 	source/Renderer/Shader_Program.cpp
 	source/Renderer/Shader_Program.h
+	source/Resources/Resource_Manager.cpp
+	source/Resources/Resource_Manager.h
+
 )
 
 
