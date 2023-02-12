@@ -24,11 +24,9 @@ namespace Renderer
 		Shader_Program(Shader_Program&) = delete;
 		Shader_Program& operator=(const Shader_Program&) = delete;
 
-	
 		bool Is_Compiled() const { return bIs_Compiled; }
 		void Use_Shader() const;
 
-	
 	private:
 		/* Creating shader method */
 		bool Create_Shader(const std::string& source, const GLenum shader_type, GLuint& shader_id);

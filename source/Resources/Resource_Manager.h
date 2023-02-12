@@ -21,14 +21,11 @@ public:
 	/* Use the actual constructor for this class */
 	Resource_Manager(const std::string& executable_path);
 
-
 	/* It is forbidden to use a constructor without parameters and a constructor with a parameter of this class*/
 	Resource_Manager(const Resource_Manager&) = delete;
 	Resource_Manager& operator=(const Resource_Manager&) = delete;
 	Resource_Manager& operator=(Resource_Manager&&) = delete;
 	Resource_Manager(Resource_Manager&&) = delete;
-
-
 
 	//---Loading shader with resource project path.--------------------------------------------------------//
 	//-----------shader_name - this name shader------------------------------------------------------------//
@@ -46,6 +43,5 @@ private:
 	Shader_Programs_Map Shader_Programs;
 
 	std::string Path;
-
 };
 //---------------------------------------------------------------------------------------------------------------------------------------------

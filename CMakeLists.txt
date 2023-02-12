@@ -10,6 +10,7 @@ add_executable(${PROJECT_NAME}
 	source/Renderer/Shader_Program.h
 	source/Resources/Resource_Manager.cpp
 	source/Resources/Resource_Manager.h
+	source/Resources/stb_image.h
 
 )
 
