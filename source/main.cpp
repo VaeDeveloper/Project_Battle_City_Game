@@ -110,6 +110,8 @@ int main(int argc, char** argv)
 		}
 
 
+		resource_manager.Load_Texture("Default_Texture", "res/textures/map_16x16.png");
+
 		GLuint point_vbo = 0;
 		glGenBuffers(1, &point_vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, point_vbo);
