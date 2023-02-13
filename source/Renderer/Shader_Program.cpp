@@ -16,7 +16,7 @@ Shader_Program::Shader_Program(const std::string& vertex_shader, const std::stri
 :bIs_Compiled(false), ID(0)
 {
 	GLint success;
-	GLuint vertex_shader_id;
+	GLuint vertex_shader_id, fragment_shader_id;
 
 	if (!Create_Shader(vertex_shader, GL_VERTEX_SHADER, vertex_shader_id))
 	{
@@ -24,7 +24,6 @@ Shader_Program::Shader_Program(const std::string& vertex_shader, const std::stri
 		return;
 	}
 
-	GLuint fragment_shader_id;
 	if (!Create_Shader(fragment_shader, GL_FRAGMENT_SHADER, fragment_shader_id))
 	{
 		std::cerr << "FRAGMENT SHADER COMPILE TIME ERROR! \n" << std::endl;
@@ -94,6 +93,7 @@ bool Shader_Program::Create_Shader(const std::string& source, const GLenum shade
 	glCompileShader(shader_id);
 
 	glGetShaderiv(shader_id, GL_COMPILE_STATUS, &success);
+
 	if (!success)
 	{
 		GLchar info_log[1024];

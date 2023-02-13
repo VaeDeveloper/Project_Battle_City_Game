@@ -66,6 +66,5 @@ Texture2D::Texture2D(Texture2D&& texture2d) noexcept
 void Texture2D::Bind_Texture() const
 {
 	glBindTexture(GL_TEXTURE_2D, ID);
-
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
