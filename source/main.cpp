@@ -1,7 +1,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
-
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <iostream>
 
@@ -11,16 +12,16 @@
 
 GLfloat point[] =
 {
-	 0.0f,  0.5f, 0.0f,
-	 0.5f, -0.5f, 0.0f,
-	-0.5f, -0.5f, 0.0f
+	 0.0f,   50.0f,  0.0f,
+	 50.0f, -50.0f, 0.0f,
+	-50.0f, -50.0f, 0.0f
 };
 
 GLfloat colors[] =
 {
-	1.0f, 0.0f, 0.0f,
-	0.0f, 1.0f, 0.0f,
-	0.0f, 0.0f, 1.0f
+	 1.0f, 0.0f, 0.0f,
+	 0.0f, 1.0f, 0.0f,
+	 0.0f, 0.0f, 1.0f
 };
 
 GLfloat tex_coord[] =
@@ -169,6 +170,16 @@ int main(int argc, char** argv)
 		Default_Shader_Program->Use_Shader();
 		Default_Shader_Program->Set_Int("tex", 0);
 
+		glm::mat4 model_matrix_1 = glm::mat4(1.0f);
+		model_matrix_1 = glm::translate(model_matrix_1, glm::vec3(100.f, 200.0f, 0.0f));
+
+		glm::mat4 model_matrix_2 = glm::mat4(1.0f);
+		model_matrix_2 = glm::translate(model_matrix_2, glm::vec3(590.0f, 200.0f, 0.0f));
+
+		glm::mat4 projection_matrix = glm::ortho(0.0f, static_cast<float>(window_size.x), 0.0f, static_cast<float>(window_size.y), -100.0f, 100.0f);
+
+		Default_Shader_Program->Set_Matrix4("projection_mat", projection_matrix);
+
 		/* Render LOOP */
 		while (!glfwWindowShouldClose(main_window))
 		{
@@ -177,8 +188,14 @@ int main(int argc, char** argv)
 
 			Default_Shader_Program->Use_Shader();
 			glBindVertexArray(vao);
-			glDrawArrays(GL_TRIANGLES, 0, 3);
 			tex->Bind_Texture();
+			
+			Default_Shader_Program->Set_Matrix4("model_mat", model_matrix_1);
+			glDrawArrays(GL_TRIANGLES, 0, 3);
+
+			Default_Shader_Program->Set_Matrix4("model_mat", model_matrix_2);
+			glDrawArrays(GL_TRIANGLES, 0, 3);
+
 			/* Swap front and back buffers */
 			glfwSwapBuffers(main_window);
 

@@ -1,5 +1,7 @@
 #include "Shader_Program.h"
 
+#include <glm/gtc/type_ptr.hpp>
+
 #include <iostream>
 
 using namespace Renderer;
@@ -81,6 +83,11 @@ void Shader_Program::Use_Shader() const
 void Shader_Program::Set_Int(const std::string& name, const GLint value)
 {
 	glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
+}
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+void Shader_Program::Set_Matrix4(const std::string& name, const glm::mat4& matrix)
+{
+	glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool Shader_Program::Create_Shader(const std::string& source, const GLenum shader_type, GLuint& shader_id)

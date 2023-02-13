@@ -2,6 +2,7 @@
 
 #include <glad\glad.h>
 #include <string>
+#include "glm/mat4x4.hpp"
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -38,6 +39,9 @@ namespace Renderer
 
 		/* Sets the shader uniform */
 		void Set_Int(const std::string& name, const GLint value);
+
+		/* Set Matrix for Screen Space*/
+		void Set_Matrix4(const std::string& name, const glm::mat4& matrix);
 		//========================================================================================================================================================
 
 	private:
