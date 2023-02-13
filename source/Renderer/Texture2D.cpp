@@ -11,22 +11,24 @@ Texture2D::~Texture2D()
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 Texture2D::Texture2D(const GLuint width, const GLuint height, const unsigned char* data, const unsigned int channels, const GLenum filter, const GLenum wrap_mode)
-: Width(width), Height(height),ID(0),Mode(GL_RGBA)
+: Width(width), Height(height)
 {
 	switch (channels)
 	{
 	case 3:
 		Mode = GL_RGB;
-
+		break;
 	case 4:
 		Mode = GL_RGBA;
+		break;
 
-	//default: !!!
-	//	Mode = GL_RGBA;
-	//	break;
+	default: 
+		Mode = GL_RGBA;
+		break;
 	}
 
 	glGenTextures(1, &ID);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, ID);
 	glTexImage2D(GL_TEXTURE_2D, 0, Mode, Width, Height, 0, Mode, GL_UNSIGNED_BYTE, data);
 

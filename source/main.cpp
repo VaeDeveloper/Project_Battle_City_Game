@@ -1,10 +1,12 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/vec2.hpp>
 
 
 #include <iostream>
 
 #include "Renderer\Shader_Program.h"
+#include "Renderer\Texture2D.h"
 #include "Resources\Resource_Manager.h"
 
 GLfloat point[] =
@@ -20,6 +22,14 @@ GLfloat colors[] =
 	0.0f, 1.0f, 0.0f,
 	0.0f, 0.0f, 1.0f
 };
+
+GLfloat tex_coord[] =
+{
+	0.5f, 1.0f,
+	1.0f, 0.0f,
+	0.0f, 0.0f
+};
+
 
 const char* vertex_shader =
 "#version 460\n"
@@ -39,14 +49,14 @@ const char* fragment_shader =
 "   frag_color = vec4(color, 1.0);"
 "}";
 
-static int g_window_width = 640;
-static int g_window_height = 480;
+glm::ivec2 window_size(640, 480);
+
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 void GLFW_Window_Size_Callback(GLFWwindow* window, int width, int height)
 {
-	g_window_width = width;
-	g_window_height = height;
-	glViewport(0, 0, g_window_width, g_window_height);
+	window_size.x = width;
+	window_size.y = height;
+	glViewport(0, 0, window_size.x, window_size.y);
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 void GLFW_Key_Callback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -67,14 +77,13 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-
-	/* curr version openGL 4.6 */
+	/* current version openGL 4.6 */
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	/* Create a windowed mode window and its OpenGL context */
-	GLFWwindow* main_window = glfwCreateWindow(g_window_width, g_window_height, "BATTLE CITY", nullptr, nullptr);
+	GLFWwindow* main_window = glfwCreateWindow(window_size.x, window_size.y, "BATTLE CITY", nullptr, nullptr);
 	if (!main_window)
 	{
 		std::cout << "glfwCreateWindow is failed" << std::endl;
@@ -82,7 +91,9 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
+	/* window size callback */
 	glfwSetWindowSizeCallback(main_window, GLFW_Window_Size_Callback);
+	/* keybind callback */
 	glfwSetKeyCallback(main_window, GLFW_Key_Callback);
 	/* Make the window's context current */
 	glfwMakeContextCurrent(main_window);
@@ -93,10 +104,13 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
+	/* render and openGL version info */
 	std::cout << "Renderer:- " << glGetString(GL_RENDERER) << std::endl;
 	std::cout << "OpenGL version:- " << glGetString(GL_VERSION) << std::endl;
 
-	glClearColor(0, 0, 0, 1);
+
+	/* background colors */
+	glClearColor(1, 0, 0, 1);
 
 
 	{
@@ -109,32 +123,51 @@ int main(int argc, char** argv)
 			return -1;
 		}
 
+		auto tex = resource_manager.Load_Texture("Default_Texture", "res/textures/map_16x16.png");
 
-		resource_manager.Load_Texture("Default_Texture", "res/textures/map_16x16.png");
-
+		// generating Point VBO
 		GLuint point_vbo = 0;
 		glGenBuffers(1, &point_vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, point_vbo);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(point), point, GL_STATIC_DRAW);
 
+		// generating  Colors VBO
 		GLuint colors_vbo = 0;
 		glGenBuffers(1, &colors_vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
 
+		/* load generating texture VBO */ 
+		GLuint tex_coord_vbo = 0;
+		glGenBuffers(1, &tex_coord_vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, tex_coord_vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(tex_coord), tex_coord, GL_STATIC_DRAW);
+
+
 		GLuint vao = 0;
 		glGenVertexArrays(1, &vao);
 		glBindVertexArray(vao);
 
+
+		/*load points attribute buffer* */ 
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, point_vbo);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
+
+		/*load colors attribute buffet*/ 
 		glEnableVertexAttribArray(1);
 		glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
 
+		/*load texture coordinate attribute buffet*/
+		glEnableVertexAttribArray(2);
+		glBindBuffer(GL_ARRAY_BUFFER, tex_coord_vbo);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+
+		Default_Shader_Program->Use_Shader();
+		Default_Shader_Program->Set_Int("tex", 0);
 
 		/* Render LOOP */
 		while (!glfwWindowShouldClose(main_window))
@@ -142,11 +175,10 @@ int main(int argc, char** argv)
 			/* Render here */
 			glClear(GL_COLOR_BUFFER_BIT);	
 
-
 			Default_Shader_Program->Use_Shader();
 			glBindVertexArray(vao);
 			glDrawArrays(GL_TRIANGLES, 0, 3);
-
+			tex->Bind_Texture();
 			/* Swap front and back buffers */
 			glfwSwapBuffers(main_window);
 

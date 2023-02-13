@@ -79,10 +79,15 @@ void Shader_Program::Use_Shader() const
 	glUseProgram(ID);
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
+void Shader_Program::Set_Int(const std::string& name, const GLint value)
+{
+	glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
+}
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool Shader_Program::Create_Shader(const std::string& source, const GLenum shader_type, GLuint& shader_id)
 {
 	GLint success;
-
+		
 	shader_id = glCreateShader(shader_type);
 	const char* code = source.c_str();
 	glShaderSource(shader_id, 1, &code, nullptr);

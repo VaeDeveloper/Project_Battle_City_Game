@@ -35,6 +35,9 @@ namespace Renderer
 
 		/* Use shaders method */
 		void Use_Shader() const;
+
+		/* Sets the shader uniform */
+		void Set_Int(const std::string& name, const GLint value);
 		//========================================================================================================================================================
 
 	private:
