@@ -12,7 +12,7 @@
 
 GLfloat point[] =
 {
-	 0.0f,   50.0f,  0.0f,
+	 0.0f,   50.0f, 0.0f,
 	 50.0f, -50.0f, 0.0f,
 	-50.0f, -50.0f, 0.0f
 };
@@ -31,7 +31,7 @@ GLfloat tex_coord[] =
 	0.0f, 0.0f
 };
 
-
+/* GLSL Shaders 1*/
 const char* vertex_shader =
 "#version 460\n"
 "layout (location = 0) in vec3 vertex_position;"
@@ -42,6 +42,7 @@ const char* vertex_shader =
 "   gl_Position  = vec4(vertex_position, 1.0);"
 "}";
 
+/* GLSL Shaders 2*/
 const char* fragment_shader =
 "#version 460\n"
 "in vec3 color;"
