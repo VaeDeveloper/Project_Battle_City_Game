@@ -9,6 +9,7 @@
 #include "Renderer\Shader_Program.h"
 #include "Renderer\Texture2D.h"
 #include "Resources\Resource_Manager.h"
+#include "Renderer\Sprite.h"
 
 GLfloat point[] =
 {
@@ -125,7 +126,20 @@ int main(int argc, char** argv)
 			return -1;
 		}
 
+		auto Sprite_Shader_Program = resource_manager.Load_Shaders("SpriteShader", "res/shaders/Shader_Vertex.txt", "res/shaders/Sprite_Fragment.txt");
+
+		if (!Default_Shader_Program)
+		{
+			std::cerr << "Can't create shader program" << "SpriteShader" << std::endl;
+			return -1;
+		}
+
+
 		auto tex = resource_manager.Load_Texture("Default_Texture", "res/textures/map_16x16.png");
+
+		auto sprite = resource_manager.Load_Sprite("NewSprite", "Default_Texture", "SpriteShader", 50, 100);
+		sprite->Set_Position(glm::vec2(300, 100));
+
 
 		// generating Point VBO
 		GLuint point_vbo = 0;
@@ -181,6 +195,11 @@ int main(int argc, char** argv)
 
 		Default_Shader_Program->Set_Matrix4("projection_mat", projection_matrix);
 
+
+		Sprite_Shader_Program->Use_Shader();
+		Sprite_Shader_Program->Set_Int("tex", 0);
+		Sprite_Shader_Program->Set_Matrix4("projection_mat", projection_matrix);
+
 		/* Render LOOP */
 		while (!glfwWindowShouldClose(main_window))
 		{
@@ -196,6 +215,8 @@ int main(int argc, char** argv)
 
 			Default_Shader_Program->Set_Matrix4("model_mat", model_matrix_2);
 			glDrawArrays(GL_TRIANGLES, 0, 3);
+
+			sprite->Render();
 
 			/* Swap front and back buffers */
 			glfwSwapBuffers(main_window);
