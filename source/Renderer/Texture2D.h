@@ -1,7 +1,10 @@
 #pragma once 
 
 #include "glad/glad.h"
+#include "glm\glm.hpp"
+
 #include <string>
+#include <map>
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  Renderer::Texture2D
@@ -11,6 +14,17 @@ namespace Renderer
 	class Texture2D
 	{
 	public:
+		// Struct SubTexure2D for texture 2D sprite 
+		struct SubTexture2D
+		{
+			glm::vec2 Left_Bottom_UV;
+			glm::vec2 Right_Top_UV;
+
+			SubTexture2D() : Left_Bottom_UV(0.0f), Right_Top_UV(1.0f) { }
+			SubTexture2D(const glm::vec2& left_bottom_uv, const glm::vec2& right_top_uv) : Left_Bottom_UV(left_bottom_uv), Right_Top_UV(right_top_uv) { }
+	
+		};
+		
 		//========================================================================================================================================================
 		// Constructors and Destructors
 		~Texture2D();
@@ -37,6 +51,10 @@ namespace Renderer
 		// Public Methods
 		void Bind_Texture() const;
 
+		/* Add SubTexture for Base Texture */
+		void Add_SubTexture(std::string& texture_name, glm::vec2& left_bottom_uv, glm::vec2& right_top_uv);
+		//========================================================================================================================================================
+
 	private:
 
 		//========================================================================================================================================================
@@ -45,7 +63,7 @@ namespace Renderer
 		GLenum Mode;
 		unsigned int Width, Height;
 
-
+		std::map<std::string, SubTexture2D> SubTexture_Map;
 	};
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
