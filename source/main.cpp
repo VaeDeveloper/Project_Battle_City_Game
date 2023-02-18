@@ -5,11 +5,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <iostream>
+#include <chrono>
 
 #include "Renderer\Shader_Program.h"
 #include "Renderer\Texture2D.h"
 #include "Resources\Resource_Manager.h"
 #include "Renderer\Sprite.h"
+#include "Renderer\Animated_Sprite.h"
 
 GLfloat point[] =
 {
@@ -138,12 +140,60 @@ int main(int argc, char** argv)
 		auto tex = resource_manager.Load_Texture("Default_Texture", "res/textures/map_16x16.png");
 
 
-		std::vector<std::string> sub_textures_names = { "block", "top_block", "bottom_block", "left_block", "right_block", "top_left_block", "top_right_block", "bottom_left_block","bottom_right_block","beton" };
+		std::vector<std::string> sub_textures_names = { 
+			"block", 
+			"top_block",
+			"bottom_block",
+			"left_block",
+			"right_block",
+			"top_left_block", 
+			"top_right_block", 
+			"bottom_left_block",
+			"bottom_right_block",
+			"beton",
+			"top_beton",
+			"bottom_beton",
+			"left_beton",
+			"right_beton",
+			"top_left_beton",
+			"top_right_beton",
+			"bottom_left_beton",
+			"bottom_right_beton",
+			"water1",
+			"water2",
+			"water3",
+			"trees",
+			"ice",
+			"wall",
+			"eagle",
+			"dead_eagle",
+			"respawn1",
+			"respawn2",
+			"respawn3",
+			"respawn4"
+		};
+
 		auto texture_atlas = resource_manager.Load_Texture_Atlas("Default_Texture_Atlas", "res/textures/map_16x16.png", std::move(sub_textures_names), 16, 16);
 
 		auto sprite = resource_manager.Load_Sprite("NewSprite", "Default_Texture_Atlas", "SpriteShader", 100, 100, "beton");
 		sprite->Set_Position(glm::vec2(300, 100));
 
+		auto anim_sprite = resource_manager.Load_Animated_Sprite("NewAnimSprite", "Default_Texture_Atlas", "SpriteShader", 100, 100, "water1");
+		anim_sprite->Set_Position(glm::vec2(300, 300));
+
+		std::vector<std::pair<std::string, uint64_t>> water_state;
+		water_state.emplace_back(std::make_pair<std::string, uint64_t>("water1", 1000000000));
+		water_state.emplace_back(std::make_pair<std::string, uint64_t>("water2", 1000000000));
+		water_state.emplace_back(std::make_pair<std::string, uint64_t>("water3", 1000000000));
+
+		std::vector<std::pair<std::string, uint64_t>> eagle_state;
+		eagle_state.emplace_back(std::make_pair<std::string, uint64_t>("eagle", 1000000000));
+		eagle_state.emplace_back(std::make_pair<std::string, uint64_t>("dead_eagle", 1000000000));
+
+		anim_sprite->Insert_State("water_state", std::move(water_state));
+		anim_sprite->Insert_State("eagle_state", std::move(eagle_state));
+
+		anim_sprite->Set_State("water_state");
 
 		// generating Point VBO
 		GLuint point_vbo = 0;
@@ -204,9 +254,15 @@ int main(int argc, char** argv)
 		Sprite_Shader_Program->Set_Int("tex", 0);
 		Sprite_Shader_Program->Set_Matrix4("projection_mat", projection_matrix);
 
+		auto last_time = std::chrono::high_resolution_clock::now();
+
 		/* Render LOOP */
 		while (!glfwWindowShouldClose(main_window))
 		{
+			auto current_time = std::chrono::high_resolution_clock::now();
+			uint64_t duration = std::chrono::duration_cast<std::chrono::nanoseconds>(current_time - last_time).count();
+			last_time = current_time;
+			anim_sprite->Update(duration);
 			/* Render here */
 			glClear(GL_COLOR_BUFFER_BIT);	
 
@@ -220,6 +276,7 @@ int main(int argc, char** argv)
 			Default_Shader_Program->Set_Matrix4("model_mat", model_matrix_2);
 			glDrawArrays(GL_TRIANGLES, 0, 3);
 
+			anim_sprite->Render();
 			sprite->Render();
 
 			/* Swap front and back buffers */

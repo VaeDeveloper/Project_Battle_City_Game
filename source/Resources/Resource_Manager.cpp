@@ -2,6 +2,7 @@
 #include "../Renderer/Shader_Program.h"
 #include "../Renderer/Texture2D.h"
 #include "../Renderer/Sprite.h"
+#include "../Renderer/Animated_Sprite.h"
 
 #include <sstream>
 #include <fstream>
@@ -130,6 +131,38 @@ std::shared_ptr<Renderer::Sprite> Resource_Manager::Get_Sprite(const std::string
 	std::cerr << "Can't find sprites: " << sprite_name << std::endl;
 
 	return nullptr;
+}
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+std::shared_ptr<Renderer::Animated_Sprite> Resource_Manager::Load_Animated_Sprite(const std::string& sprite_name, const std::string& texture_name, const std::string& shader_name, const unsigned int sprite_width, const unsigned int sprite_height, const std::string& subtexture_name)
+{
+	auto Texture = Get_Texture(texture_name);
+	if (!Texture)
+	{
+		std::cerr << "Can't find the texture: " << texture_name << " for the sprite!" << std::endl;
+	}
+
+	auto Shader = Get_Shader_Program(shader_name);
+	if (!Shader)
+	{
+		std::cerr << "Can't find the shader: " << shader_name << " for the sprite!" << std::endl;
+	}
+
+	std::shared_ptr<Renderer::Animated_Sprite> new_sprite = Animated_Sprites.emplace(shader_name, std::make_shared<Renderer::Animated_Sprite>(Texture, subtexture_name, Shader, glm::vec2(0.0f, 0.0f), glm::vec2(sprite_width, sprite_height))).first->second;
+
+	return new_sprite;
+}
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+std::shared_ptr<Renderer::Animated_Sprite> Resource_Manager::Get_Animated_Sprite(const std::string& sprite_name)
+{
+	Animated_Sprite_Map::const_iterator it = Animated_Sprites.find(sprite_name);
+
+	if (it != Animated_Sprites.end())
+		return it->second;
+
+	std::cerr << "Can't find animated sprites: " << sprite_name << std::endl;
+
+	return nullptr;
+
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 std::shared_ptr<Renderer::Texture2D> Resource_Manager::Load_Texture_Atlas(std::string texture_name, std::string texture_path, std::vector<std::string> sub_texture, const unsigned subtexture_width, const unsigned subtexture_height)

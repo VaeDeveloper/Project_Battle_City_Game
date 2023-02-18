@@ -39,7 +39,7 @@ namespace Renderer
 		void Set_State(const std::string& new_state);
 
 		/* Update Animation */
-		void Update(const size_t delta);
+		void Update(const uint64_t delta);
 
 		/*  Initial Animation Statement for sprite */
 		void Insert_State(std::string state, std::vector<std::pair<std::string, uint64_t>> subtextures_duration);
@@ -48,6 +48,8 @@ namespace Renderer
 	private:
 		//============================================================================================================================================================
 		// Private Variables
+
+		mutable bool Dirty;
 		std::map<std::string, std::vector<std::pair<std::string, uint64_t>>> States_Map;
 
 		size_t Current_Frame;
