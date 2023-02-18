@@ -25,14 +25,35 @@ namespace Renderer
 			const float rotation = 0.0f);
 		//============================================================================================================================================================
 
+		//============================================================================================================================================================
+		//Override function
+		/* override Render method is sprite class */
+		virtual void Render() const override;
+		//============================================================================================================================================================
+
+
 
 		//============================================================================================================================================================
-		//	 Public Methods
-		void Insert_State(std::string state, std::vector<std::pair<std::string, size_t>> subtextures_duration);
+		// Public method 
+		/* Set Animation State */
+		void Set_State(const std::string& new_state);
+
+		/* Update Animation */
+		void Update(const size_t delta);
+
+		/*  Initial Animation Statement for sprite */
+		void Insert_State(std::string state, std::vector<std::pair<std::string, uint64_t>> subtextures_duration);
+		//============================================================================================================================================================
+
 	private:
 		//============================================================================================================================================================
 		// Private Variables
-		std::map<std::string, std::vector<std::pair<std::string, size_t>>> States_Map;
+		std::map<std::string, std::vector<std::pair<std::string, uint64_t>>> States_Map;
+
+		size_t Current_Frame;
+		uint64_t Current_Animation_Time;
+
+		std::map<std::string, std::vector<std::pair<std::string, uint64_t>>>::const_iterator Current_Animation_Duration;
 
 		//============================================================================================================================================================
 

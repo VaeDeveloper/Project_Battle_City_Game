@@ -18,7 +18,7 @@ Sprite::~Sprite()
 
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Sprite::Sprite(const std::shared_ptr<Texture2D> texture, const std::string initial_subtexture, const std::shared_ptr<Shader_Program> shader_program, const glm::vec2& position, const glm::vec2& size, const float rotation)
+Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtexture, std::shared_ptr<Shader_Program> shader_program, const glm::vec2& position, const glm::vec2& size, const float rotation)
 : Texture(std::move(texture)), Shader(std::move(shader_program)),Position(position), Size(size), Rotation(rotation)
 {
 	const GLfloat vertex_coords[] = {

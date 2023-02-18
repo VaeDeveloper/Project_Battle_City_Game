@@ -37,7 +37,7 @@ namespace Renderer
 		//============================================================================================================================================================
 		//	 Public Methods
 		/*Render Method*/
-		void Render() const;
+		virtual void Render() const;
 		
 		/* Set Position Sprite Method*/
 		void Set_Position(const glm::vec2& position);
@@ -49,10 +49,9 @@ namespace Renderer
 		void Set_Rotation(const float rotation);
 		//============================================================================================================================================================
 
-	private:
+	protected:
 
 		//============================================================================================================================================================
-		// Private Variables
 		float Rotation;
 		std::shared_ptr<Texture2D> Texture;
 		std::shared_ptr<Shader_Program> Shader;
