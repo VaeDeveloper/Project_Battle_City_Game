@@ -137,7 +137,11 @@ int main(int argc, char** argv)
 
 		auto tex = resource_manager.Load_Texture("Default_Texture", "res/textures/map_16x16.png");
 
-		auto sprite = resource_manager.Load_Sprite("NewSprite", "Default_Texture", "SpriteShader", 50, 100);
+
+		std::vector<std::string> sub_textures_names = { "block", "top_block", "bottom_block", "left_block", "right_block", "top_left_block", "top_right_block", "bottom_left_block","bottom_right_block","beton" };
+		auto texture_atlas = resource_manager.Load_Texture_Atlas("Default_Texture_Atlas", "res/textures/map_16x16.png", std::move(sub_textures_names), 16, 16);
+
+		auto sprite = resource_manager.Load_Sprite("NewSprite", "Default_Texture_Atlas", "SpriteShader", 100, 100, "beton");
 		sprite->Set_Position(glm::vec2(300, 100));
 
 

@@ -18,8 +18,8 @@ Sprite::~Sprite()
 
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Sprite::Sprite(const std::shared_ptr<Texture2D> texture, const std::shared_ptr<Shader_Program> shader_program, const glm::vec2& position, const glm::vec2& size, const float rotation)
-: Texture(std::move(texture)), Shader(std::move(shader_program)),Position(position),Size(size),Rotation(rotation)
+Sprite::Sprite(const std::shared_ptr<Texture2D> texture, const std::string initial_subtexture, const std::shared_ptr<Shader_Program> shader_program, const glm::vec2& position, const glm::vec2& size, const float rotation)
+: Texture(std::move(texture)), Shader(std::move(shader_program)),Position(position), Size(size), Rotation(rotation)
 {
 	const GLfloat vertex_coords[] = {
 		/*-X--Y-*/
@@ -32,15 +32,17 @@ Sprite::Sprite(const std::shared_ptr<Texture2D> texture, const std::shared_ptr<S
 		0.0f, 0.0f
 	};
 
+	auto sub_texture = Texture->Get_SubTexture(std::move(initial_subtexture));
+
 	const GLfloat tex_coords[] = {
 		/*-U--V-*/
-		0.0f, 0.0f,
-		0.0f, 1.0f,
-		1.0f, 1.0f,
+		sub_texture.Left_Bottom_UV.x, sub_texture.Left_Bottom_UV.y,
+		sub_texture.Left_Bottom_UV.x, sub_texture.Right_Top_UV.y,
+		sub_texture.Right_Top_UV.x, sub_texture.Right_Top_UV.y,
 
-		1.0f, 1.0f,
-		1.0f, 0.0f,
-		0.0f, 0.0f
+		sub_texture.Right_Top_UV.x, sub_texture.Right_Top_UV.y,
+		sub_texture.Right_Top_UV.x, sub_texture.Left_Bottom_UV.y,
+		sub_texture.Left_Bottom_UV.x, sub_texture.Left_Bottom_UV.y
 	};
 
 	glGenVertexArrays(1, &Vertex_Array_Obj);

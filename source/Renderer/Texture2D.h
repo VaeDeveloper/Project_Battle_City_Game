@@ -1,7 +1,7 @@
 #pragma once 
 
 #include "glad/glad.h"
-#include "glm\glm.hpp"
+#include "glm\vec2.hpp"
 
 #include <string>
 #include <map>
@@ -52,7 +52,13 @@ namespace Renderer
 		void Bind_Texture() const;
 
 		/* Add SubTexture for Base Texture */
-		void Add_SubTexture(std::string& texture_name, glm::vec2& left_bottom_uv, glm::vec2& right_top_uv);
+		void Add_SubTexture(std::string texture_name, const glm::vec2& left_bottom_uv, const glm::vec2& right_top_uv);
+
+		const SubTexture2D& Get_SubTexture(const std::string& name) const;
+
+		unsigned Get_Width() const { return Width; }
+
+		unsigned Get_Height() const { return Height; }
 		//========================================================================================================================================================
 
 	private:

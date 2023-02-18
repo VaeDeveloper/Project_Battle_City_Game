@@ -68,8 +68,20 @@ void Texture2D::Bind_Texture() const
 	glBindTexture(GL_TEXTURE_2D, ID);
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Texture2D::Add_SubTexture(std::string& texture_name, glm::vec2& left_bottom_uv, glm::vec2& right_top_uv)
+void Texture2D::Add_SubTexture(std::string texture_name,const glm::vec2& left_bottom_uv, const glm::vec2& right_top_uv)
 {
+	SubTexture_Map.emplace(std::move(texture_name), SubTexture2D(left_bottom_uv, right_top_uv));
+}
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+const Texture2D::SubTexture2D& Texture2D::Get_SubTexture(const std::string& name) const
+{
+	const static SubTexture2D default_subtexture;
+	
+	auto it = SubTexture_Map.find(name);
+	
+	if (it != SubTexture_Map.end())
+		return it->second;
 
+	return default_subtexture;
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------

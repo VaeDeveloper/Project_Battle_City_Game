@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include <vector>
 #include <string>
 #include <memory>
 #include <map>
@@ -48,10 +48,13 @@ public:
 	std::shared_ptr<Renderer::Texture2D> Get_Texture(const std::string& texture_name);
 
 	/*	Load  sprite with resource project path.	*/
-	std::shared_ptr<Renderer::Sprite> Load_Sprite(const std::string& sprite_name, const std::string& texture_name, const std::string& shader_name, const unsigned int sprite_width, const unsigned int sprite_height);
+	std::shared_ptr<Renderer::Sprite> Load_Sprite(const std::string& sprite_name, const std::string& texture_name, const std::string& shader_name, const unsigned int sprite_width, const unsigned int sprite_height, const std::string& subtexture_name = "default");
 
 	/*	Gettter texture with resource project path.	*/
 	std::shared_ptr<Renderer::Sprite> Get_Sprite(const std::string& sprite_name);
+
+	/* Load Texture Atlas for base texture */
+	std::shared_ptr<Renderer::Texture2D> Load_Texture_Atlas(const std::string texture_name, const std::string texture_path, std::vector<std::string> sub_texture, const unsigned subtexture_width, const unsigned subtexture_height);
 
 	//================================================================================================================================================================================================================
 

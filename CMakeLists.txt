@@ -15,6 +15,9 @@ add_executable(${PROJECT_NAME}
 	source/Renderer/Texture2D.h
 	source/Renderer/Sprite.cpp
 	source/Renderer/Sprite.h
+	source/Renderer/Animated_Sprite.h
+	source/Renderer/Animated_Sprite.cpp
+
 
 )
 

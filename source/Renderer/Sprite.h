@@ -3,7 +3,8 @@
 #include <glad\glad.h>
 #include <glm\vec2.hpp>
 
-#include "memory"
+#include <memory>
+#include <string>
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -23,6 +24,7 @@ namespace Renderer
 		
 		/*	Use the actual constructor for this class */
 		Sprite(const std::shared_ptr<Texture2D> texture,
+			   const std::string initial_subtexture,
 			   const std::shared_ptr<Shader_Program> shader_program,
 			   const glm::vec2& position = glm::vec2(0.0f), 
 			   const glm::vec2& size = glm::vec2(1.0f),
@@ -59,7 +61,6 @@ namespace Renderer
 		GLuint Vertex_Array_Obj;
 		GLuint Vertex_Coord_VB0;
 		GLuint Texture_Coord_VB0;
-
 		//============================================================================================================================================================
 
 
