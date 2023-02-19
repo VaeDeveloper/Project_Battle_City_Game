@@ -56,6 +56,8 @@ const char* fragment_shader =
 
 glm::ivec2 window_size(640, 480);
 
+bool is_eagle = false;
+
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 void GLFW_Window_Size_Callback(GLFWwindow* window, int width, int height)
 {
@@ -70,6 +72,12 @@ void GLFW_Key_Callback(GLFWwindow* window, int key, int scancode, int action, in
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
+
+	if (key == GLFW_KEY_ENTER && action == GLFW_PRESS)
+	{
+		is_eagle = !is_eagle;
+	}
+
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 int main(int argc, char** argv)
@@ -259,6 +267,15 @@ int main(int argc, char** argv)
 		/* Render LOOP */
 		while (!glfwWindowShouldClose(main_window))
 		{
+			if (is_eagle)
+			{
+				anim_sprite->Set_State("eagle_state");
+			}
+			else
+			{
+				anim_sprite->Set_State("water_state");
+			}
+
 			auto current_time = std::chrono::high_resolution_clock::now();
 			uint64_t duration = std::chrono::duration_cast<std::chrono::nanoseconds>(current_time - last_time).count();
 			last_time = current_time;
