@@ -17,6 +17,11 @@ add_executable(${PROJECT_NAME}
 	source/Renderer/Sprite.h
 	source/Renderer/Animated_Sprite.h
 	source/Renderer/Animated_Sprite.cpp
+	source/Game/Game.cpp
+	source/Game/Game.h
+	source/Game/Player_Tank.cpp
+	source/Game/Player_Tank.h
+
 
 
 )

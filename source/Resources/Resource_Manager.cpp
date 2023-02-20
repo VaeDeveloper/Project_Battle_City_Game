@@ -17,11 +17,24 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  Renderer::Shader_Program
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Resource_Manager::Resource_Manager(const std::string& executable_path)
-	:Shader_Programs{}, Path{}
+Resource_Manager::Shader_Programs_Map Resource_Manager::Shader_Programs;
+Resource_Manager::Textures_Map Resource_Manager::Textures;
+Resource_Manager::Sprite_Map Resource_Manager::Sprites;
+Resource_Manager::Animated_Sprite_Map Resource_Manager::Animated_Sprites;
+std::string Resource_Manager::Path;
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void Resource_Manager::Set_Executable_Path(const std::string& executable_path)
 {
 	size_t found = executable_path.find_last_of("/\\");
 	Path = executable_path.substr(0, found);
+}
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void Resource_Manager::Unload_All_Resources()
+{
+	Shader_Programs.clear();
+	Textures.clear();
+	Sprites.clear();
+	Animated_Sprites.clear();
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 std::shared_ptr<Renderer::Shader_Program> Resource_Manager::Load_Shaders(const std::string& shader_name, const std::string& vertex_path, const std::string& fragment_path)
@@ -138,16 +151,16 @@ std::shared_ptr<Renderer::Animated_Sprite> Resource_Manager::Load_Animated_Sprit
 	auto Texture = Get_Texture(texture_name);
 	if (!Texture)
 	{
-		std::cerr << "Can't find the texture: " << texture_name << " for the sprite!" << std::endl;
+		std::cerr << "Can't find the texture: " << texture_name << " for the sprite!" << sprite_name << std::endl;
 	}
 
 	auto Shader = Get_Shader_Program(shader_name);
 	if (!Shader)
 	{
-		std::cerr << "Can't find the shader: " << shader_name << " for the sprite!" << std::endl;
+		std::cerr << "Can't find the shader: " << shader_name << " for the sprite!:" << sprite_name <<  std::endl;
 	}
 
-	std::shared_ptr<Renderer::Animated_Sprite> new_sprite = Animated_Sprites.emplace(shader_name, std::make_shared<Renderer::Animated_Sprite>(Texture, subtexture_name, Shader, glm::vec2(0.0f, 0.0f), glm::vec2(sprite_width, sprite_height))).first->second;
+	std::shared_ptr<Renderer::Animated_Sprite> new_sprite = Animated_Sprites.emplace(sprite_name, std::make_shared<Renderer::Animated_Sprite>(Texture, subtexture_name, Shader, glm::vec2(0.0f, 0.0f), glm::vec2(sprite_width, sprite_height))).first->second;
 
 	return new_sprite;
 }
@@ -195,7 +208,7 @@ std::shared_ptr<Renderer::Texture2D> Resource_Manager::Load_Texture_Atlas(std::s
 	return p_texture;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-std::string Resource_Manager::Get_File_String(const std::string& relative_file_path) const
+std::string Resource_Manager::Get_File_String(const std::string& relative_file_path)
 {
 	std::ifstream f;
 	std::stringstream buffer;
