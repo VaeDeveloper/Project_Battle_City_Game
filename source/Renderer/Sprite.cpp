@@ -26,10 +26,7 @@ Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtextur
 		0.0f, 0.0f,
 		0.0f, 1.0f,
 		1.0f, 1.0f,
-
-		1.0f, 1.0f,
 		1.0f, 0.0f,
-		0.0f, 0.0f
 	};
 
 	auto sub_texture = Texture->Get_SubTexture(std::move(initial_subtexture));
@@ -39,10 +36,13 @@ Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtextur
 		sub_texture.Left_Bottom_UV.x, sub_texture.Left_Bottom_UV.y,
 		sub_texture.Left_Bottom_UV.x, sub_texture.Right_Top_UV.y,
 		sub_texture.Right_Top_UV.x, sub_texture.Right_Top_UV.y,
-
-		sub_texture.Right_Top_UV.x, sub_texture.Right_Top_UV.y,
 		sub_texture.Right_Top_UV.x, sub_texture.Left_Bottom_UV.y,
-		sub_texture.Left_Bottom_UV.x, sub_texture.Left_Bottom_UV.y
+	};
+
+	const GLuint indexes[] = 
+	{
+		0, 1, 2,
+		2, 3, 0
 	};
 
 	glGenVertexArrays(1, &Vertex_Array_Obj);
@@ -59,6 +59,12 @@ Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtextur
 	glBufferData(GL_ARRAY_BUFFER, sizeof(tex_coords), &tex_coords, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+
+	glGenBuffers(1, &Element_Buf_Obj);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Element_Buf_Obj);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes), &indexes, GL_STATIC_DRAW);
+
+
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);

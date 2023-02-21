@@ -60,6 +60,7 @@ namespace Renderer
 		GLuint Vertex_Array_Obj;
 		GLuint Vertex_Coord_VB0;
 		GLuint Texture_Coord_VB0;
+		GLuint Element_Buf_Obj;
 		//============================================================================================================================================================
 
 
