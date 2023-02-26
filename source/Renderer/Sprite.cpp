@@ -12,10 +12,7 @@ using namespace Renderer;
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Sprite::~Sprite()
 {
-	glDeleteBuffers(1, &Vertex_Coord_VB0);
-	glDeleteBuffers(1, &Texture_Coord_VB0);
 	glDeleteVertexArrays(1, &Vertex_Array_Obj);
-
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtexture, std::shared_ptr<Shader_Program> shader_program, const glm::vec2& position, const glm::vec2& size, const float rotation)
@@ -48,26 +45,22 @@ Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtextur
 	glGenVertexArrays(1, &Vertex_Array_Obj);
 	glBindVertexArray(Vertex_Array_Obj);
 
-	glGenBuffers(1, &Vertex_Coord_VB0);
-	glBindBuffer(GL_ARRAY_BUFFER, Vertex_Coord_VB0);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_coords), &vertex_coords, GL_STATIC_DRAW);
+	Vertex_Coord_Buffer.Init(vertex_coords, 2 * 4 * sizeof(GLfloat));
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-	glGenBuffers(1, &Texture_Coord_VB0);
-	glBindBuffer(GL_ARRAY_BUFFER, Texture_Coord_VB0);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(tex_coords), &tex_coords, GL_STATIC_DRAW);
+	Texture_Coord_Buffer.Init(tex_coords, 2 * 4 * sizeof(GLfloat));
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-	glGenBuffers(1, &Element_Buf_Obj);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Element_Buf_Obj);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes), &indexes, GL_STATIC_DRAW);
+	Index_Pixel_Buffer.Init(indexes, 6 * sizeof(GLuint));
 
 
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Sprite::Render() const
@@ -88,7 +81,7 @@ void Sprite::Render() const
 	glActiveTexture(GL_TEXTURE0);
 	Texture->Bind_Texture();
 
-	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 	glBindVertexArray(0);
 
 }

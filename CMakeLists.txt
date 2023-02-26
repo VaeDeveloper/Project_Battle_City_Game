@@ -6,17 +6,27 @@ project (${PROJECT_NAME})
 
 add_executable(${PROJECT_NAME} 
 	source/main.cpp
-	source/Renderer/Shader_Program.cpp
-	source/Renderer/Shader_Program.h
 	source/Resources/Resource_Manager.cpp
 	source/Resources/Resource_Manager.h
 	source/Resources/stb_image.h
+
+	source/Renderer/Shader_Program.cpp
+	source/Renderer/Shader_Program.h
 	source/Renderer/Texture2D.cpp
 	source/Renderer/Texture2D.h
 	source/Renderer/Sprite.cpp
 	source/Renderer/Sprite.h
 	source/Renderer/Animated_Sprite.h
 	source/Renderer/Animated_Sprite.cpp
+	source/Renderer/Vertex_Buffer.h
+	source/Renderer/Vertex_Buffer.cpp
+	source/Renderer/Vertex_Array.h
+	source/Renderer/Vertex_Array.cpp
+	source/Renderer/Index_Buffer.h
+	source/Renderer/Index_Buffer.cpp
+	source/Renderer/Vertex_Buffer_Layout.cpp
+	source/Renderer/Vertex_Buffer_Layout.h
+
 	source/Game/Game.cpp
 	source/Game/Game.h
 	source/Game/Player_Tank.cpp

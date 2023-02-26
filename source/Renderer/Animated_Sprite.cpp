@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+
+
 using namespace Renderer;
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -23,16 +25,10 @@ void Animated_Sprite::Render() const
 			sub_texture.Left_Bottom_UV.x, sub_texture.Left_Bottom_UV.y,
 			sub_texture.Left_Bottom_UV.x, sub_texture.Right_Top_UV.y,
 			sub_texture.Right_Top_UV.x, sub_texture.Right_Top_UV.y,
-
-			sub_texture.Right_Top_UV.x, sub_texture.Right_Top_UV.y,
 			sub_texture.Right_Top_UV.x, sub_texture.Left_Bottom_UV.y,
-			sub_texture.Left_Bottom_UV.x, sub_texture.Left_Bottom_UV.y
 		};
 
-		glBindBuffer(GL_ARRAY_BUFFER, Texture_Coord_VB0);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(tex_coords), &tex_coords);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
+		Texture_Coord_Buffer.Update(tex_coords, 2 * 4 * sizeof(GLfloat));
 		Dirty = false;
 	}
 	

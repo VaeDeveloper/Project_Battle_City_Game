@@ -45,6 +45,7 @@ std::shared_ptr<Renderer::Shader_Program> Resource_Manager::Load_Shaders(const s
 
 	if (vertex_string.empty())
 	{
+	
 		std::cerr << "No Vertex shader!" << std::endl;
 		return nullptr;
 	}

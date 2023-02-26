@@ -13,8 +13,9 @@
 #include "GLFW\glfw3.h"
 
 #include <iostream>
+#include <cassert>
 
-
+//#define NDEBUG
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Game::~Game()
@@ -80,16 +81,25 @@ bool Game::Init()
 
 	if (!Default_Shader_Program)
 	{
-		std::cerr << "Can't create shader program" << std::endl;
-		return false;
+		assert(!Default_Shader_Program);
+
+#ifndef NDEBUG
+		std::cerr << __func__ << "\t " << __LINE__ << "Can't create default shader program in Game::INIT()" << std::endl;
+#endif // !NDEBUG
+
+
 	}
 
 	auto Sprite_Shader_Program = Resource_Manager::Load_Shaders("SpriteShader", "res/shaders/Shader_Vertex.txt", "res/shaders/Sprite_Fragment.txt");
 
-	if (!Default_Shader_Program)
+	if (!Sprite_Shader_Program)
 	{
-		std::cerr << "Can't create shader program" << "SpriteShader" << std::endl;
-		return false;
+		assert(!Sprite_Shader_Program);
+
+#ifndef NDEBUG
+		std::cerr << __func__ << "\t " << __LINE__ << "Can't create sprite shader program in Game::INIT()"  << std::endl;
+#endif // !NDEBUG
+
 	}
 
 
