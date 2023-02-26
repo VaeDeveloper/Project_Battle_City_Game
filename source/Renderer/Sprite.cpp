@@ -12,7 +12,6 @@ using namespace Renderer;
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Sprite::~Sprite()
 {
-	glDeleteVertexArrays(1, &Vertex_Array_Obj);
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtexture, std::shared_ptr<Shader_Program> shader_program, const glm::vec2& position, const glm::vec2& size, const float rotation)
@@ -42,25 +41,24 @@ Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtextur
 		2, 3, 0
 	};
 
-	glGenVertexArrays(1, &Vertex_Array_Obj);
-	glBindVertexArray(Vertex_Array_Obj);
+
+
 
 	Vertex_Coord_Buffer.Init(vertex_coords, 2 * 4 * sizeof(GLfloat));
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+	Vertex_Buffer_Layout vertex_coord_layout;
+	vertex_coord_layout.Add_Element_Layout_Float(2, false);
+	Vertex_Array_Obj.Add_Buffer(Vertex_Coord_Buffer, vertex_coord_layout);
 
 	Texture_Coord_Buffer.Init(tex_coords, 2 * 4 * sizeof(GLfloat));
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+	Vertex_Buffer_Layout texture_coord_layout;
+	texture_coord_layout.Add_Element_Layout_Float(2, false);
+	Vertex_Array_Obj.Add_Buffer(Texture_Coord_Buffer, texture_coord_layout);
 
 	Index_Pixel_Buffer.Init(indexes, 6 * sizeof(GLuint));
 
+	Vertex_Array_Obj.Unbind();
+	Index_Pixel_Buffer.Unbind();
 
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Sprite::Render() const
@@ -75,14 +73,14 @@ void Sprite::Render() const
 	model = glm::translate(model, glm::vec3(-0.5f * Size.x, -0.5f * Size.y, 0.0f));
 	model = glm::scale(model, glm::vec3(Size, 1.0f));
 
-	glBindVertexArray(Vertex_Array_Obj);
+	Vertex_Array_Obj.Bind();
 	Shader->Set_Matrix4("model_mat", model);
 
 	glActiveTexture(GL_TEXTURE0);
 	Texture->Bind_Texture();
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-	glBindVertexArray(0);
+	Vertex_Array_Obj.Bind();
 
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

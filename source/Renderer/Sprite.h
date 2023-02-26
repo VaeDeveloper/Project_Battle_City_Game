@@ -2,6 +2,7 @@
 
 #include "Vertex_Buffer.h"
 #include "Index_Buffer.h"
+#include "Vertex_Array.h"
 
 #include <glad\glad.h>
 #include <glm\vec2.hpp>
@@ -60,10 +61,9 @@ namespace Renderer
 		std::shared_ptr<Shader_Program> Shader;
 		glm::vec2 Position;
 		glm::vec2 Size;
-		GLuint Vertex_Array_Obj;
 
 
-
+		Vertex_Array Vertex_Array_Obj;
 		Vertex_Buffer Vertex_Coord_Buffer;
 		Vertex_Buffer Texture_Coord_Buffer;
 		Index_Buffer Index_Pixel_Buffer;
