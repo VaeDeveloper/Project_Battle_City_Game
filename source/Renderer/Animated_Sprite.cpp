@@ -5,7 +5,7 @@
 
 
 
-using namespace Renderer;
+using namespace RenderEngine;
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Animated_Sprite::Animated_Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtexture, std::shared_ptr<Shader_Program> shader_program, const glm::vec2& position, const glm::vec2& size, const float rotation)
@@ -55,7 +55,7 @@ void Animated_Sprite::Set_State(const std::string& new_state)
 	}
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Renderer::Animated_Sprite::Update(const uint64_t delta)
+void RenderEngine::Animated_Sprite::Update(const uint64_t delta)
 {
 	if (Current_Animation_Duration != States_Map.end())
 	{

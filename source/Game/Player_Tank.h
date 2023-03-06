@@ -6,7 +6,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  Player Tank class
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-namespace Renderer
+namespace RenderEngine
 {
 	class Animated_Sprite;
 }
@@ -16,7 +16,7 @@ class Player_Tank
 public:
 	//================================================================================================================================================================
 	// Constructors and Destructors
-	Player_Tank(std::shared_ptr<Renderer::Animated_Sprite> sprite, const float velocity, const glm::vec2 position);
+	Player_Tank(std::shared_ptr<RenderEngine::Animated_Sprite> sprite, const float velocity, const glm::vec2 position);
 	//================================================================================================================================================================
 	enum class EOrientation : unsigned char
 	{
@@ -57,7 +57,7 @@ private:
 	EOrientation Orientation;
 
 	/* Sprte pointer*/
-	std::shared_ptr<Renderer::Animated_Sprite> Tank_Sprite;
+	std::shared_ptr<RenderEngine::Animated_Sprite> Tank_Sprite;
 	//================================================================================================================================================================
 
 

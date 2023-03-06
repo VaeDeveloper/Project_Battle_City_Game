@@ -1,7 +1,7 @@
 #include "Vertex_Buffer.h"
 
 
-using namespace Renderer;
+using namespace RenderEngine;
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Vertex_Buffer::~Vertex_Buffer()

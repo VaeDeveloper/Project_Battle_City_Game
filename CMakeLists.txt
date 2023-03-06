@@ -26,6 +26,8 @@ add_executable(${PROJECT_NAME}
 	source/Renderer/Index_Buffer.cpp
 	source/Renderer/Vertex_Buffer_Layout.cpp
 	source/Renderer/Vertex_Buffer_Layout.h
+	source/Renderer/Renderer.cpp
+	source/Renderer/Renderer.h
 
 	source/Game/Game.cpp
 	source/Game/Game.h

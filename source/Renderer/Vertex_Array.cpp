@@ -1,7 +1,7 @@
 #include "Vertex_Array.h"
 
 
-using namespace Renderer;
+using namespace RenderEngine;
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Vertex_Array::~Vertex_Array()
@@ -29,7 +29,7 @@ Vertex_Array::Vertex_Array(Vertex_Array&& vertex_array) noexcept
     vertex_array.ID = 0;
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Renderer::Vertex_Array::Add_Buffer(const Vertex_Buffer& vertex_buffer, const Vertex_Buffer_Layout& layout)
+void Vertex_Array::Add_Buffer(const Vertex_Buffer& vertex_buffer, const Vertex_Buffer_Layout& layout)
 {
     Bind();
     vertex_buffer.Bind();

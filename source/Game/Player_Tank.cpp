@@ -3,7 +3,7 @@
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Player_Tank::Player_Tank(std::shared_ptr<Renderer::Animated_Sprite> sprite, const float velocity, const glm::vec2 position)
+Player_Tank::Player_Tank(std::shared_ptr<RenderEngine::Animated_Sprite> sprite, const float velocity, const glm::vec2 position)
 :Orientation(EOrientation::Top), Move(false),Velocity(velocity),Position(position), Move_Offset(glm::vec2(0.0f, 1.0f)),Tank_Sprite(std::move(sprite))
 {
 }

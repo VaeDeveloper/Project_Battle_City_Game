@@ -1,6 +1,6 @@
 #include "Vertex_Buffer_Layout.h"
 
-using namespace Renderer;
+using namespace RenderEngine;
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Vertex_Buffer_Layout::Vertex_Buffer_Layout()

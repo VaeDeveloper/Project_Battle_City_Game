@@ -5,7 +5,7 @@
 #include "glm/mat4x4.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-using namespace Renderer;
+using namespace RenderEngine;
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  Renderer::Sprite
@@ -54,7 +54,7 @@ Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtextur
 	texture_coord_layout.Add_Element_Layout_Float(2, false);
 	Vertex_Array_Obj.Add_Buffer(Texture_Coord_Buffer, texture_coord_layout);
 
-	Index_Pixel_Buffer.Init(indexes, 6 * sizeof(GLuint));
+	Index_Pixel_Buffer.Init(indexes, 6);
 
 	Vertex_Array_Obj.Unbind();
 	Index_Pixel_Buffer.Unbind();

@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-using namespace Renderer;
+using namespace RenderEngine;
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  Renderer::Shader_Program
