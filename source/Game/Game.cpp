@@ -77,6 +77,8 @@ void Game::Set_Key(const int key, const int action)
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 bool Game::Init()
 {
+	Resource_Manager::Load_JSON_Resources("res/resourses.json");
+
 	auto Default_Shader_Program = Resource_Manager::Load_Shaders("DefaultShader", "res/shaders/vertex.txt", "res/shaders/fragment.txt");
 
 	if (!Default_Shader_Program)

@@ -222,18 +222,39 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 		return false;
 	}
 
+
 	rapidjson::Document document;
 	rapidjson::ParseResult parse_result = document.Parse(json_string.c_str());
+
 
 	if (!parse_result)
 	{
 		/* if json parse errror */
-		std::cout << "JSON parse error:" 
+		std::cerr << "JSON parse error:" 
 				  << GetParseError_En(parse_result.Code())
-				  << parse_result.Offset() << std::endl;
+				  << "(" << parse_result.Offset() << ")" << std::endl;
+
+		std::cerr << "JSON parse file:" << json_path << std::endl;
 
 		return false;
 	}
+
+
+	auto shaders_it = document.FindMember("shaders");
+
+	if (shaders_it != document.MemberEnd())
+	{
+		for (const auto& curr_shader : shaders_it->value.GetArray())
+		{
+			const std::string name = curr_shader["name"].GetString();
+			const std::string filePath_v = curr_shader["filePath_v"].GetString();
+			const std::string filePath_f = curr_shader["filePath_f"].GetString();
+
+			Load_Shaders(name, filePath_v, filePath_f);
+		}
+	}
+
+	
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 std::string Resource_Manager::Get_File_String(const std::string& relative_file_path)
