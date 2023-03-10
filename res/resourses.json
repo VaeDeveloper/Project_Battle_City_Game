@@ -1,23 +1,23 @@
 {
-    "shaders"            : 
-    [
-        {
-            "name"       : "SpriteShader",
-            "filePath_v" : "res/shaders/Shader_Vertex.txt", 
-            "filePath_f" : "res/shaders/Sprite_Fragment.txt"
+    "shaders"                          : 
+    [              
+        {              
+            "name"                     : "SpriteShader",
+            "filePath_v"               : "res/shaders/Shader_Vertex.txt", 
+            "filePath_f"               : "res/shaders/Sprite_Fragment.txt"
         }
     ],
 
-    "textureAtlases"           : 
-     [
-        {
-            "name"             : "Default_Texture_Atlas",
-            "filePath"         :  "res/textures/map_16x16.png",
-            "width"            : 128,
-            "height"           : 128,
-            "subTextureWidth"  : 16,
-            "subTextureHeight" : 16,
-            "subTexture"       :
+    "textureAtlases"                   : 
+     [        
+        {        
+            "name"                     : "Default_Texture_Atlas",
+            "filePath"                 :  "res/textures/map_16x16.png",
+            "width"                    : 128,
+            "height"                   : 128,
+            "subTextureWidth"          : 16,
+            "subTextureHeight"         : 16,
+            "subTexture"               :
              [
                 "block",
                 "top_block",
@@ -53,13 +53,14 @@
         },
 
         {
-            "name"             : "Tanks_Texture_Atlas",
-            "filePath"         :  "res/textures/tanks.png",
-            "width"            : 256,
-            "height"           : 256,
-            "subTextureWidth"  : 16,
-            "subTextureHeight" : 16,
-            "subTexture" : [
+            "name"                      : "Tanks_Texture_Atlas",
+            "filePath"                  :  "res/textures/tanks.png",
+            "width"                     : 256,
+            "height"                    : 256,
+            "subTextureWidth"           : 16,
+            "subTextureHeight"          : 16,
+            "subTexture" : 
+            [
                "yellowType1_Top1",
                "yellowType1_Top2",
                "yellowType1_Left1",
@@ -73,25 +74,26 @@
         }
     ],
 
-    "animatedSprites"           : 
-    [
-        {  
-            "name"              : "Tanks_Animate_Sprite",
-            "textureAtlas"      : "Tanks_Texture_Atlas",
-            "shader"            : "SpriteShader",
-            "initialWidth"      : 100,
-            "initialHeight"     : 100, 
-            "initialSubTexture" : "yellowType1_Top1",
-            "states"            : 
-            [
-                {
-                    "stateName" : "tankTopState",
-                    "frames"    : 
+    "animatedSprites"                    : 
+    [         
+        {           
+            "name"                       : "Tanks_Animate_Sprite",
+            "textureAtlas"               : "Tanks_Texture_Atlas",
+            "shader"                     : "SpriteShader",
+            "initialWidth"               : 100,
+            "initialHeight"              : 100, 
+            "initialSubTexture"          : "yellowType1_Top1",
+            "states"                     : 
+            [         
+                {         
+                    "stateName"          : "tankTopState",
+                    "frames"             : 
                     [
                         {
                             "subTexture" : "yellowType1_Top1",
                             "duration"   : 500000000
                         },
+
                         {
                             "subTexture" : "yellowType1_Top2",
                             "duration"   : 500000000
@@ -101,8 +103,8 @@
                 },
 
                 {
-                    "stateName" : "tankLeftState",
-                    "frames"    : 
+                    "stateName"          : "tankLeftState",
+                    "frames"             : 
                     [
                         {
                             "subTexture" : "yellowType1_Left1",
@@ -117,13 +119,14 @@
                 },
 
                 {
-                    "stateName" : "tankBottomState",
-                    "frames"    : 
+                    "stateName"          : "tankBottomState",
+                    "frames"             : 
                     [
                         {
                             "subTexture" : "yellowType1_Bottom1",
                             "duration"   : 500000000
                         },
+
                         {
                             "subTexture" : "yellowType1_Bottom2",
                             "duration"   : 500000000
@@ -133,13 +136,14 @@
                 },
 
                 {
-                    "stateName" : "tankRighttate",
-                    "frames"    : 
+                    "stateName"          : "tankRighttate",
+                    "frames"             : 
                     [
                         {
                             "subTexture" : "yellowType1_Right1",
                             "duration"   : 500000000
                         },
+
                         {
                             "subTexture" : "yellowType1_Right2",
                             "duration"   : 500000000
