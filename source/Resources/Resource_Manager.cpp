@@ -4,6 +4,9 @@
 #include "../Renderer/Sprite.h"
 #include "../Renderer/Animated_Sprite.h"
 
+#include <rapidjson\document.h>
+#include <rapidjson\error\en.h>
+
 #include <sstream>
 #include <fstream>
 #include <iostream>
@@ -207,6 +210,30 @@ std::shared_ptr<RenderEngine::Texture2D> Resource_Manager::Load_Texture_Atlas(st
 
 	}
 	return p_texture;
+}
+bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
+{/* load json resources file load boolean */
+
+	const std::string json_string = Get_File_String(json_path);
+	if (json_string.empty())
+	{
+		/* no json file error */
+		std::cerr << "No JSON res file!!!!!" << std::endl;
+		return false;
+	}
+
+	rapidjson::Document document;
+	rapidjson::ParseResult parse_result = document.Parse(json_string.c_str());
+
+	if (!parse_result)
+	{
+		/* if json parse errror */
+		std::cout << "JSON parse error:" 
+				  << GetParseError_En(parse_result.Code())
+				  << parse_result.Offset() << std::endl;
+
+		return false;
+	}
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 std::string Resource_Manager::Get_File_String(const std::string& relative_file_path)

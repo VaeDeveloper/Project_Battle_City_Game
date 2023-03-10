@@ -20,7 +20,6 @@ class Resource_Manager
 {
 public:
 	//================================================================================================================================================================================================================
-	// Constructors and Destructors
 	/*	It is forbidden to use a constructor without parameters and a constructor with a parameter of this class*/
 	~Resource_Manager() = delete;
 	Resource_Manager() = delete;
@@ -34,7 +33,6 @@ public:
 
 
 	//================================================================================================================================================================================================================
-	//	 Public Methods
 
 	static void Set_Executable_Path(const std::string& executable_path);
 	static void Unload_All_Resources();
@@ -45,7 +43,7 @@ public:
 	/*	Gettter shader with resource project path.	*/
 	static std::shared_ptr<RenderEngine::Shader_Program> Get_Shader_Program(const std::string& shader_name);
 
-	/*  Load Texture Method		*/
+	/*  Load Texture 		*/
 	static std::shared_ptr<RenderEngine::Texture2D> Load_Texture(const std::string& texture_name, const std::string& texture_path);
 
 	/*	Gettter texture with resource project path.	*/
@@ -66,18 +64,19 @@ public:
 	/* Load Texture Atlas for base texture */
 	static std::shared_ptr<RenderEngine::Texture2D> Load_Texture_Atlas(const std::string texture_name, const std::string texture_path, std::vector<std::string> sub_texture, const unsigned subtexture_width, const unsigned subtexture_height);
 
+	/* Load JSON File */
+	static bool Load_JSON_Resources(const std::string& json_path);
+
 	//================================================================================================================================================================================================================
 
 
 private:
 	//================================================================================================================================================================================================================
-	// Private Methods
 	static std::string Get_File_String(const std::string& relative_file_path);
 
 
 
 	//================================================================================================================================================================================================================
-	// Private Variables
 	/* Map For Shaders */
 	typedef std::map<const std::string, std::shared_ptr<RenderEngine::Shader_Program>> Shader_Programs_Map;
 	static Shader_Programs_Map Shader_Programs;

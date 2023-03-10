@@ -1,23 +1,23 @@
 {
-    "shaders"                          : 
+    "shaders"                            : 
     [              
         {              
-            "name"                     : "SpriteShader",
-            "filePath_v"               : "res/shaders/Shader_Vertex.txt", 
-            "filePath_f"               : "res/shaders/Sprite_Fragment.txt"
+            "name"                       : "SpriteShader",
+            "filePath_v"                 : "res/shaders/Shader_Vertex.txt", 
+            "filePath_f"                 : "res/shaders/Sprite_Fragment.txt"
         }
     ],
 
-    "textureAtlases"                   : 
-     [        
+    "textureAtlases"                     : 
+    [        
         {        
-            "name"                     : "Default_Texture_Atlas",
-            "filePath"                 :  "res/textures/map_16x16.png",
-            "width"                    : 128,
-            "height"                   : 128,
-            "subTextureWidth"          : 16,
-            "subTextureHeight"         : 16,
-            "subTexture"               :
+            "name"                       : "Default_Texture_Atlas",
+            "filePath"                   :  "res/textures/map_16x16.png",
+            "width"                      : 128,
+            "height"                     : 128,
+            "subTextureWidth"            : 16,
+            "subTextureHeight"           : 16,
+            "subTexture"                 :
              [
                 "block",
                 "top_block",
@@ -53,12 +53,12 @@
         },
 
         {
-            "name"                      : "Tanks_Texture_Atlas",
-            "filePath"                  :  "res/textures/tanks.png",
-            "width"                     : 256,
-            "height"                    : 256,
-            "subTextureWidth"           : 16,
-            "subTextureHeight"          : 16,
+            "name"                       : "Tanks_Texture_Atlas",
+            "filePath"                   :  "res/textures/tanks.png",
+            "width"                      : 256,
+            "height"                     : 256,
+            "subTextureWidth"            : 16,
+            "subTextureHeight"           : 16,
             "subTexture" : 
             [
                "yellowType1_Top1",
