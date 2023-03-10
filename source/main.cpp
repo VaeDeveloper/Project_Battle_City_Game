@@ -8,6 +8,7 @@
 
 #include "Game\Game.h"
 #include "Resources\Resource_Manager.h"
+#include "Renderer\Renderer.h"
 
 glm::ivec2 window_size(640, 480);
 Game game(window_size);
@@ -21,7 +22,7 @@ void GLFW_Window_Size_Callback(GLFWwindow* window, int width, int height)
 {
 	window_size.x = width;
 	window_size.y = height;
-	glViewport(0, 0, window_size.x, window_size.y);
+	RenderEngine::Renderer::Set_Viewport(window_size.x, window_size.y);
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 void GLFW_Key_Callback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -73,13 +74,12 @@ int main(int argc, char** argv)
 	}
 
 	/* render and openGL version info */
-	std::cout << "Renderer:- " << glGetString(GL_RENDERER) << std::endl;
-	std::cout << "OpenGL version:- " << glGetString(GL_VERSION) << std::endl;
+	std::cout << "Renderer:- " << RenderEngine::Renderer::Get_Renderer_Str() << std::endl;
+	std::cout << "OpenGL version:- " << RenderEngine::Renderer::Get_Version_Str() << std::endl;
 
 
-	/* background colors */
-	glClearColor(0, 0, 0, 1);
-
+	/* background colors */	
+	RenderEngine::Renderer::Set_Clear_Color(0, 0, 0, 1);
 
 	{
 		Resource_Manager::Set_Executable_Path(argv[0]);
@@ -94,10 +94,14 @@ int main(int argc, char** argv)
 			auto current_time = std::chrono::high_resolution_clock::now();
 			uint64_t duration = std::chrono::duration_cast<std::chrono::nanoseconds>(current_time - last_time).count();
 			last_time = current_time;
-			game.Update(duration);
-			/* Render here */
-			glClear(GL_COLOR_BUFFER_BIT);	
 
+			/* Update duration */
+			game.Update(duration);
+
+			/* Clear */
+			RenderEngine::Renderer::Clear();
+
+			/* Render Engine */
 			game.Render();
 
 			/* Swap front and back buffers */
