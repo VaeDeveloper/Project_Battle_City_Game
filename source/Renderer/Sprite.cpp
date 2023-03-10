@@ -1,6 +1,7 @@
 #include "Sprite.h"
 #include "Shader_Program.h"
 #include "Texture2D.h"
+#include "Renderer.h"
 
 #include "glm/mat4x4.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -73,14 +74,12 @@ void Sprite::Render() const
 	model = glm::translate(model, glm::vec3(-0.5f * Size.x, -0.5f * Size.y, 0.0f));
 	model = glm::scale(model, glm::vec3(Size, 1.0f));
 
-	Vertex_Array_Obj.Bind();
 	Shader->Set_Matrix4("model_mat", model);
 
 	glActiveTexture(GL_TEXTURE0);
 	Texture->Bind_Texture();
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-	Vertex_Array_Obj.Bind();
+	Renderer::Draw(Vertex_Array_Obj, Index_Pixel_Buffer, *Shader);
 
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

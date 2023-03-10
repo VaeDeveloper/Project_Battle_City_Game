@@ -9,6 +9,6 @@ void Renderer::Draw(const Vertex_Array& vertex_array, const Index_Buffer& index_
 	vertex_array.Bind();
 	index_buffer.Bind();
 
-	//glDrawElements(GL_TRIANGLES, )
+	glDrawElements(GL_TRIANGLES, index_buffer.Get_Count(), GL_UNSIGNED_INT, nullptr);
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------

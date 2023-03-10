@@ -26,34 +26,25 @@ namespace RenderEngine
 	{
 	public:
 		//================================================================================================================================================================
-		// Constructors and Destructors
-		/* */
-		Vertex_Buffer_Layout();
+		Vertex_Buffer_Layout();		
 		//================================================================================================================================================================
 
 		//================================================================================================================================================================
-		// Public Method
-		/* */
-		void ReserveElement(const size_t count);
+		void ReserveElement(const size_t count);										 /* */
+		unsigned Get_Stride() const { return Stride; }									 /* Getter Stride */
+		
+		const std::vector<Vertex_Buffer_Layout_Element>& Get_Layout_Elements() const	 /* Getter Layout Element */
+		{
+			return Layout_Elements; 
+		}	
 
-		/* Getter Stride */
-		unsigned Get_Stride() const { return Stride; }
-
-		/* Getter Layout Element */
-		const std::vector<Vertex_Buffer_Layout_Element>& Get_Layout_Elements() const { return Layout_Elements; }
-		/* */
-		void Add_Element_Layout_Float(const unsigned count, const bool normalized);
+		void Add_Element_Layout_Float(const unsigned count, const bool normalized);		 /* */
 		//================================================================================================================================================================
 
 	private:
-
 		//================================================================================================================================================================
-		// Private Variables
-		/* */
-		std::vector<Vertex_Buffer_Layout_Element> Layout_Elements;
-
-		/* Stride */
-		unsigned Stride;
+		std::vector<Vertex_Buffer_Layout_Element> Layout_Elements;						 /* */
+		unsigned Stride;																 /* Stride */
 		//================================================================================================================================================================
 
 	};

@@ -13,47 +13,30 @@ class Player_Tank;
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 enum class EGame_State : unsigned char
 {
-	Active, // Active Game
-	Pause	// Pause Game
+	Active,											// Active Game
+	Pause											// Pause Game
 };
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 class Game
 {
 public:
 	//================================================================================================================================================================
-	// Constructors and Destructors
 	~Game();
-	Game(const glm::ivec2 window_size);
+	Game(const glm::ivec2 window_size);				/* */
 	//================================================================================================================================================================
 
-
-
 	//================================================================================================================================================================
-	// Public method 
-	/* Game Render Method*/
-	void Render();
-
-	/* Update Game Method */
-	void Update(const uint64_t delta_time);
-
-	/* Keybinding Method*/
-	void Set_Key(const int key, const int action);
-
-	/* Init Method */
-	bool Init();
+	void Render();									/* Game Render */
+	void Update(const uint64_t delta_time);			/* Update Game */
+	void Set_Key(const int key, const int action);	/* Keybinding */
+	bool Init();									/* Init */
 	//================================================================================================================================================================
-
 
 private:
 	//================================================================================================================================================================
-	/* Array Key bind */
-	std::array<bool, 349> Keys;
-
-	glm::ivec2 Window_Size;
-
-	/* Game State enum class (uns char)*/
-	EGame_State Current_Game_States;
-
-	std::unique_ptr<Player_Tank> Player_Tank_Actor;
+	std::array<bool, 349> Keys;						/* Array Key bind */
+	glm::ivec2 Window_Size;							/* */
+	EGame_State Current_Game_States;				/* Game State enum class (uns char)*/
+	std::unique_ptr<Player_Tank> Player_Tank_Actor;	/* */
 };
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------

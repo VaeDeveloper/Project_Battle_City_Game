@@ -23,7 +23,6 @@ namespace RenderEngine
 	{
 	public:
 		//============================================================================================================================================================
-		// Constructors and Destructors
 		~Sprite();
 		
 		/*	Use the actual constructor for this class */
@@ -34,27 +33,21 @@ namespace RenderEngine
 			   const glm::vec2& size = glm::vec2(1.0f),
 			   const float rotation = 0.0f);
 
+		//============================================================================================================================================================
 		/*	It is forbidden to use a constructor without parameters and a constructor with a parameter of this class*/
 		Sprite(const Sprite&) = delete;
 		Sprite& operator=(const Sprite&) = delete;
-
 		//============================================================================================================================================================
-		//	 Public Methods
-		/*Render Method*/
-		virtual void Render() const;
 		
-		/* Set Position Sprite Method*/
-		void Set_Position(const glm::vec2& position);
 		
-		/* Set Size Sprite Method*/
-		void Set_Size(const glm::vec2& size);
-
-		/*Set Rotation Sprite Method*/
-		void Set_Rotation(const float rotation);
+		//============================================================================================================================================================
+		virtual void Render() const;						/* Render */
+		void Set_Position(const glm::vec2& position);		/* Set Position Sprite */
+		void Set_Size(const glm::vec2& size);				/* Set Size Sprite */
+		void Set_Rotation(const float rotation);			/*Set Rotation Sprite */
 		//============================================================================================================================================================
 
 	protected:
-
 		//============================================================================================================================================================
 		float Rotation;
 		std::shared_ptr<Texture2D> Texture;
@@ -68,9 +61,6 @@ namespace RenderEngine
 		Vertex_Buffer Texture_Coord_Buffer;
 		Index_Buffer Index_Pixel_Buffer;
 		//============================================================================================================================================================
-
-
 	};
-
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------

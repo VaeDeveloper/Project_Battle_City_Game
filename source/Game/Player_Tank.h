@@ -15,49 +15,35 @@ class Player_Tank
 {
 public:
 	//================================================================================================================================================================
-	// Constructors and Destructors
 	Player_Tank(std::shared_ptr<RenderEngine::Animated_Sprite> sprite, const float velocity, const glm::vec2 position);
 	//================================================================================================================================================================
-	enum class EOrientation : unsigned char
+
+	enum class EOrientation : unsigned char					/* Orientation Movement Enum */
+
 	{
 		Top,
 		Bottom,
 		Left,
 		Right
 	};
+
 	//============================================================================================================================================================
-	// Public method 
-	/* Render Player Tank */
-	void Render() const;
+	void Render() const;									/* Render Player Tank */
+	void Set_Orientation(const EOrientation orientation); 	/* Setter Orientation Player on game view*/
+	void Move_Player(const bool move);						/* Move Player Method*/
+	void Update(const uint64_t delta_seconds);				/* Update Animation Player Sprite */
 
-	/* Setter Orientation Player on game view*/
-	void Set_Orientation(const EOrientation orientation);
-
-	/* Move Player Method*/
-	void Move_Player(const bool move);
-
-	/* Update Animation Player Sprite */
-	void Update(const uint64_t delta_seconds);
 	//============================================================================================================================================================
 
 private:
 	//================================================================================================================================================================
-	bool Move;
+	bool Move;													/* */
+	float Velocity;												/* Speed velocity float */
+	glm::vec2 Position;											/* Current Position*/
+	glm::vec2 Move_Offset;										/* Vector Movement offset */
+	EOrientation Orientation;									/* Orientation Enum */
+	std::shared_ptr<RenderEngine::Animated_Sprite> Tank_Sprite;	/* Sprte pointer*/
 
-	/* Speed velocity float */
-	float Velocity;
-
-	/* Current Position*/
-	glm::vec2 Position;
-
-	/* Vector */
-	glm::vec2 Move_Offset;
-	
-	/* Orientation Enum */
-	EOrientation Orientation;
-
-	/* Sprte pointer*/
-	std::shared_ptr<RenderEngine::Animated_Sprite> Tank_Sprite;
 	//================================================================================================================================================================
 
 

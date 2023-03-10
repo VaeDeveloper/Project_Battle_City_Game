@@ -15,41 +15,29 @@ namespace RenderEngine
 	{
 	public:
 		//================================================================================================================================================================
-		// Constructors and Destructors
 		~Vertex_Array();
 		/*	Use the actual constructor for this class */
 		Vertex_Array();
-		/* */
-		Vertex_Array& operator=(Vertex_Array&& vertex_array) noexcept;
-		/* */
-		Vertex_Array(Vertex_Array&& vertex_array) noexcept;
+		Vertex_Array& operator=(Vertex_Array&& vertex_array) noexcept;		/* */
+		Vertex_Array(Vertex_Array&& vertex_array) noexcept;					/* */
 
 
 		/*	It is forbidden to use a constructor without parameters and a constructor with a parameter of this class*/
-		Vertex_Array(const Vertex_Array&) = delete;
-		/* */
-		Vertex_Array& operator=(const Vertex_Array&) = delete;
+		Vertex_Array(const Vertex_Array&) = delete; 						/* */
+		Vertex_Array& operator=(const Vertex_Array&) = delete;				/* */
 		//================================================================================================================================================================
 
 		
 		//================================================================================================================================================================
-		// Public Method
-		/* */
 		void Add_Buffer(const Vertex_Buffer& vertex_buffer, const Vertex_Buffer_Layout& layout);
-		/* */
 		void Bind() const;
-		/* */
 		void Unbind() const;
 		//================================================================================================================================================================
 
 	private:
-
 		//================================================================================================================================================================
-		// Private Variables
 		GLuint ID;
-
-		/* Buffer Count */
-		unsigned Elements_Count;
+		unsigned Elements_Count;							/* Buffer Count */
 		//================================================================================================================================================================
 
 	};

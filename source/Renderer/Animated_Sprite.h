@@ -15,7 +15,6 @@ namespace RenderEngine
 	{
 	public:
 		//============================================================================================================================================================
-		// Constructors and Destructors
 		/*	Use the actual constructor for this class */
 		Animated_Sprite(const std::shared_ptr<Texture2D> texture,
 			const std::string initial_subtexture,
@@ -26,29 +25,21 @@ namespace RenderEngine
 		//============================================================================================================================================================
 
 		//============================================================================================================================================================
-		//Override function
-		/* override Render method is sprite class */
-		virtual void Render() const override;
+		virtual void Render() const override; 						/* override Render is sprite class */
 		//============================================================================================================================================================
 
 
 
 		//============================================================================================================================================================
-		// Public method 
-		/* Set Animation State */
-		void Set_State(const std::string& new_state);
-
-		/* Update Animation */
-		void Update(const uint64_t delta);
-
-		/*  Initial Animation Statement for sprite */
-		void Insert_State(std::string state, std::vector<std::pair<std::string, uint64_t>> subtextures_duration);
+		void Set_State(const std::string& new_state);				/* Set Animation State */
+		void Update(const uint64_t delta);							/* Update Animation State */
+		void Insert_State(std::string state,						/*  Initial Animation Statement for sprite */
+						  std::vector<std::pair<std::string,	
+						  uint64_t>> subtextures_duration); 		
 		//============================================================================================================================================================
 
 	private:
 		//============================================================================================================================================================
-		// Private Variables
-
 		mutable bool Dirty;
 		std::map<std::string, std::vector<std::pair<std::string, uint64_t>>> States_Map;
 
@@ -56,7 +47,6 @@ namespace RenderEngine
 		uint64_t Current_Animation_Time;
 
 		std::map<std::string, std::vector<std::pair<std::string, uint64_t>>>::const_iterator Current_Animation_Duration;
-
 		//============================================================================================================================================================
 
 	};
