@@ -20,8 +20,8 @@ namespace RenderEngine
 		static void Clear();
 		static void Set_Viewport(unsigned width, unsigned height, unsigned left_offset = 0, unsigned right_offset = 0);
 
-		static std::string Get_Renderer_Str();
-		static std::string Get_Version_Str();
+		static std::string Get_Renderer_Str();		/* return renderer */
+		static std::string Get_Version_Str();		/* return version openGL */
 		//============================================================================================================================================================
 	};
 }
