@@ -124,13 +124,13 @@ std::shared_ptr<RenderEngine::Sprite> Resource_Manager::Load_Sprite(const std::s
 	auto Texture = Get_Texture(texture_name);
 	if (!Texture)
 	{
-		std::cerr << "Can't find the texture: " << texture_name << " for the sprite!" << std::endl;
+		std::cerr << __func__ << __LINE__ << "Can't find the texture: " << texture_name << " for the sprite!" << std::endl;
 	}
 
 	auto Shader = Get_Shader_Program(shader_name);
 	if (!Shader)
 	{
-		std::cerr << "Can't find the shader: " << shader_name << " for the sprite!" << std::endl;
+		std::cerr << __func__ << __LINE__ << "Can't find the shader: " << shader_name << " for the sprite!" << std::endl;
 	}
 
 	std::shared_ptr<RenderEngine::Sprite> new_sprite = Sprites.emplace(shader_name, std::make_shared<RenderEngine::Sprite>(Texture, subtexture_name, Shader, glm::vec2(0.0f, 0.0f), glm::vec2(sprite_width, sprite_height))).first->second;
@@ -145,7 +145,7 @@ std::shared_ptr<RenderEngine::Sprite> Resource_Manager::Get_Sprite(const std::st
 	if (it != Sprites.end())
 		return it->second;
 
-	std::cerr << "Can't find sprites: " << sprite_name << std::endl;
+	std::cerr << __func__ << __LINE__ << "Can't find sprites: " << sprite_name << std::endl;
 
 	return nullptr;
 }
@@ -155,13 +155,13 @@ std::shared_ptr<RenderEngine::Animated_Sprite> Resource_Manager::Load_Animated_S
 	auto Texture = Get_Texture(texture_name);
 	if (!Texture)
 	{
-		std::cerr << "Can't find the texture: " << texture_name << " for the sprite!" << sprite_name << std::endl;
+		std::cerr << __func__ << __LINE__ << "Can't find the texture: " << texture_name << " for the sprite!" << sprite_name << std::endl;
 	}
 
 	auto Shader = Get_Shader_Program(shader_name);
 	if (!Shader)
 	{
-		std::cerr << "Can't find the shader: " << shader_name << " for the sprite!:" << sprite_name <<  std::endl;
+		std::cerr << __func__ << __LINE__ << "Can't find the shader: " << shader_name << " for the sprite!:" << sprite_name <<  std::endl;
 	}
 
 	std::shared_ptr<RenderEngine::Animated_Sprite> new_sprite = Animated_Sprites.emplace(sprite_name, std::make_shared<RenderEngine::Animated_Sprite>(Texture, subtexture_name, Shader, glm::vec2(0.0f, 0.0f), glm::vec2(sprite_width, sprite_height))).first->second;
@@ -176,7 +176,7 @@ std::shared_ptr<RenderEngine::Animated_Sprite> Resource_Manager::Get_Animated_Sp
 	if (it != Animated_Sprites.end())
 		return it->second;
 
-	std::cerr << "Can't find animated sprites: " << sprite_name << std::endl;
+	std::cerr << __func__ << __LINE__ <<   "Can't find animated sprites: " << sprite_name << std::endl;
 
 	return nullptr;
 
@@ -218,7 +218,7 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 	if (json_string.empty())
 	{
 		/* no json file error */
-		std::cerr << "No JSON res file!!!!!" << std::endl;
+		std::cerr << __func__ << "No JSON res file!!!!!" << __LINE__<< std::endl;
 		return false;
 	}
 
@@ -231,11 +231,13 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 	{
 		/* if json parse errror */
 		std::cerr << "JSON parse error:" 
+				  << __func__
+				  << __LINE__
 				  << GetParseError_En(parse_result.Code())
 				  << "(" << parse_result.Offset() << ")" << std::endl;
 
 		std::cerr << "JSON parse file:" << json_path << std::endl;
-
+		
 		return false;
 	}
 
@@ -247,12 +249,40 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 		for (const auto& curr_shader : shaders_it->value.GetArray())
 		{
 			const std::string name = curr_shader["name"].GetString();
-			const std::string filePath_v = curr_shader["filePath_v"].GetString();
-			const std::string filePath_f = curr_shader["filePath_f"].GetString();
+			const std::string file_path_v = curr_shader["filePath_v"].GetString();
+			const std::string file_path_f= curr_shader["filePath_f"].GetString();
 
-			Load_Shaders(name, filePath_v, filePath_f);
+			Load_Shaders(name, file_path_v, file_path_f);
 		}
 	}
+
+	auto tex_attlas_it= document.FindMember("textureAtlases");
+
+	if (tex_attlas_it != document.MemberEnd())
+	{
+		for (const auto& curr_tex_atlas : tex_attlas_it->value.GetArray())
+		{
+			const std::string name = curr_tex_atlas["name"].GetString();
+			const std::string file_path = curr_tex_atlas["filePath"].GetString();
+			const unsigned width = curr_tex_atlas["width"].GetUint();
+			const unsigned height = curr_tex_atlas["height"].GetUint();
+			const unsigned subtexture_width = curr_tex_atlas["subTextureWidth"].GetUint();
+			const unsigned subtexture_height = curr_tex_atlas["subTextureHeight"].GetUint();
+			
+			const auto subtexture_array = curr_tex_atlas["subTexture"].GetArray();
+			std::vector<std::string> subtextures;
+			subtextures.reserve(subtexture_array.Size());
+
+			for (const auto& curr_subtexture : subtexture_array)
+			{
+				subtextures.emplace_back(curr_subtexture.GetString());
+			}
+
+			Load_Texture_Atlas(name, file_path, subtextures, subtexture_width, subtexture_height);
+
+		}
+	}
+
 
 	
 }

@@ -33,7 +33,6 @@ void Game::Render()
 	//Resource_Manager::Get_Animated_Sprite("NewAnimSprite")->Render();
 	if (Player_Tank_Actor)
 		Player_Tank_Actor->Render();
-
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Game::Update(const uint64_t delta_time)
@@ -79,30 +78,7 @@ bool Game::Init()
 {
 	Resource_Manager::Load_JSON_Resources("res/resourses.json");
 
-	auto Default_Shader_Program = Resource_Manager::Load_Shaders("DefaultShader", "res/shaders/vertex.txt", "res/shaders/fragment.txt");
-
-	if (!Default_Shader_Program)
-	{
-		assert(!Default_Shader_Program);
-
-#ifndef NDEBUG
-		std::cerr << __func__ << "\t " << __LINE__ << "Can't create default shader program in Game::INIT()" << std::endl;
-#endif // !NDEBUG
-
-
-	}
-
-	auto Sprite_Shader_Program = Resource_Manager::Load_Shaders("SpriteShader", "res/shaders/Shader_Vertex.txt", "res/shaders/Sprite_Fragment.txt");
-
-	if (!Sprite_Shader_Program)
-	{
-		assert(!Sprite_Shader_Program);
-
-#ifndef NDEBUG
-		std::cerr << __func__ << "\t " << __LINE__ << "Can't create sprite shader program in Game::INIT()"  << std::endl;
-#endif // !NDEBUG
-
-	}
+	auto Sprite_Shader_Program = Resource_Manager::Get_Shader_Program("SpriteShader");
 
 
 	auto tex = Resource_Manager::Load_Texture("Default_Texture", "res/textures/map_16x16.png");
@@ -162,9 +138,6 @@ bool Game::Init()
 	anim_sprite->Set_State("water_state");
 
 
-	Default_Shader_Program->Use_Shader();
-	Default_Shader_Program->Set_Int("tex", 0);
-
 	glm::mat4 model_matrix_1 = glm::mat4(1.0f);
 	model_matrix_1 = glm::translate(model_matrix_1, glm::vec3(100.f, 200.0f, 0.0f));
 
@@ -172,9 +145,6 @@ bool Game::Init()
 	model_matrix_2 = glm::translate(model_matrix_2, glm::vec3(590.0f, 200.0f, 0.0f));
 
 	glm::mat4 projection_matrix = glm::ortho(0.0f, static_cast<float>(Window_Size.x), 0.0f, static_cast<float>(Window_Size.y), -100.0f, 100.0f);
-
-	Default_Shader_Program->Set_Matrix4("projection_mat", projection_matrix);
-
 
 	Sprite_Shader_Program->Use_Shader();
 	Sprite_Shader_Program->Set_Int("tex", 0);

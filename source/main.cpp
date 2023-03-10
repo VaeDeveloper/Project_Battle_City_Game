@@ -13,10 +13,6 @@
 glm::ivec2 window_size(640, 480);
 Game game(window_size);
 
-
-
-
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 void GLFW_Window_Size_Callback(GLFWwindow* window, int width, int height)
 {
