@@ -82,7 +82,7 @@
             "states"                     : 
             [         
                 {         
-                    "stateName"          : "tankTopState",
+                    "stateName"          : "asdfasdf",
                     "frames"             : 
                     [
                         {
@@ -99,7 +99,7 @@
                 },
 
                 {
-                    "stateName"          : "tankLeftState",
+                    "stateName"          : "Tank_Left_State",
                     "frames"             : 
                     [
                         {
@@ -115,7 +115,7 @@
                 },
 
                 {
-                    "stateName"          : "tankBottomState",
+                    "stateName"          : "Tank_Bottom_State",
                     "frames"             : 
                     [
                         {
@@ -132,7 +132,7 @@
                 },
 
                 {
-                    "stateName"          : "tankRighttate",
+                    "stateName"          : "Tank_Right_State",
                     "frames"             : 
                     [
                         {

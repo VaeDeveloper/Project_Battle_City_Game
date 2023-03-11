@@ -241,7 +241,7 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 		return false;
 	}
 
-
+	/* get parse shaders */
 	auto shaders_it = document.FindMember("shaders");
 
 	if (shaders_it != document.MemberEnd())
@@ -256,6 +256,7 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 		}
 	}
 
+	/* get parse texture atlas */
 	auto tex_attlas_it= document.FindMember("textureAtlases");
 
 	if (tex_attlas_it != document.MemberEnd())
@@ -281,8 +282,47 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 		}
 	}
 
+	/* get parse animated sprite */
+	auto anim_sprite_it = document.FindMember("animatedSprites");
 
-	
+	if (anim_sprite_it != document.MemberEnd())
+	{
+		for (const auto& curr_anim_sprite : anim_sprite_it->value.GetArray())
+		{
+			const std::string name = curr_anim_sprite["name"].GetString();
+			const std::string texture_atlas = curr_anim_sprite["textureAtlas"].GetString();
+			const std::string shader = curr_anim_sprite["shader"].GetString();
+			const unsigned width = curr_anim_sprite["initialWidth"].GetUint();
+			const unsigned height = curr_anim_sprite["initialHeight"].GetUint();
+			const std::string init_subtexture = curr_anim_sprite["initialSubTexture"].GetString();
+
+			/* */
+			auto animated_sprite = Resource_Manager::Load_Animated_Sprite(name, texture_atlas, shader, width, height, init_subtexture);
+
+			if (!animated_sprite) continue;
+
+			const auto states_array = curr_anim_sprite["states"].GetArray();
+
+			for (const auto& curr_states : states_array)
+			{
+				const std::string state_name = curr_states["stateName"].GetString();
+				std::vector<std::pair<std::string, uint64_t>> frames;
+				const auto frames_array = curr_states["frames"].GetArray();
+				frames.reserve(frames_array.Size());
+
+				for (const auto& curr_states : frames_array)
+				{
+					const std::string subtexture = curr_states["subTexture"].GetString();
+					const uint64_t duration = curr_states["duration"].GetUint64();
+					frames.emplace_back(std::pair<std::string, uint64_t>(subtexture, duration));
+				}
+				
+				animated_sprite->Insert_State(state_name, std::move(frames));
+			}
+		}
+	}
+
+	return true;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 std::string Resource_Manager::Get_File_String(const std::string& relative_file_path)
