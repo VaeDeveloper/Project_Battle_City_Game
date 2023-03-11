@@ -264,8 +264,6 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 		{
 			const std::string name = curr_tex_atlas["name"].GetString();
 			const std::string file_path = curr_tex_atlas["filePath"].GetString();
-			const unsigned width = curr_tex_atlas["width"].GetUint();
-			const unsigned height = curr_tex_atlas["height"].GetUint();
 			const unsigned subtexture_width = curr_tex_atlas["subTextureWidth"].GetUint();
 			const unsigned subtexture_height = curr_tex_atlas["subTextureHeight"].GetUint();
 			
@@ -278,7 +276,7 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 				subtextures.emplace_back(curr_subtexture.GetString());
 			}
 
-			Load_Texture_Atlas(name, file_path, subtextures, subtexture_width, subtexture_height);
+			Load_Texture_Atlas(name, file_path, std::move(subtextures), subtexture_width, subtexture_height);
 
 		}
 	}

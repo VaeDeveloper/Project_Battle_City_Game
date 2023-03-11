@@ -78,46 +78,32 @@ bool Game::Init()
 {
 	Resource_Manager::Load_JSON_Resources("res/resourses.json");
 
-	auto Sprite_Shader_Program = Resource_Manager::Get_Shader_Program("SpriteShader");
+	/* shader program */
+	auto sprite_shader_program = Resource_Manager::Get_Shader_Program("SpriteShader");
 
+	if (!sprite_shader_program)
+	{
+		std::cerr << __func__ << __LINE__ << "Can't find shader program: " << "sprite_shader" << std::endl;
+		return false;
+	}
 
-	auto tex = Resource_Manager::Load_Texture("Default_Texture", "res/textures/map_16x16.png");
+	/* object texture atlas */
+	auto texture_atlas = Resource_Manager::Get_Texture("Default_Texture_Atlas");
 
+	if (!texture_atlas)
+	{
+		std::cerr << __func__ << __LINE__ << "Can't find texture atlas: " << "Default_Texture_Atlas" << std::endl;
+		return false;
+	}
 
-	std::vector<std::string> sub_textures_names = {
-		"block",
-		"top_block",
-		"bottom_block",
-		"left_block",
-		"right_block",
-		"top_left_block",
-		"top_right_block",
-		"bottom_left_block",
-		"bottom_right_block",
-		"beton",
-		"top_beton",
-		"bottom_beton",
-		"left_beton",
-		"right_beton",
-		"top_left_beton",
-		"top_right_beton",
-		"bottom_left_beton",
-		"bottom_right_beton",
-		"water1",
-		"water2",
-		"water3",
-		"trees",
-		"ice",
-		"wall",
-		"eagle",
-		"dead_eagle",
-		"respawn1",
-		"respawn2",
-		"respawn3",
-		"respawn4"
-	};
+	auto tanks_texture_atlas = Resource_Manager::Get_Texture("Tanks_Texture_Atlas");
 
-	auto texture_atlas = Resource_Manager::Load_Texture_Atlas("Default_Texture_Atlas", "res/textures/map_16x16.png", std::move(sub_textures_names), 16, 16);
+	/* tank texture atlas */
+	if (!tanks_texture_atlas)
+	{
+		std::cerr << __func__ << __LINE__ << "Can't find tank texture atlas:" << "Tanks_Texture_Atlas" << std::endl;
+		return false;
+	}
 
 
 	auto anim_sprite = Resource_Manager::Load_Animated_Sprite("NewAnimSprite", "Default_Texture_Atlas", "SpriteShader", 100, 100, "water1");
@@ -146,26 +132,13 @@ bool Game::Init()
 
 	glm::mat4 projection_matrix = glm::ortho(0.0f, static_cast<float>(Window_Size.x), 0.0f, static_cast<float>(Window_Size.y), -100.0f, 100.0f);
 
-	Sprite_Shader_Program->Use_Shader();
-	Sprite_Shader_Program->Set_Int("tex", 0);
-	Sprite_Shader_Program->Set_Matrix4("projection_mat", projection_matrix);
+	sprite_shader_program->Use_Shader();
+	sprite_shader_program->Set_Int("tex", 0);
+	sprite_shader_program->Set_Matrix4("projection_mat", projection_matrix);
 
 
 	//Initial Tank_Sprite 
 
-	std::vector<std::string> tanks_sub_textures_names =
-	{
-		"tank_top_1",
-		"tank_top_2",
-		"tank_left_1",
-		"tank_left_2",
-		"tank_bottom_1",
-		"tank_bottom_2",
-		"tank_right_1",
-		"tank_right_2"
-	};
-
-	auto tanks_texture_atlas = Resource_Manager::Load_Texture_Atlas("Tanks_Texture_Atlas", "res/textures/tanks.png", std::move(tanks_sub_textures_names), 16, 16);
 	auto tanks_anim_sprite = Resource_Manager::Load_Animated_Sprite("Tanks_Animate_Sprite", "Tanks_Texture_Atlas", "SpriteShader", 100, 100, "tank_top_1");
 
 	std::vector<std::pair<std::string, uint64_t>> tank_top_state;
