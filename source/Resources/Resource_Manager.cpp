@@ -282,6 +282,27 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 		}
 	}
 
+	/* get parse level sprite */
+	auto sprite_it = document.FindMember("sprites");
+
+	if (sprite_it != document.MemberEnd())
+	{
+		for (const auto& curr_sprite : sprite_it->value.GetArray())
+		{
+			const std::string name = curr_sprite["name"].GetString();
+			const std::string texture_atlas = curr_sprite["textureAtlas"].GetString();
+			const std::string shader = curr_sprite["shader"].GetString();
+			const std::string subtexture_name = curr_sprite["subTextureName"].GetString();
+
+			/* */
+			auto sprite = Resource_Manager::Load_Sprite(name, texture_atlas, shader, subtexture_name);
+
+			if (!sprite) continue;
+
+		}
+	}
+
+
 	/* get parse animated sprite */
 	auto anim_sprite_it = document.FindMember("animatedSprites");
 
@@ -331,14 +352,26 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 			const auto description = curr_level_atlas["description"].GetArray();
 			std::vector<std::string> level_row;
 			level_row.reserve(description.Size());
-
+			size_t max_length = 0;
 			for (const auto& curr_row : description)
 			{
 				level_row.emplace_back(curr_row.GetString());
+
+				if (max_length < level_row.back().length())
+				{
+					max_length = level_row.back().length();
+				}
 			}
 
-	
-			///!!! TODO
+			for (auto& curr_row : level_row)
+			{
+				while (curr_row.length() < max_length)
+				{
+					curr_row.append("D");
+				}
+			}
+
+			Levels.emplace_back(std::move(level_row));
 		}
 	}
 

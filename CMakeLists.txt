@@ -31,14 +31,15 @@ add_executable(${PROJECT_NAME}
 
 	source/Game/Game.cpp
 	source/Game/Game.h
+	source/Game/Level.cpp
+	source/Game/Level.h
+
 	source/Game/GameObjects/Player_Tank.cpp
 	source/Game/GameObjects/Player_Tank.h
 	source/Game/GameObjects/Game_Object.cpp
 	source/Game/GameObjects/Game_Object.h
-	source/Game/GameObjects/IGame_Object.cpp
-	source/Game/GameObjects/IGame_Object.h
-	
-
+	source/Game/GameObjects/Brick_Wall.cpp
+	source/Game/GameObjects/Brick_Wall.h
 
 )
 

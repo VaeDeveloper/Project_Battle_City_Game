@@ -67,6 +67,9 @@ public:
 	/* Load JSON File */
 	static bool Load_JSON_Resources(const std::string& json_path);
 
+	/* Getter Levels */
+	static const std::vector<std::vector<std::string>> Get_Levels() { return Levels; }
+
 	//================================================================================================================================================================================================================
 
 
@@ -92,6 +95,8 @@ private:
 	/* Map For Animated Sprite */
 	typedef std::map<const std::string, std::shared_ptr<RenderEngine::Animated_Sprite>> Animated_Sprite_Map;
 	static Animated_Sprite_Map Animated_Sprites;
+
+	static std::vector<std::vector<std::string>> Levels;
 
 	static std::string Path;
 	//================================================================================================================================================================================================================
