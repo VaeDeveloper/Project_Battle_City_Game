@@ -8,6 +8,7 @@
 #include "..\Renderer\Animated_Sprite.h"
 
 #include "..\Game\GameObjects\Player_Tank.h"
+#include "Level.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/mat4x4.hpp>
@@ -33,10 +34,16 @@ void Game::Render()
 {
 	if (Player_Tank_Actor)
 		Player_Tank_Actor->Render();
+
+	if (ALevel)
+		ALevel->Render();
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Game::Update(const uint64_t delta_time)
 {
+	if (ALevel)
+		ALevel->Update(delta_time);
+
 	if (Player_Tank_Actor)
 	{
 		if (Keys[GLFW_KEY_W])
@@ -122,6 +129,8 @@ bool Game::Init()
 	}
 
 	Player_Tank_Actor = std::make_unique<Player_Tank>(tanks_anim_sprite, 0.0000001, glm::vec2(0.f, 0.f), glm::vec2(16.f, 16.f));
+
+	ALevel = std::make_unique<Level>(Resource_Manager::Get_Levels()[0]);
 
 	return true;
 }

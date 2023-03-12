@@ -6,6 +6,7 @@
 #include <memory>
 
 class Player_Tank;
+class Level;
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -38,5 +39,6 @@ private:
 	glm::ivec2 Window_Size;							/* Window Size */
 	EGame_State Current_Game_States;				/* Game State enum class (uns char) */
 	std::unique_ptr<Player_Tank> Player_Tank_Actor;	/* Player Actor */
+	std::unique_ptr<Level> ALevel;
 };
 //---------------------------------------------------------------	-----------------------------------------------------------------------------------------------------

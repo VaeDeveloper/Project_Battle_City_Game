@@ -25,6 +25,7 @@ Resource_Manager::Textures_Map Resource_Manager::Textures;
 Resource_Manager::Sprite_Map Resource_Manager::Sprites;
 Resource_Manager::Animated_Sprite_Map Resource_Manager::Animated_Sprites;
 std::string Resource_Manager::Path;
+std::vector<std::vector<std::string>> Resource_Manager::Levels;
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Resource_Manager::Set_Executable_Path(const std::string& executable_path)
 {
@@ -48,14 +49,13 @@ std::shared_ptr<RenderEngine::Shader_Program> Resource_Manager::Load_Shaders(con
 
 	if (vertex_string.empty())
 	{
-	
-		std::cerr << "No Vertex shader!" << std::endl;
+		std::cerr << __func__ << " No Vertex shader!" << std::endl;
 		return nullptr;
 	}
 
 	if (fragment_string.empty())
 	{
-		std::cerr << "No Fragment shader!" << std::endl;
+		std::cerr << " No Fragment shader!" << std::endl;
 		return nullptr;
 	}
 
@@ -79,7 +79,7 @@ std::shared_ptr<RenderEngine::Shader_Program> Resource_Manager::Get_Shader_Progr
 	if (it != Shader_Programs.end())
 		return it->second;
 
-	std::cerr << "Can't find shader: " << shader_name << std::endl;
+	std::cerr << "Func(): " << __func__ << " LINE: " << __LINE__ << " Can't find shader: " << shader_name << std::endl;
 
 	return nullptr;
 }
@@ -114,7 +114,7 @@ std::shared_ptr<RenderEngine::Texture2D> Resource_Manager::Get_Texture(const std
 	if (it != Textures.end())
 		return it->second;
 
-	std::cerr << "Can't find texture: " << texture_name << std::endl;
+	std::cerr << "Func():" << __func__ << " LINE: " << __LINE__ << "Can't find texture: " << texture_name << std::endl;
 
 	return nullptr;
 }
@@ -124,16 +124,16 @@ std::shared_ptr<RenderEngine::Sprite> Resource_Manager::Load_Sprite(const std::s
 	auto Texture = Get_Texture(texture_name);
 	if (!Texture)
 	{
-		std::cerr << __func__ << __LINE__ << "Can't find the texture: " << texture_name << " for the sprite!" << std::endl;
+		std::cerr << "Func():" << __func__ << " Line: " << __LINE__ << "Can't find the texture: " << texture_name << " for the sprite!" << sprite_name << std::endl;
 	}
 
 	auto Shader = Get_Shader_Program(shader_name);
 	if (!Shader)
 	{
-		std::cerr << __func__ << __LINE__ << "Can't find the shader: " << shader_name << " for the sprite!" << std::endl;
+		std::cerr << "Func():" << __func__ << " Line: " << __LINE__ << "Can't find the shader: " << shader_name << " for the sprite!" << sprite_name << std::endl;
 	}
 
-	std::shared_ptr<RenderEngine::Sprite> new_sprite = Sprites.emplace(shader_name, std::make_shared<RenderEngine::Sprite>(Texture, subtexture_name, Shader)).first->second;
+	std::shared_ptr<RenderEngine::Sprite> new_sprite = Sprites.emplace(sprite_name, std::make_shared<RenderEngine::Sprite>(Texture, subtexture_name, Shader)).first->second;
 
 	return new_sprite;
 }
@@ -293,6 +293,7 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 			const std::string texture_atlas = curr_sprite["textureAtlas"].GetString();
 			const std::string shader = curr_sprite["shader"].GetString();
 			const std::string subtexture_name = curr_sprite["subTextureName"].GetString();
+
 
 			/* */
 			auto sprite = Resource_Manager::Load_Sprite(name, texture_atlas, shader, subtexture_name);
