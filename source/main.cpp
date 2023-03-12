@@ -10,8 +10,11 @@
 #include "Resources\Resource_Manager.h"
 #include "Renderer\Renderer.h"
 
-glm::ivec2 window_size(640, 480);
-Game game(window_size);
+
+constexpr unsigned width = 13 * 16, height = 14 * 16;
+
+glm::ivec2 window_size(width, height);
+std::unique_ptr<Game> game = std::make_unique<Game>(window_size);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 void GLFW_Window_Size_Callback(GLFWwindow* window, int width, int height)
@@ -28,7 +31,7 @@ void GLFW_Key_Callback(GLFWwindow* window, int key, int scancode, int action, in
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 
-	game.Set_Key(key, action);	
+	game->Set_Key(key, action);	
 
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -79,7 +82,7 @@ int main(int argc, char** argv)
 
 	{
 		Resource_Manager::Set_Executable_Path(argv[0]);
-		game.Init();
+		game->Init();
 
 		auto last_time = std::chrono::high_resolution_clock::now();
 
@@ -95,18 +98,21 @@ int main(int argc, char** argv)
 			last_time = current_time;
 
 			/* Update duration */
-			game.Update(duration);
+			game->Update(duration);
 
 			/* Clear */
 			RenderEngine::Renderer::Clear();
 
 			/* Render Engine */
-			game.Render();
+			game->Render();
 
 			/* Swap front and back buffers */
 			glfwSwapBuffers(main_window);
 
 		}
+
+		/* exit the game poiner NULLPTR*/
+		game = nullptr;
 		Resource_Manager::Unload_All_Resources();
 	}
 

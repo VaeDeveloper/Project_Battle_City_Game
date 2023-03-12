@@ -1,16 +1,16 @@
-#include "Player_Tank.h"
-#include "../Renderer/Animated_Sprite.h"
+#include "../GameObjects/Player_Tank.h"
+#include "../../Renderer/Animated_Sprite.h"
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Player_Tank::Player_Tank(std::shared_ptr<RenderEngine::Animated_Sprite> sprite, const float velocity, const glm::vec2 position)
-:Orientation(EOrientation::Top), Move(false), Velocity(velocity), Position(position), Move_Offset(glm::vec2(0.0f, 1.0f)), Tank_Sprite(std::move(sprite))
+Player_Tank::Player_Tank(std::shared_ptr<RenderEngine::Animated_Sprite> sprite, const float velocity, const glm::vec2 position, const glm::vec2 size)
+:Game_Object(position,size, 0.f),Orientation(EOrientation::Top), Move(false),Velocity(velocity), Move_Offset(glm::vec2(0.0f, 1.0f)),Tank_Sprite(std::move(sprite))
 {
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Player_Tank::Render() const
 {
-	Tank_Sprite->Render();
+	Tank_Sprite->Render(Position, Size, Rotation);
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Player_Tank::Set_Orientation(const EOrientation orientation)
@@ -59,7 +59,6 @@ void Player_Tank::Update(const uint64_t delta_seconds)
 	if (Move)
 	{
 		Position += delta_seconds * Velocity * Move_Offset;
-		Tank_Sprite->Set_Position(Position);
 		Tank_Sprite->Update(delta_seconds);
 	}
 }

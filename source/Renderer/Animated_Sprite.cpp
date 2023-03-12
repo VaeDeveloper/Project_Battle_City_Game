@@ -8,13 +8,13 @@
 using namespace RenderEngine;
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Animated_Sprite::Animated_Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtexture, std::shared_ptr<Shader_Program> shader_program, const glm::vec2& position, const glm::vec2& size, const float rotation)
-	:Dirty(false),Sprite(std::move(texture), std::move(initial_subtexture), std::move(shader_program), position, size, rotation), Current_Frame(0), Current_Animation_Time(0), Current_Animation_Duration{}
+Animated_Sprite::Animated_Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtexture, std::shared_ptr<Shader_Program> shader_program)
+	:Dirty(false),Sprite(std::move(texture), std::move(initial_subtexture), std::move(shader_program)), Current_Frame(0), Current_Animation_Time(0), Current_Animation_Duration{}
 {
 	Current_Animation_Duration = States_Map.end();
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Animated_Sprite::Render() const
+void Animated_Sprite::Render(const glm::vec2& position, const glm::vec2& size, const float rotation) const
 {
 	if (Dirty)
 	{
@@ -32,7 +32,7 @@ void Animated_Sprite::Render() const
 		Dirty = false;
 	}
 	
-	Sprite::Render();
+	Sprite::Render(position, size, rotation);
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Animated_Sprite::Set_State(const std::string& new_state)

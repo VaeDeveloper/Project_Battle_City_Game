@@ -27,11 +27,9 @@ namespace RenderEngine
 		
 		/*	Use the actual constructor for this class */
 		Sprite(const std::shared_ptr<Texture2D> texture,
-			   const std::string initial_subtexture,
-			   const std::shared_ptr<Shader_Program> shader_program,
-			   const glm::vec2& position = glm::vec2(0.0f), 
-			   const glm::vec2& size = glm::vec2(1.0f),
-			   const float rotation = 0.0f);
+			const std::string initial_subtexture,
+			const std::shared_ptr<Shader_Program> shader_program);
+		
 
 		//============================================================================================================================================================
 		/*	It is forbidden to use a constructor without parameters and a constructor with a parameter of this class*/
@@ -41,20 +39,13 @@ namespace RenderEngine
 		
 		
 		//============================================================================================================================================================
-		virtual void Render() const;						/* Render */
-		void Set_Position(const glm::vec2& position);		/* Set Position Sprite */
-		void Set_Size(const glm::vec2& size);				/* Set Size Sprite */
-		void Set_Rotation(const float rotation);			/*Set Rotation Sprite */
+		virtual void Render(const glm::vec2& position, const glm::vec2& size, const float rotation) const;		/* Render */
 		//============================================================================================================================================================
 
 	protected:
 		//============================================================================================================================================================
-		float Rotation;
 		std::shared_ptr<Texture2D> Texture;
 		std::shared_ptr<Shader_Program> Shader;
-		glm::vec2 Position;
-		glm::vec2 Size;
-
 
 		Vertex_Array Vertex_Array_Obj;
 		Vertex_Buffer Vertex_Coord_Buffer;

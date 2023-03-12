@@ -151,7 +151,7 @@
         }
     ],
 
-    "leveles" : 
+    "levels" : 
     [
         {
             "description" :
@@ -171,10 +171,6 @@
                 "D4D4DH1GDDDDD",
                 "DDDDD0E2DDDDD"
             ]
-        },
-
-        {
-            
         }
     ]
 }

@@ -50,13 +50,13 @@ public:
 	static std::shared_ptr<RenderEngine::Texture2D> Get_Texture(const std::string& texture_name);
 
 	/*	Load  sprite with resource project path.	*/
-	static std::shared_ptr<RenderEngine::Sprite> Load_Sprite(const std::string& sprite_name, const std::string& texture_name, const std::string& shader_name, const unsigned int sprite_width, const unsigned int sprite_height, const std::string& subtexture_name = "default");
+	static std::shared_ptr<RenderEngine::Sprite> Load_Sprite(const std::string& sprite_name, const std::string& texture_name, const std::string& shader_name, const std::string& subtexture_name = "default");
 
 	/*	Gettter texture with resource project path.	*/
 	static std::shared_ptr<RenderEngine::Sprite> Get_Sprite(const std::string& sprite_name);
 
 	/*	Load  animated sprite with resource project path.	*/
-	static std::shared_ptr<RenderEngine::Animated_Sprite> Load_Animated_Sprite(const std::string& sprite_name, const std::string& texture_name, const std::string& shader_name, const unsigned int sprite_width, const unsigned int sprite_height, const std::string& subtexture_name = "default");
+	static std::shared_ptr<RenderEngine::Animated_Sprite> Load_Animated_Sprite(const std::string& sprite_name, const std::string& texture_name, const std::string& shader_name, const std::string& subtexture_name = "default");
 
 	/*	Gettter animated sprite with resource project path.	*/
 	static std::shared_ptr<RenderEngine::Animated_Sprite> Get_Animated_Sprite(const std::string& sprite_name);

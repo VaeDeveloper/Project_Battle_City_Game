@@ -18,14 +18,11 @@ namespace RenderEngine
 		/*	Use the actual constructor for this class */
 		Animated_Sprite(const std::shared_ptr<Texture2D> texture,
 			const std::string initial_subtexture,
-			const std::shared_ptr<Shader_Program> shader_program,
-			const glm::vec2& position = glm::vec2(0.0f),
-			const glm::vec2& size = glm::vec2(1.0f),
-			const float rotation = 0.0f);
+			const std::shared_ptr<Shader_Program> shader_program);
 		//============================================================================================================================================================
 
 		//============================================================================================================================================================
-		virtual void Render() const override; 						/* override Render is sprite class */
+		virtual void Render(const glm::vec2& position, const glm::vec2& size, const float rotation) const override; 						/* override Render is sprite class */
 		//============================================================================================================================================================
 
 

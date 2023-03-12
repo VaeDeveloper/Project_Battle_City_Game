@@ -6,7 +6,8 @@
 #include "..\Resources\Resource_Manager.h"
 #include "..\Renderer\Sprite.h"
 #include "..\Renderer\Animated_Sprite.h"
-#include "..\Game\Player_Tank.h"
+
+#include "..\Game\GameObjects\Player_Tank.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/mat4x4.hpp>
@@ -30,14 +31,12 @@ Game::Game(const glm::ivec2 window_size)
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Game::Render()
 {
-	//Resource_Manager::Get_Animated_Sprite("NewAnimSprite")->Render();
 	if (Player_Tank_Actor)
 		Player_Tank_Actor->Render();
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Game::Update(const uint64_t delta_time)
 {
-	//Resource_Manager::Get_Animated_Sprite("NewAnimSprite")->Update(delta_time);
 	if (Player_Tank_Actor)
 	{
 		if (Keys[GLFW_KEY_W])
@@ -106,28 +105,6 @@ bool Game::Init()
 	}
 
 
-	auto anim_sprite = Resource_Manager::Load_Animated_Sprite("NewAnimSprite", "Default_Texture_Atlas", "SpriteShader", 100, 100, "water1");
-	anim_sprite->Set_Position(glm::vec2(300, 300));
-
-
-	//---------------------------------------------------------------------------------------
-	std::vector<std::pair<std::string, uint64_t>> water_state;
-	water_state.emplace_back(std::make_pair<std::string, uint64_t>("water1", 1000000000));
-	water_state.emplace_back(std::make_pair<std::string, uint64_t>("water2", 1000000000));
-	water_state.emplace_back(std::make_pair<std::string, uint64_t>("water3", 1000000000));
-
-	std::vector<std::pair<std::string, uint64_t>> eagle_state;
-	eagle_state.emplace_back(std::make_pair<std::string, uint64_t>("eagle", 1000000000));
-	eagle_state.emplace_back(std::make_pair<std::string, uint64_t>("dead_eagle", 1000000000));
-
-	anim_sprite->Insert_State("water_state", std::move(water_state));
-	anim_sprite->Insert_State("eagle_state", std::move(eagle_state));
-
-	anim_sprite->Set_State("water_state");
-	//---------------------------------------------------------------------------------------
-
-
-
 	glm::mat4 projection_matrix = glm::ortho(0.0f, static_cast<float>(Window_Size.x), 0.0f, static_cast<float>(Window_Size.y), -100.0f, 100.0f);
 
 	sprite_shader_program->Use_Shader();
@@ -144,7 +121,7 @@ bool Game::Init()
 		return false;
 	}
 
-	Player_Tank_Actor = std::make_unique<Player_Tank>(tanks_anim_sprite, 0.0000001, glm::vec2(100.0f, 100.0f));
+	Player_Tank_Actor = std::make_unique<Player_Tank>(tanks_anim_sprite, 0.0000001, glm::vec2(0.f, 0.f), glm::vec2(16.f, 16.f));
 
 	return true;
 }
