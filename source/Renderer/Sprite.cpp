@@ -80,7 +80,6 @@ void Sprite::Render(const glm::vec2& position, const glm::vec2& size, const floa
 
 	}
 
-
 	Shader->Use_Shader();
 
 	glm::mat4 model(1.0f);

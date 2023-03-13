@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <glm/vec2.hpp>
+#include <array>
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -17,17 +18,57 @@ namespace RenderEngine
 class Brick_Wall : public Game_Object
 {
 public:
-	Brick_Wall(const std::shared_ptr<RenderEngine::Sprite> sprite,
-			   const glm::vec2& position, 
-			   const glm::vec2& size,
-			   const float rotation);
+	
+	enum class EBrick_Wall_Type			/* Brick Wall Type*/
+	{
+		All,
+		Top,
+		Bottom,
+		Left,
+		Right,
+		Top_Left,
+		Top_Right,
+		Bottom_Left,
+		Bottom_Right,
 
+	};
+
+	enum class EBrick_State				/* State Bricks */
+	{
+		All = 0,
+		Top_Left,
+		Top_Right,
+		Top,
+		Bottom_Left,
+		Left,
+		Top_Right_Bottom_Left,
+		Top_Bottom_Left,
+		Bottom_Right,
+		Top_Left_Bottom_Right,
+		Right,
+		Top_Bottom_Right,
+		Bottom,
+		Top_Left_Bottom,
+		Top_Right_Bottom,
+		Destroyed
+	};
+
+	enum class EBrick_Location
+	{
+		Top_Left,
+		Top_Right,
+		Bottom_Left,
+		Bottom_Right
+	};
+
+	Brick_Wall(const EBrick_Wall_Type brick_wall_type, const glm::vec2& position,  const glm::vec2& size, const float rotation);
+
+	/* Override */
 	virtual void Render() const override;
 	virtual void Update(const uint64_t delta) override;
 
-
-
 private:
-	std::shared_ptr<RenderEngine::Sprite> Curr_Sprite;
+	std::array<EBrick_State, 4> Curr_Brick_State;
+	std::array<std::shared_ptr<RenderEngine::Sprite>, 15> Sprites;
 };
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

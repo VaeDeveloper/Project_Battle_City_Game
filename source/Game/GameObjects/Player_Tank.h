@@ -43,7 +43,8 @@ public:
 	/* override */
 	void Render() const override;								/* Render Player Tank */
 	void Update(const uint64_t delta_seconds) override;			/* Update Animation Player Sprite */
-	/* */
+
+	/* orientation and move player */
 	void Set_Orientation(const EOrientation orientation); 		/* Setter Orientation Player on game view*/
 	void Move_Player(const bool move);							/* Move Player Method*/
 	//============================================================================================================================================================
