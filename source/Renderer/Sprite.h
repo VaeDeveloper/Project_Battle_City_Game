@@ -27,7 +27,7 @@ namespace RenderEngine
 		struct Frame_Discription
 		{
 			Frame_Discription(const glm::vec2 left_bottom_uv, const glm::vec2 right_top_uv, const uint64_t duration)
-				: Left_Bottom_UV(left_bottom_uv), Right_Top_UV(right_top_uv), Duration(duration) {}
+			: Left_Bottom_UV(left_bottom_uv), Right_Top_UV(right_top_uv), Duration(duration) {}
 
 
 			glm::vec2 Left_Bottom_UV;
@@ -54,10 +54,11 @@ namespace RenderEngine
 
 
 		//============================================================================================================================================================
-		void Insert_Frame(std::vector<Frame_Discription> frames_discriptions);
-		void Render(const glm::vec2& position, const glm::vec2& size, const float rotation, const size_t frame_id = 0) const;		/* Render */
+		void Render(const glm::vec2& position, const glm::vec2& size, const float rotation, const size_t frame_id = 0) const;	/* Render */
 		uint64_t Get_Frame_Duration(const size_t frame_id) const;																/* Getter Frame Duration */
-		size_t Get_Frames_Count() const;																						/* Getter Frames Count */
+		size_t Get_Frames_Count() const;
+		void Insert_Frame(std::vector<Frame_Discription> frames_discriptions);
+		
 		//============================================================================================================================================================
 
 	protected:

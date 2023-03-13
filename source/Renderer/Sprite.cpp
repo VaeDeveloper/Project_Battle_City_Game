@@ -16,7 +16,7 @@ Sprite::~Sprite()
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtexture, std::shared_ptr<Shader_Program> shader_program)
-: Texture(std::move(texture)), Shader(std::move(shader_program)), Last_Frame_ID(0), Frame_Discriptions{}
+: Texture(std::move(texture)), Shader(std::move(shader_program)), Last_Frame_ID(0)
 {
 	const GLfloat vertex_coords[] = {
 		/*-X--Y-*/
@@ -60,11 +60,6 @@ Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtextur
 
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void RenderEngine::Sprite::Insert_Frame(std::vector<Frame_Discription> frames_discriptions)
-{
-	Frame_Discriptions = std::move(frames_discriptions);
-}
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Sprite::Render(const glm::vec2& position, const glm::vec2& size, const float rotation, const size_t frame_id) const
 {
 	if (Last_Frame_ID != frame_id)
@@ -103,12 +98,19 @@ void Sprite::Render(const glm::vec2& position, const glm::vec2& size, const floa
 
 	Renderer::Draw(Vertex_Array_Obj, Index_Pixel_Buffer, *Shader);
 }
-uint64_t RenderEngine::Sprite::Get_Frame_Duration(const size_t frame_id) const
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+uint64_t Sprite::Get_Frame_Duration(const size_t frame_id) const
 {
 	return Frame_Discriptions[frame_id].Duration;
 }
-size_t RenderEngine::Sprite::Get_Frames_Count() const
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+size_t Sprite::Get_Frames_Count() const
 {
 	return Frame_Discriptions.size();
+}
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void RenderEngine::Sprite::Insert_Frame(std::vector<Frame_Discription> frames_discriptions)
+{
+	Frame_Discriptions = std::move(frames_discriptions);
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

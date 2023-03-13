@@ -122,7 +122,7 @@ bool Game::Init()
 													  Resource_Manager::Get_Sprite("Tank_Bottom_State"),
 													  Resource_Manager::Get_Sprite("Tank_Left_State"),
 													  Resource_Manager::Get_Sprite("Tank_Right_State"),
-													  0.0000001, glm::vec2(0.f, 0.f), glm::vec2(16.f, 16.f));
+													  0.0000001f, glm::vec2(0), glm::vec2(16.f, 16.f));
 
 	ALevel = std::make_unique<Level>(Resource_Manager::Get_Levels()[0]);
 

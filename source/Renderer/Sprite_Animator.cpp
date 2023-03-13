@@ -17,12 +17,14 @@ void Sprite_Animator::Update(const uint64_t delta)
 	while (Current_Animation_Time >= Current_Frame_Duration)
 	{
 		Current_Animation_Time -= Current_Frame_Duration;
+
 		++Current_Frame;
 
 		if (Current_Frame == ASprite->Get_Frames_Count())
 		{
 			Current_Frame = 0;
 		}
+
 		Current_Frame_Duration = ASprite->Get_Frame_Duration(Current_Frame);
 	}
 }
