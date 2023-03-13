@@ -19,7 +19,7 @@ class Brick_Wall : public Game_Object
 {
 public:
 	
-	enum class EBrick_Wall_Type			/* Brick Wall Type*/
+	enum class EBrick_Wall_Type			/* Brick Wall Type */
 	{
 		All,
 		Top,
@@ -68,6 +68,8 @@ public:
 	virtual void Update(const uint64_t delta) override;
 
 private:
+	void Render_Brick(const EBrick_Location brick_location) const;
+
 	std::array<EBrick_State, 4> Curr_Brick_State;
 	std::array<std::shared_ptr<RenderEngine::Sprite>, 15> Sprites;
 };

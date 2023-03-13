@@ -93,36 +93,13 @@ bool Game::Init()
 		return false;
 	}
 
-	/* object texture atlas */
-	auto texture_atlas = Resource_Manager::Get_Texture("Default_Texture_Atlas");
-
-	if (!texture_atlas)
-	{
-		std::cerr << __func__ << __LINE__ << "Can't find texture atlas: " << "Default_Texture_Atlas" << std::endl;
-		return false;
-	}
-
-	auto tanks_texture_atlas = Resource_Manager::Get_Texture("Tanks_Texture_Atlas");
-
-	/* tank texture atlas */
-	if (!tanks_texture_atlas)
-	{
-		std::cerr << __func__ << __LINE__ << "Can't find tank texture atlas:" << "Tanks_Texture_Atlas" << std::endl;
-		return false;
-	}
-
-
 	glm::mat4 projection_matrix = glm::ortho(0.0f, static_cast<float>(Window_Size.x), 0.0f, static_cast<float>(Window_Size.y), -100.0f, 100.0f);
 
 	sprite_shader_program->Use_Shader();
 	sprite_shader_program->Set_Int("tex", 0);
 	sprite_shader_program->Set_Matrix4("projection_mat", projection_matrix);
 
-	Player_Tank_Actor = std::make_unique<Player_Tank>(Resource_Manager::Get_Sprite("Tank_Top_State"), 
-													  Resource_Manager::Get_Sprite("Tank_Bottom_State"),
-													  Resource_Manager::Get_Sprite("Tank_Left_State"),
-													  Resource_Manager::Get_Sprite("Tank_Right_State"),
-													  0.0000001f, glm::vec2(0), glm::vec2(16.f, 16.f));
+	Player_Tank_Actor = std::make_unique<Player_Tank>(0.0000001f, glm::vec2(0), glm::vec2(16.f, 16.f));
 
 	ALevel = std::make_unique<Level>(Resource_Manager::Get_Levels()[0]);
 

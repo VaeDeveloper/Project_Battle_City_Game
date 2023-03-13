@@ -22,13 +22,7 @@ class Player_Tank : public Game_Object
 {
 public:
 	//================================================================================================================================================================
-	Player_Tank(std::shared_ptr<RenderEngine::Sprite> sprite_top,
-				std::shared_ptr<RenderEngine::Sprite> sprite_bottom,
-				std::shared_ptr<RenderEngine::Sprite> sprite_left,
-				std::shared_ptr<RenderEngine::Sprite> sprite_right,
-			    const float velocity,	
-				const glm::vec2 position,
-				const glm::vec2 size);
+	Player_Tank(const float velocity,const glm::vec2 position,const glm::vec2 size);
 	//================================================================================================================================================================
 
 	enum class EOrientation : unsigned char					/* Orientation Movement Enum */
