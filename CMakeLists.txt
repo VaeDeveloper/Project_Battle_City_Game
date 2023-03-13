@@ -16,8 +16,6 @@ add_executable(${PROJECT_NAME}
 	source/Renderer/Texture2D.h
 	source/Renderer/Sprite.cpp
 	source/Renderer/Sprite.h
-	source/Renderer/Animated_Sprite.h
-	source/Renderer/Animated_Sprite.cpp
 	source/Renderer/Vertex_Buffer.h
 	source/Renderer/Vertex_Buffer.cpp
 	source/Renderer/Vertex_Array.h
@@ -28,6 +26,8 @@ add_executable(${PROJECT_NAME}
 	source/Renderer/Vertex_Buffer_Layout.h
 	source/Renderer/Renderer.cpp
 	source/Renderer/Renderer.h
+	source/Renderer/Sprite_Animator.cpp
+	source/Renderer/Sprite_Animator.h
 
 	source/Game/Game.cpp
 	source/Game/Game.h

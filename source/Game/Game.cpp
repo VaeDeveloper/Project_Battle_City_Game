@@ -5,7 +5,7 @@
 #include "..\Renderer\Texture2D.h"
 #include "..\Resources\Resource_Manager.h"
 #include "..\Renderer\Sprite.h"
-#include "..\Renderer\Animated_Sprite.h"
+
 
 #include "..\Game\GameObjects\Player_Tank.h"
 #include "Level.h"
@@ -118,17 +118,11 @@ bool Game::Init()
 	sprite_shader_program->Set_Int("tex", 0);
 	sprite_shader_program->Set_Matrix4("projection_mat", projection_matrix);
 
-
-	//Initial Tank_Sprite 
-	auto tanks_anim_sprite = Resource_Manager::Get_Animated_Sprite("Tanks_Animate_Sprite");
-
-	if (!tanks_anim_sprite)
-	{
-		std::cerr << __func__ << __LINE__ << "Can't find tank animated sprite:" << "Tanks_Animate_Sprite" << std::endl;
-		return false;
-	}
-
-	Player_Tank_Actor = std::make_unique<Player_Tank>(tanks_anim_sprite, 0.0000001, glm::vec2(0.f, 0.f), glm::vec2(16.f, 16.f));
+	Player_Tank_Actor = std::make_unique<Player_Tank>(Resource_Manager::Get_Sprite("Tank_Top_State"), 
+													  Resource_Manager::Get_Sprite("Tank_Bottom_State"),
+													  Resource_Manager::Get_Sprite("Tank_Left_State"),
+													  Resource_Manager::Get_Sprite("Tank_Right_State"),
+													  0.0000001, glm::vec2(0.f, 0.f), glm::vec2(16.f, 16.f));
 
 	ALevel = std::make_unique<Level>(Resource_Manager::Get_Levels()[0]);
 

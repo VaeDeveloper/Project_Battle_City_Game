@@ -10,10 +10,10 @@
 #include "Resources\Resource_Manager.h"
 #include "Renderer\Renderer.h"
 
+static constexpr unsigned int SCALE = 3;
+static constexpr unsigned width = 13 * 16, height = 14 * 16;
 
-constexpr unsigned width = 13 * 16, height = 14 * 16;
-
-glm::ivec2 window_size(width, height);
+glm::uvec2  window_size(width, height);
 std::unique_ptr<Game> game = std::make_unique<Game>(window_size);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -21,7 +21,25 @@ void GLFW_Window_Size_Callback(GLFWwindow* window, int width, int height)
 {
 	window_size.x = width;
 	window_size.y = height;
-	RenderEngine::Renderer::Set_Viewport(window_size.x, window_size.y);
+
+	const float aspect_ratio = 13.f / 14.f;
+	unsigned viewport_width = window_size.x;
+	unsigned viewport_height = window_size.y;
+	unsigned viewport_left_offset = 0;
+	unsigned viewport_bottom_offset = 0;
+
+	if (static_cast<float>(window_size.x / window_size.y) > aspect_ratio)
+	{
+		viewport_width = static_cast<unsigned>(window_size.y * aspect_ratio);
+		viewport_left_offset = (window_size.x - viewport_width) / 2;
+	}
+	else
+	{
+		viewport_height = static_cast<unsigned>(window_size.x / aspect_ratio);
+		viewport_bottom_offset = (window_size.y - viewport_height) / 2;
+	}
+
+	RenderEngine::Renderer::Set_Viewport(viewport_width, viewport_height, viewport_left_offset, viewport_bottom_offset);
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
 void GLFW_Key_Callback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -41,7 +59,7 @@ int main(int argc, char** argv)
 	/* Initialize the library */
 	if (!glfwInit())
 	{
-		std::cout << "Error glfwInit failed" << std::endl;
+		std::cout << __func__ << __LINE__ << "Error glfwInit failed" << std::endl;
 		return -1;
 	}
 
@@ -52,15 +70,22 @@ int main(int argc, char** argv)
 
 	/* Create a windowed mode window and its OpenGL context */
 	GLFWwindow* main_window = glfwCreateWindow(window_size.x, window_size.y, "BATTLE CITY", nullptr, nullptr);
+
+
+	
+	//glfwSetWindowSizeLimits(main_window, 400, 400, 400, 400);
+
 	if (!main_window)
 	{
-		std::cout << "glfwCreateWindow is failed" << std::endl;
+		std::cout << "FUNC(): " << __func__ << " LINE: " << __LINE__ 
+				  <<"glfwCreateWindow is failed" << std::endl;
 		glfwTerminate();
 		return -1;
 	}
 
 	/* window size callback */
 	glfwSetWindowSizeCallback(main_window, GLFW_Window_Size_Callback);
+
 	/* keybind callback */
 	glfwSetKeyCallback(main_window, GLFW_Key_Callback);
 	/* Make the window's context current */

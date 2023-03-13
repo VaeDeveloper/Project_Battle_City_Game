@@ -24,11 +24,11 @@ void Animated_Sprite::Render(const glm::vec2& position, const glm::vec2& size, c
 			/*-U--V-*/
 			sub_texture.Left_Bottom_UV.x, sub_texture.Left_Bottom_UV.y,
 			sub_texture.Left_Bottom_UV.x, sub_texture.Right_Top_UV.y,
-			sub_texture.Right_Top_UV.x, sub_texture.Right_Top_UV.y,
+			sub_texture.Right_Top_UV.x, sub_texture.Right_Top_UV.y,	
 			sub_texture.Right_Top_UV.x, sub_texture.Left_Bottom_UV.y,
 		};
 
-		Texture_Coord_Buffer.Update(tex_coords, 2 * 4 * sizeof(GLfloat));
+		Texture_Coord_Buffer.Update(tex_coords,static_cast<unsigned long long>(2) * 4 * sizeof(GLfloat));
 		Dirty = false;
 	}
 	

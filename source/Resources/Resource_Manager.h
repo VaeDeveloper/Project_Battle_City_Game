@@ -10,7 +10,7 @@ namespace RenderEngine
 	class Shader_Program;
 	class Texture2D;
 	class Sprite;
-	class Animated_Sprite;
+
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -55,12 +55,6 @@ public:
 	/*	Gettter texture with resource project path.	*/
 	static std::shared_ptr<RenderEngine::Sprite> Get_Sprite(const std::string& sprite_name);
 
-	/*	Load  animated sprite with resource project path.	*/
-	static std::shared_ptr<RenderEngine::Animated_Sprite> Load_Animated_Sprite(const std::string& sprite_name, const std::string& texture_name, const std::string& shader_name, const std::string& subtexture_name = "default");
-
-	/*	Gettter animated sprite with resource project path.	*/
-	static std::shared_ptr<RenderEngine::Animated_Sprite> Get_Animated_Sprite(const std::string& sprite_name);
-
 	/* Load Texture Atlas for base texture */
 	static std::shared_ptr<RenderEngine::Texture2D> Load_Texture_Atlas(const std::string texture_name, const std::string texture_path, std::vector<std::string> sub_texture, const unsigned subtexture_width, const unsigned subtexture_height);
 
@@ -91,10 +85,6 @@ private:
 	/* Map For Sprite */
 	typedef std::map<const std::string, std::shared_ptr<RenderEngine::Sprite>> Sprite_Map;
 	static Sprite_Map Sprites;
-
-	/* Map For Animated Sprite */
-	typedef std::map<const std::string, std::shared_ptr<RenderEngine::Animated_Sprite>> Animated_Sprite_Map;
-	static Animated_Sprite_Map Animated_Sprites;
 
 	static std::vector<std::vector<std::string>> Levels;
 

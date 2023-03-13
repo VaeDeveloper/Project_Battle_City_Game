@@ -16,7 +16,7 @@ Sprite::~Sprite()
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtexture, std::shared_ptr<Shader_Program> shader_program)
-: Texture(std::move(texture)), Shader(std::move(shader_program))
+: Texture(std::move(texture)), Shader(std::move(shader_program)), Last_Frame_ID(0), Frame_Discriptions{}
 {
 	const GLfloat vertex_coords[] = {
 		/*-X--Y-*/
@@ -60,8 +60,32 @@ Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtextur
 
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Sprite::Render(const glm::vec2& position, const glm::vec2& size, const float rotation) const
+void RenderEngine::Sprite::Insert_Frame(std::vector<Frame_Discription> frames_discriptions)
 {
+	Frame_Discriptions = std::move(frames_discriptions);
+}
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void Sprite::Render(const glm::vec2& position, const glm::vec2& size, const float rotation, const size_t frame_id) const
+{
+	if (Last_Frame_ID != frame_id)
+	{
+		Last_Frame_ID = frame_id;
+
+		const Frame_Discription& curr_frame_discr = Frame_Discriptions[frame_id];
+
+		const GLfloat tex_coords[] = {
+			/*-U--V-*/
+			curr_frame_discr.Left_Bottom_UV.x, curr_frame_discr.Left_Bottom_UV.y,
+			curr_frame_discr.Left_Bottom_UV.x, curr_frame_discr.Right_Top_UV.y,
+			curr_frame_discr.Right_Top_UV.x, curr_frame_discr.Right_Top_UV.y,
+			curr_frame_discr.Right_Top_UV.x, curr_frame_discr.Left_Bottom_UV.y,
+		};
+
+		Texture_Coord_Buffer.Update(tex_coords, static_cast<unsigned long long>(2) * 4 * sizeof(GLfloat));
+
+	}
+
+
 	Shader->Use_Shader();
 
 	glm::mat4 model(1.0f);
@@ -78,5 +102,13 @@ void Sprite::Render(const glm::vec2& position, const glm::vec2& size, const floa
 	Texture->Bind_Texture();
 
 	Renderer::Draw(Vertex_Array_Obj, Index_Pixel_Buffer, *Shader);
+}
+uint64_t RenderEngine::Sprite::Get_Frame_Duration(const size_t frame_id) const
+{
+	return Frame_Discriptions[frame_id].Duration;
+}
+size_t RenderEngine::Sprite::Get_Frames_Count() const
+{
+	return Frame_Discriptions.size();
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
