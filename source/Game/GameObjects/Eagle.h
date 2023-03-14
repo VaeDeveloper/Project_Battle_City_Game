@@ -21,7 +21,8 @@ public:
 
 	enum class EEagle_State : uint8_t
 	{
-
+		Alive = 0,
+		Dead
 	};
 
 	Eagle(const glm::vec2& position,  const glm::vec2& size, const float rotation);
@@ -36,6 +37,9 @@ private:
 
 	/* Block Offset location */
 	std::array<glm::vec2, 4> Block_Offsets;
+
+	/* Eagle State */
+	EEagle_State Eagle_State;
 
 };
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -8,6 +8,7 @@
 #include "GameObjects\Trees.h"
 #include "GameObjects\Ice.h"
 #include "GameObjects\Water.h"
+#include "GameObjects\Eagle.h"
 
 unsigned BLOCK_SIZE = 16;
 
@@ -67,6 +68,8 @@ std::shared_ptr<Game_Object> Create_Game_Obj_From_Discr(const char descr, const 
 	case 'C':
 		return std::make_shared<Ice>(position, size, rotation);
 
+	case 'E':
+		return std::make_shared<Eagle>(position, size, rotation);
 
 	case 'D':
 		return nullptr;

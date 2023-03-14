@@ -5,13 +5,15 @@
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Eagle::Eagle(const glm::vec2& position, const glm::vec2& size, const float rotation)
-: Game_Object(position, size, rotation),Sprites(Resource_Manager::Get_Sprite("eagle")),
-  Block_Offsets{ glm::vec2(0, Size.y / 2.f),glm::vec2(Size.x / 2.f, Size.y / 2.f),glm::vec2(0, 0),glm::vec2(Size.x / 2.f, 0) }
+: Game_Object(position, size, rotation), Sprites{ Resource_Manager::Get_Sprite("eagle"), Resource_Manager::Get_Sprite("eagle_dead") },
+  Block_Offsets{ glm::vec2(0, Size.y / 2.f),glm::vec2(Size.x / 2.f, Size.y / 2.f),glm::vec2(0, 0),glm::vec2(Size.x / 2.f, 0) },
+  Eagle_State(EEagle_State::Alive)
 {
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Eagle::Render() const
 {
+	Sprites[static_cast<size_t>(Eagle_State)]->Render(Position, Size, Rotation);
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Eagle::Update(const uint64_t delta)

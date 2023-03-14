@@ -24,11 +24,10 @@ namespace RenderEngine
 	public:
 
 		//============================================================================================================================================================
-		struct Frame_Discription
+		struct Frame_Discription 
 		{
 			Frame_Discription(const glm::vec2 left_bottom_uv, const glm::vec2 right_top_uv, const uint64_t duration)
 			: Left_Bottom_UV(left_bottom_uv), Right_Top_UV(right_top_uv), Duration(duration) {}
-
 
 			glm::vec2 Left_Bottom_UV;
 			glm::vec2 Right_Top_UV;

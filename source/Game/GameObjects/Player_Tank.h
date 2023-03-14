@@ -25,7 +25,7 @@ public:
 
 	/*-------------------------------------------------------*/
 	/* Orientation Movement Enum */
-	enum class EOrientation : unsigned char
+	enum class EOrientation : uint8_t
 	{
 		Top,
 		Bottom,
