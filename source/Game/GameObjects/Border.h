@@ -1,25 +1,47 @@
-#include "Ice.h"
+#pragma once 
 
-#include "../../Renderer/Sprite.h"
-#include "../../Resources/Resource_Manager.h"
+#include "Game_Object.h"
+
+#include <memory>
+#include <glm/vec2.hpp>
+#include <array>
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Ice::Ice(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer)
-: Game_Object(position, size, rotation, layer),Sprites(Resource_Manager::Get_Sprite("ice")),
-  Block_Offsets{ glm::vec2(0, Size.y / 2.f),glm::vec2(Size.x / 2.f, Size.y / 2.f),glm::vec2(0, 0),glm::vec2(Size.x / 2.f, 0) }
+//  Brick Wall Game Object
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+namespace RenderEngine
 {
+	class Sprite;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Ice::Render() const
+class Trees : public Game_Object
 {
-	Render_Block(EBlock_Location::Top_Left);
-	Render_Block(EBlock_Location::Top_Right);
-	Render_Block(EBlock_Location::Bottom_Left);
-	Render_Block(EBlock_Location::Bottom_Right);
-}
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Ice::Render_Block(const EBlock_Location block_location) const
-{
-	Sprites->Render(Position + Block_Offsets[static_cast<size_t>(block_location)], Size / 2.f, Rotation, Layer);
-}
+public:
+	
+	/* block location */
+	enum class EBlock_Location : uint8_t
+	{
+		Top_Left,
+		Top_Right,
+		Bottom_Left,
+		Bottom_Right
+	};
+
+	Trees(const glm::vec2& position,  const glm::vec2& size, const float rotation, const float layer);
+
+	/* Override */
+	virtual void Render() const override;
+
+private:
+	/* Render Block Sprite Location */
+	void Render_Block(const EBlock_Location block_location) const;
+
+	/* Sprite Object */
+	std::shared_ptr<RenderEngine::Sprite> Sprites;
+
+	/* Block Offset location */
+	std::array<glm::vec2, 4> Block_Offsets;
+
+};
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

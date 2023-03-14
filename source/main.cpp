@@ -104,6 +104,7 @@ int main(int argc, char** argv)
 
 	/* background colors */	
 	RenderEngine::Renderer::Set_Clear_Color(0, 0, 0, 1);
+	RenderEngine::Renderer::Set_Depth_Test(true);
 
 	{
 		Resource_Manager::Set_Executable_Path(argv[0]);

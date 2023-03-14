@@ -13,7 +13,7 @@ Eagle::Eagle(const glm::vec2& position, const glm::vec2& size, const float rotat
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Eagle::Render() const
 {
-	Sprites[static_cast<size_t>(Eagle_State)]->Render(Position, Size, Rotation);
+	Sprites[static_cast<size_t>(Eagle_State)]->Render(Position, Size, Rotation, Layer);
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Eagle::Update(const uint64_t delta)

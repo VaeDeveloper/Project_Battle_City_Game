@@ -66,7 +66,7 @@ void Beton_Wall::Render_Block(const EBlock_Location block_location) const
 
 	if (state != EBlock_State::Destroyed)
 	{
-		Sprites->Render(Position + Block_Offsets[static_cast<size_t>(block_location)], Size / 2.f, Rotation);
+		Sprites->Render(Position + Block_Offsets[static_cast<size_t>(block_location)], Size / 2.f, Rotation, Layer);
 	}
 
 }

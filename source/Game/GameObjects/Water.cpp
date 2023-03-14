@@ -25,6 +25,6 @@ void Water::Update(const uint64_t delta)
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Water::Render_Block(const EBlock_Location block_location) const
 {
-	Sprites->Render(Position + Block_Offsets[static_cast<size_t>(block_location)], Size / 2.f, Rotation,W_Sprite_Animator.Get_Current_Frame());
+	Sprites->Render(Position + Block_Offsets[static_cast<size_t>(block_location)], Size / 2.f, Rotation, Layer, W_Sprite_Animator.Get_Current_Frame());
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

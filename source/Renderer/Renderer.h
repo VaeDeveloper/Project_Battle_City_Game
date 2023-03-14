@@ -17,6 +17,7 @@ namespace RenderEngine
 		//============================================================================================================================================================
 		static void Draw(const Vertex_Array& vertex_array, const Index_Buffer& index_buffer, const Shader_Program& shader);
 		static void Set_Clear_Color(float r, float g, float b, float alpha);
+		static void Set_Depth_Test(const bool enable);
 		static void Clear();
 		static void Set_Viewport(unsigned width, unsigned height, unsigned left_offset = 0, unsigned right_offset = 0);
 

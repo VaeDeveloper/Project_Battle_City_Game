@@ -16,18 +16,30 @@ void Renderer::Set_Clear_Color(float r, float g, float b, float alpha)
 {
 	glClearColor(r, g, b, alpha);
 }
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void RenderEngine::Renderer::Set_Depth_Test(const bool enable)
+{
+	if (enable)
+		glEnable(GL_DEPTH_TEST);
+	else
+		glDisable(GL_DEPTH_TEST);
+}
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Renderer::Clear()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void RenderEngine::Renderer::Set_Viewport(unsigned width, unsigned height, unsigned left_offset, unsigned bottom_offset)
 {
 	glViewport(left_offset, bottom_offset, width, height);
 }
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 std::string Renderer::Get_Renderer_Str()
 {
 	return (char*)glGetString(GL_RENDERER);
 }
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 std::string RenderEngine::Renderer::Get_Version_Str()
 {
 	return (char*)glGetString(GL_VERSION);

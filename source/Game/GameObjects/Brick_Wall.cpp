@@ -85,7 +85,7 @@ void Brick_Wall::Render_Brick(const EBrick_Location brick_location) const
 
 	if (state != EBrick_State::Destroyed)
 	{
-		Sprites[static_cast<size_t>(state)]->Render(Position + Block_Offsets[static_cast<size_t>(brick_location)], Size / 2.f, Rotation);
+		Sprites[static_cast<size_t>(state)]->Render(Position + Block_Offsets[static_cast<size_t>(brick_location)], Size / 2.f, Rotation, Layer);
 	}
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

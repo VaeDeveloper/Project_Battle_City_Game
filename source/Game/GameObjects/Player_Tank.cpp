@@ -17,19 +17,19 @@ void Player_Tank::Render() const
 	switch (Orientation)
 	{
 	case Player_Tank::EOrientation::Top:
-		Tank_Sprite_Top->Render(Position, Size, Rotation, Sprite_Anim_Top.Get_Current_Frame());
+		Tank_Sprite_Top->Render(Position, Size, Rotation, Layer, Sprite_Anim_Top.Get_Current_Frame());
 		break;
 
 	case Player_Tank::EOrientation::Bottom:
-		Tank_Sprite_Bottom->Render(Position, Size, Rotation, Sprite_Anim_Bottom.Get_Current_Frame());
+		Tank_Sprite_Bottom->Render(Position, Size, Rotation, Layer, Sprite_Anim_Bottom.Get_Current_Frame());
 		break;
 
 	case Player_Tank::EOrientation::Left:
-		Tank_Sprite_Left->Render(Position, Size, Rotation, Sprite_Anim_Left.Get_Current_Frame());
+		Tank_Sprite_Left->Render(Position, Size, Rotation, Layer, Sprite_Anim_Left.Get_Current_Frame());
 		break;
 
 	case Player_Tank::EOrientation::Right:
-		Tank_Sprite_Right->Render(Position, Size, Rotation, Sprite_Anim_Right.Get_Current_Frame());
+		Tank_Sprite_Right->Render(Position, Size, Rotation, Layer, Sprite_Anim_Right.Get_Current_Frame());
 		break;
 
 	default:
