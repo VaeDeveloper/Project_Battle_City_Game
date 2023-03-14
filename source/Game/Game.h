@@ -31,6 +31,8 @@ public:
 	void Update(const uint64_t delta_time);			/* Update Game */
 	void Set_Key(const int key, const int action);	/* Keybinding */
 	bool Init();									/* Initilize  */
+	size_t Get_Curr_Level_Width() const;
+	size_t Get_Curr_Level_Height() const;
 	//================================================================================================================================================================
 
 private:

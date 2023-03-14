@@ -93,8 +93,13 @@ bool Game::Init()
 		return false;
 	}
 
+	/* Loading number levels: Get_Levels()[number_level] */
+	ALevel = std::make_unique<Level>(Resource_Manager::Get_Levels()[1]);
 
 	/* Camera Projection */
+	Window_Size.x = static_cast<int>(ALevel->Get_Level_Width());
+	Window_Size.y = static_cast<int>(ALevel->Get_Level_Height());
+
 	glm::mat4 projection_matrix = glm::ortho(0.0f, static_cast<float>(Window_Size.x), 0.0f, static_cast<float>(Window_Size.y), -100.0f, 100.0f);
 
 	
@@ -107,9 +112,17 @@ bool Game::Init()
 	Player_Tank_Actor = std::make_unique<Player_Tank>(0.0000001f, glm::vec2(0), glm::vec2(16.f, 16.f), 0.f);
 
 
-	/* Loading number levels: Get_Levels()[number_level] */
-	ALevel = std::make_unique<Level>(Resource_Manager::Get_Levels()[1]);
 
 	return true;
+}
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+size_t Game::Get_Curr_Level_Width() const
+{
+	return ALevel->Get_Level_Width();
+}
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+size_t Game::Get_Curr_Level_Height() const
+{
+	return ALevel->Get_Level_Height();
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -22,7 +22,8 @@ void GLFW_Window_Size_Callback(GLFWwindow* window, int width, int height)
 	window_size.x = width;
 	window_size.y = height;
 
-	const float aspect_ratio = 13.f / 14.f;
+	const float aspect_ratio = static_cast<float>(game->Get_Curr_Level_Width()) / game->Get_Curr_Level_Height();
+	
 	unsigned viewport_width = window_size.x;
 	unsigned viewport_height = window_size.y;
 	unsigned viewport_left_offset = 0;
@@ -109,6 +110,7 @@ int main(int argc, char** argv)
 	{
 		Resource_Manager::Set_Executable_Path(argv[0]);
 		game->Init();
+		glfwSetWindowSize(main_window,static_cast<int>( game->Get_Curr_Level_Width()), static_cast<int>(game->Get_Curr_Level_Height()));
 
 		auto last_time = std::chrono::high_resolution_clock::now();
 

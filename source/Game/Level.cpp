@@ -9,6 +9,7 @@
 #include "GameObjects\Ice.h"
 #include "GameObjects\Water.h"
 #include "GameObjects\Eagle.h"
+#include "GameObjects\Border.h"
 
 unsigned BLOCK_SIZE = 16;
 
@@ -69,7 +70,7 @@ std::shared_ptr<Game_Object> Create_Game_Obj_From_Discr(const char descr, const 
 		return std::make_shared<Ice>(position, size, rotation, -1.f);
 
 	case 'E':
-		return std::make_shared<Eagle>(position, size, rotation, 0.f);
+		return std::make_shared<Eagle>(position, size, rotation, 1.f);
 
 	case 'D':
 		return nullptr;
@@ -87,7 +88,7 @@ std::shared_ptr<Game_Object> Create_Game_Obj_From_Discr(const char descr, const 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Level::Level(std::vector<std::string> level_discr)
-	:Width(0), Heigth(0), Map_Objects{}
+:Width(0), Heigth(0), Map_Objects{}
 {
 	if (level_discr.empty())
 	{
@@ -98,9 +99,9 @@ Level::Level(std::vector<std::string> level_discr)
 	Width = level_discr[0].length();
 	Heigth = level_discr.size();
 
-	Map_Objects.reserve(Width * Heigth);
+	Map_Objects.reserve(Width * Heigth + 4);
 
-	unsigned curr_bottom_offset = static_cast<unsigned>(BLOCK_SIZE * (Heigth - 1));
+	unsigned curr_bottom_offset = static_cast<unsigned>(BLOCK_SIZE * (Heigth - 1) + BLOCK_SIZE / 2.0f);
 
 	for (const std::string& curr_row : level_discr)
 	{
@@ -114,6 +115,23 @@ Level::Level(std::vector<std::string> level_discr)
 		
 		curr_bottom_offset -= BLOCK_SIZE;
 	}
+
+
+
+	int top_height = Heigth * BLOCK_SIZE + BLOCK_SIZE / 2;
+
+	/* Bottom Border */
+	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, 0.0f), glm::vec2(Width * BLOCK_SIZE, BLOCK_SIZE / 2.0f), 0.0f, 0.0f));
+
+	/* Top Border */
+	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, top_height), glm::vec2(Width * BLOCK_SIZE, BLOCK_SIZE / 2.f), 0.0f, 0.f));
+
+	/* Left Border */
+	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2(0.0f, 0.0f), glm::vec2(BLOCK_SIZE, (Heigth * BLOCK_SIZE) * BLOCK_SIZE), 0.0f, 0.0f));
+
+	/* Right Border */
+	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2((Width + 1) * BLOCK_SIZE, 0.0f), glm::vec2(BLOCK_SIZE * 2.0f, (Heigth * BLOCK_SIZE) * BLOCK_SIZE), 0.0f, 0.f));
+
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Level::Render() const
@@ -136,5 +154,15 @@ void Level::Update(const uint64_t delta)
 			curr_map_object->Update(delta);
 		}
 	}
+}
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+size_t Level::Get_Level_Width() const
+{
+	return (Width + 3) * BLOCK_SIZE;
+}
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+size_t Level::Get_Level_Height() const
+{
+	return (Heigth + 1) * BLOCK_SIZE;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------

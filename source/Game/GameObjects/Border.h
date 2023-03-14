@@ -8,40 +8,24 @@
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//  Brick Wall Game Object
+//  Border Game Object
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 namespace RenderEngine
 {
 	class Sprite;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-class Trees : public Game_Object
+class Border : public Game_Object
 {
 public:
 	
-	/* block location */
-	enum class EBlock_Location : uint8_t
-	{
-		Top_Left,
-		Top_Right,
-		Bottom_Left,
-		Bottom_Right
-	};
-
-	Trees(const glm::vec2& position,  const glm::vec2& size, const float rotation, const float layer);
+	Border(const glm::vec2& position,  const glm::vec2& size, const float rotation, const float layer);
 
 	/* Override */
 	virtual void Render() const override;
 
 private:
-	/* Render Block Sprite Location */
-	void Render_Block(const EBlock_Location block_location) const;
-
 	/* Sprite Object */
 	std::shared_ptr<RenderEngine::Sprite> Sprites;
-
-	/* Block Offset location */
-	std::array<glm::vec2, 4> Block_Offsets;
-
 };
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
