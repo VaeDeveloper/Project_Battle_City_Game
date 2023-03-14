@@ -40,6 +40,8 @@ add_executable(${PROJECT_NAME}
 	source/Game/GameObjects/Game_Object.h
 	source/Game/GameObjects/Brick_Wall.cpp
 	source/Game/GameObjects/Brick_Wall.h
+	source/Game/GameObjects/Beton_Wall.cpp
+	source/Game/GameObjects/Beton_Wall.h
 
 )
 

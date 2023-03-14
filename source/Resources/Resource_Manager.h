@@ -5,35 +5,32 @@
 #include <memory>
 #include <map>
 
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//  Renderer::Shader_Program
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 namespace RenderEngine
 {
 	class Shader_Program;
 	class Texture2D;
 	class Sprite;
-
 }
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//  Renderer::Shader_Program
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 class Resource_Manager
 {
-public:
-	//================================================================================================================================================================================================================
-	/*	It is forbidden to use a constructor without parameters and a constructor with a parameter of this class*/
+public: 
+	/* No default constructor !!!
+	It is forbidden to use a constructor without parameters and a constructor with a parameter of this class*/
 	~Resource_Manager() = delete;
 	Resource_Manager() = delete;
 	Resource_Manager(const Resource_Manager&) = delete;
 	Resource_Manager& operator=(const Resource_Manager&) = delete;
 	Resource_Manager& operator=(Resource_Manager&&) = delete;
 	Resource_Manager(Resource_Manager&&) = delete;
-	//================================================================================================================================================================================================================
+	//===============================================================================================================
 
 
-
-
-	//================================================================================================================================================================================================================
-
+	/* Set Path resource */
 	static void Set_Executable_Path(const std::string& executable_path);
 	static void Unload_All_Resources();
 
@@ -64,32 +61,28 @@ public:
 	/* Getter Levels */
 	static const std::vector<std::vector<std::string>> Get_Levels() { return Levels; }
 
-	//================================================================================================================================================================================================================
-
 
 private:
-	//================================================================================================================================================================================================================
+	/* Get String in file */
 	static std::string Get_File_String(const std::string& relative_file_path);
 
-
-
-	//================================================================================================================================================================================================================
 	/* Map For Shaders */
 	typedef std::map<const std::string, std::shared_ptr<RenderEngine::Shader_Program>> Shader_Programs_Map;
 	static Shader_Programs_Map Shader_Programs;
 	
-	/* Map For Textures*/
+	/* Map For Textures */
 	typedef std::map<const std::string, std::shared_ptr<RenderEngine::Texture2D>> Textures_Map;
 	static Textures_Map Textures;
 
 	/* Map For Sprite */
-	typedef std::map<const std::string, std::shared_ptr<RenderEngine::Sprite>> Sprite_Map;
+	typedef std::map<const std::string, std::shared_ptr<RenderEngine::Sprite>> Sprite_Map;						
 	static Sprite_Map Sprites;
 
+	/* Levels Vector str object */
 	static std::vector<std::vector<std::string>> Levels;
 
+	/* Path str object */
 	static std::string Path;
-	//================================================================================================================================================================================================================
 
 };
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

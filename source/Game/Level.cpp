@@ -4,6 +4,7 @@
 
 
 #include "GameObjects\Brick_Wall.h"
+#include "GameObjects\Beton_Wall.h"
 
 unsigned BLOCK_SIZE = 16;
 
@@ -46,6 +47,21 @@ std::shared_ptr<Game_Object> Create_Game_Obj_From_Discr(const char descr, const 
 
 	case 'J':
 		return std::make_shared<Brick_Wall>(Brick_Wall::EBrick_Wall_Type::Top_Right, position, size, rotation);
+
+	case '5':
+		return std::make_shared<Beton_Wall>(Beton_Wall::EBeton_Wall_Type::Right, position, size, rotation);
+
+	case '6':
+		return std::make_shared<Beton_Wall>(Beton_Wall::EBeton_Wall_Type::Bottom, position, size, rotation);
+
+	case '7':
+		return std::make_shared<Beton_Wall>(Beton_Wall::EBeton_Wall_Type::Left, position, size, rotation);
+
+	case '8':
+		return std::make_shared<Beton_Wall>(Beton_Wall::EBeton_Wall_Type::Top, position, size, rotation);
+
+	case '9':
+		return std::make_shared<Beton_Wall>(Beton_Wall::EBeton_Wall_Type::All, position, size, rotation);
 
 
 	case 'D':

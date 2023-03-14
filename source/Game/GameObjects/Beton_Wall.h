@@ -15,11 +15,11 @@ namespace RenderEngine
 	class Sprite;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-class Brick_Wall : public Game_Object
+class Beton_Wall : public Game_Object
 {
 public:
 	
-	enum class EBrick_Wall_Type			/* Brick Wall Type */
+	enum class EBeton_Wall_Type			/* Beton Wall Type */
 	{
 		All,
 		Top,
@@ -33,27 +33,13 @@ public:
 
 	};
 
-	enum class EBrick_State				/* State Bricks */
+	enum class EBlock_State				/* State Bricks */
 	{
-		All = 0,
-		Top_Left,
-		Top_Right,
-		Top,
-		Bottom_Left,
-		Left,
-		Top_Right_Bottom_Left,
-		Top_Bottom_Left,
-		Bottom_Right,
-		Top_Left_Bottom_Right,
-		Right,
-		Top_Bottom_Right,
-		Bottom,
-		Top_Left_Bottom,
-		Top_Right_Bottom,
+		Enabled = 0,
 		Destroyed
 	};
 
-	enum class EBrick_Location
+	enum class EBlock_Location
 	{
 		Top_Left,
 		Top_Right,
@@ -61,17 +47,18 @@ public:
 		Bottom_Right
 	};
 
-	Brick_Wall(const EBrick_Wall_Type brick_wall_type, const glm::vec2& position,  const glm::vec2& size, const float rotation);
+	Beton_Wall(const EBeton_Wall_Type beton_wall_type, const glm::vec2& position,  const glm::vec2& size, const float rotation);
 
 	/* Override */
 	virtual void Render() const override;
 	virtual void Update(const uint64_t delta) override;
 
 private:
-	void Render_Brick(const EBrick_Location brick_location) const;
+	void Render_Block(const EBlock_Location block_location) const;
 
-	std::array<EBrick_State, 4> Curr_Brick_State;
-	std::array<std::shared_ptr<RenderEngine::Sprite>, 15> Sprites;
+	std::array<EBlock_State, 4> Curr_Block_State;
+	std::shared_ptr<RenderEngine::Sprite> Sprites;
 	std::array<glm::vec2, 4> Block_Offsets;
+
 };
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -21,31 +21,42 @@ namespace RenderEngine
 class Player_Tank : public Game_Object
 {
 public:
-	//================================================================================================================================================================
 	Player_Tank(const float velocity,const glm::vec2 position,const glm::vec2 size);
-	//================================================================================================================================================================
 
-	enum class EOrientation : unsigned char					/* Orientation Movement Enum */
+	/*-------------------------------------------------------*/
+	/* Orientation Movement Enum */
+	enum class EOrientation : unsigned char
 	{
 		Top,
 		Bottom,
 		Left,
 		Right
 	};
+	/*-------------------------------------------------------*/
 
-	//============================================================================================================================================================
-	/* override */
-	void Render() const override;								/* Render Player Tank */
-	void Update(const uint64_t delta_seconds) override;			/* Update Animation Player Sprite */
 
-	/* orientation and move player */
-	void Set_Orientation(const EOrientation orientation); 		/* Setter Orientation Player on game view*/
-	void Move_Player(const bool move);							/* Move Player Method*/
-	//============================================================================================================================================================
+	/*	OVERRIDE  */
+	/*-------------------------------------------------------*/
+	/* Render Player Tank */
+	void Render() const override;
+
+	/* Update Animation Player Sprite */
+	void Update(const uint64_t delta_seconds) override;
+	/*-------------------------------------------------------*/
+
+
+
+	/*-------------------------------------------------------*/
+	/* Orientation and move player */
+	/* Setter Orientation Player on game view*/
+	void Set_Orientation(const EOrientation orientation); 	
+
+	/* Move Player Method*/
+	void Move_Player(const bool move);							
+	/*-------------------------------------------------------*/
 
 private:
-	//================================================================================================================================================================
-	bool Move;													/* */
+	bool Move;													/* Moving Boolean */
 	float Velocity;												/* Speed velocity float */
 	glm::vec2 Move_Offset;										/* Vector Movement offset */
 	EOrientation Orientation;									/* Orientation Enum */

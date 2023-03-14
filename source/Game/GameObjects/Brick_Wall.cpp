@@ -5,8 +5,11 @@
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Brick_Wall::Brick_Wall(const EBrick_Wall_Type brick_wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation)
-: Game_Object(position, size, rotation), Curr_Brick_State{ EBrick_State::Destroyed,EBrick_State::Destroyed,EBrick_State::Destroyed,EBrick_State::Destroyed }
+: Game_Object(position, size, rotation), Curr_Brick_State{ EBrick_State::Destroyed,EBrick_State::Destroyed,EBrick_State::Destroyed,EBrick_State::Destroyed },
+  Block_Offsets{glm::vec2(0, Size.y / 2.f),glm::vec2(Size.x / 2.f, Size.y / 2.f),glm::vec2(0, 0),glm::vec2(Size.x / 2.f, 0)
+}
 {
+	/* Gettter Sprite for level render */
 	Sprites[static_cast<size_t>(EBrick_State::All)]					       = Resource_Manager::Get_Sprite("brickWall_All");
 	Sprites[static_cast<size_t>(EBrick_State::Top_Left)]			       = Resource_Manager::Get_Sprite("brickWall_TopLeft");
 	Sprites[static_cast<size_t>(EBrick_State::Top_Right)]			       = Resource_Manager::Get_Sprite("brickWall_TopRight");
@@ -23,6 +26,8 @@ Brick_Wall::Brick_Wall(const EBrick_Wall_Type brick_wall_type, const glm::vec2& 
 	Sprites[static_cast<size_t>(EBrick_State::Top_Left_Bottom)]		       = Resource_Manager::Get_Sprite("brickWall_TopLeft_Bottom");
 	Sprites[static_cast<size_t>(EBrick_State::Top_Right_Bottom)]	       = Resource_Manager::Get_Sprite("brickWall_TopRight_Bottom");
 
+
+	
 	switch (brick_wall_type)
 	{
 	case EBrick_Wall_Type::All:
@@ -64,6 +69,7 @@ Brick_Wall::Brick_Wall(const EBrick_Wall_Type brick_wall_type, const glm::vec2& 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Brick_Wall::Render() const
 {
+	/* Render brick details */
 	Render_Brick(EBrick_Location::Top_Left);
 	Render_Brick(EBrick_Location::Top_Right);
 	Render_Brick(EBrick_Location::Bottom_Left);
@@ -75,20 +81,11 @@ void Brick_Wall::Update(const uint64_t delta)
 }
 void Brick_Wall::Render_Brick(const EBrick_Location brick_location) const
 {
-	static const std::array<glm::vec2, 4> offsets =
-	{
-		glm::vec2(0, Size.y / 2.f),
-		glm::vec2(Size.x / 2.f, Size.y / 2.f),
-		glm::vec2(0, 0),
-		glm::vec2(Size.x / 2.f, 0)
-	};
-
 	const EBrick_State state = Curr_Brick_State[static_cast<size_t>(brick_location)];
 
 	if (state != EBrick_State::Destroyed)
 	{
-		Sprites[static_cast<size_t>(state)]->Render(Position + offsets[static_cast<size_t>(brick_location)], Size / 2.f, Rotation);
+		Sprites[static_cast<size_t>(state)]->Render(Position + Block_Offsets[static_cast<size_t>(brick_location)], Size / 2.f, Rotation);
 	}
-
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
