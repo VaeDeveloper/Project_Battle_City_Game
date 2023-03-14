@@ -27,9 +27,12 @@ public:
 	Resource_Manager& operator=(const Resource_Manager&) = delete;
 	Resource_Manager& operator=(Resource_Manager&&) = delete;
 	Resource_Manager(Resource_Manager&&) = delete;
-	//===============================================================================================================
+	/*----------------------------------------------------------------------------------------------------------*/
 
 
+
+	/* Functionality */
+	/*----------------------------------------------------------------------------------------------------------*/
 	/* Set Path resource */
 	static void Set_Executable_Path(const std::string& executable_path);
 	static void Unload_All_Resources();
@@ -60,6 +63,7 @@ public:
 
 	/* Getter Levels */
 	static const std::vector<std::vector<std::string>> Get_Levels() { return Levels; }
+	/*----------------------------------------------------------------------------------------------------------*/
 
 
 private:

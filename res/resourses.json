@@ -217,15 +217,15 @@
         "frames" : [
             {
                 "subTexture" : "water1",
-                "duration"   : 500
+                "duration"   : 500000000
             },
             {
                 "subTexture" : "water2",
-                "duration"   : 500
+                "duration"   : 500000000
             },
             {
                 "subTexture" : "water3",
-                "duration"   : 500
+                "duration"   : 500000000
             }
         ]
     },
@@ -418,11 +418,11 @@
         "frames" : [
             {
                 "subTexture" : "bigExplosion1_bottom_right",
-                "duration"   : 500
+                "duration"   : 500000000
             },
             {
                 "subTexture" : "bigExplosion2_bottom_right",
-                "duration"   : 500
+                "duration"   : 500000000
             }
         ]
     },

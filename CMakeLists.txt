@@ -42,7 +42,14 @@ add_executable(${PROJECT_NAME}
 	source/Game/GameObjects/Brick_Wall.h
 	source/Game/GameObjects/Beton_Wall.cpp
 	source/Game/GameObjects/Beton_Wall.h
-
+	source/Game/GameObjects/Trees.cpp
+	source/Game/GameObjects/Trees.h
+	source/Game/GameObjects/Ice.cpp
+	source/Game/GameObjects/Ice.h
+	source/Game/GameObjects/Water.cpp
+	source/Game/GameObjects/Water.h
+	source/Game/GameObjects/Eagle.cpp
+	source/Game/GameObjects/Eagle.h
 )
 
 
