@@ -28,7 +28,7 @@ public:
 		Bottom_Right
 	};
 
-	Ice(const glm::vec2& position,  const glm::vec2& size, const float rotation);
+	Ice(const glm::vec2& position,  const glm::vec2& size, const float rotation, const float layer);
 
 	/* Override */
 	virtual void Render() const override;

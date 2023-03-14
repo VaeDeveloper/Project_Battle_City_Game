@@ -4,8 +4,8 @@
 #include "../../Resources/Resource_Manager.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Beton_Wall::Beton_Wall(const EBeton_Wall_Type beton_wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation)
-: Game_Object(position, size, rotation), Curr_Block_State{ EBlock_State::Destroyed,EBlock_State::Destroyed,EBlock_State::Destroyed,EBlock_State::Destroyed },
+Beton_Wall::Beton_Wall(const EBeton_Wall_Type beton_wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation,const float layer)
+: Game_Object(position, size, rotation,layer), Curr_Block_State{ EBlock_State::Destroyed,EBlock_State::Destroyed,EBlock_State::Destroyed,EBlock_State::Destroyed },
   Sprites(Resource_Manager::Get_Sprite("betonWall")),
   Block_Offsets{ glm::vec2(0, Size.y / 2.f),glm::vec2(Size.x / 2.f, Size.y / 2.f),glm::vec2(0, 0),glm::vec2(Size.x / 2.f, 0) }
 {

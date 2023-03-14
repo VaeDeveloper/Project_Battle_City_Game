@@ -61,7 +61,7 @@ public:
 		Bottom_Right
 	};
 
-	Brick_Wall(const EBrick_Wall_Type brick_wall_type, const glm::vec2& position,  const glm::vec2& size, const float rotation);
+	Brick_Wall(const EBrick_Wall_Type brick_wall_type, const glm::vec2& position,  const glm::vec2& size, const float rotation, const float layer);
 
 	/* Override */
 	virtual void Render() const override;

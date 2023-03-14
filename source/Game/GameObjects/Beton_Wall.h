@@ -47,7 +47,7 @@ public:
 		Bottom_Right
 	};
 
-	Beton_Wall(const EBeton_Wall_Type beton_wall_type, const glm::vec2& position,  const glm::vec2& size, const float rotation);
+	Beton_Wall(const EBeton_Wall_Type beton_wall_type, const glm::vec2& position,  const glm::vec2& size, const float rotation, const float layer);
 
 	/* Override */
 	virtual void Render() const override;

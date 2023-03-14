@@ -4,8 +4,8 @@
 #include "../../Resources/Resource_Manager.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Player_Tank::Player_Tank( const float velocity, const glm::vec2 position, const glm::vec2 size)
-: Game_Object(position,size, 0.f),Orientation(EOrientation::Top), Move(false),Velocity(velocity), Move_Offset(glm::vec2(0.0f, 1.0f)),
+Player_Tank::Player_Tank( const float velocity, const glm::vec2 position, const glm::vec2 size, const float layer)
+: Game_Object(position,size, 0.f, layer),Orientation(EOrientation::Top), Move(false),Velocity(velocity), Move_Offset(glm::vec2(0.0f, 1.0f)),
   Tank_Sprite_Top(Resource_Manager::Get_Sprite("Tank_Top_State")), Tank_Sprite_Bottom(Resource_Manager::Get_Sprite("Tank_Bottom_State")),
   Tank_Sprite_Left(Resource_Manager::Get_Sprite("Tank_Left_State")), Tank_Sprite_Right(Resource_Manager::Get_Sprite("Tank_Right_State")),
   Sprite_Anim_Top(Tank_Sprite_Top),Sprite_Anim_Bottom(Tank_Sprite_Bottom),Sprite_Anim_Left(Tank_Sprite_Left),Sprite_Anim_Right(Tank_Sprite_Right)

@@ -53,7 +53,7 @@ namespace RenderEngine
 
 
 		//============================================================================================================================================================
-		void Render(const glm::vec2& position, const glm::vec2& size, const float rotation, const size_t frame_id = 0) const;	/* Render */
+		void Render(const glm::vec2& position, const glm::vec2& size, const float rotation,const float layer = 0, const size_t frame_id = 0) const;	/* Render */
 		uint64_t Get_Frame_Duration(const size_t frame_id) const;																/* Getter Frame Duration */
 		size_t Get_Frames_Count() const;
 		void Insert_Frame(std::vector<Frame_Discription> frames_discriptions);

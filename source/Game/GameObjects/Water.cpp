@@ -4,8 +4,8 @@
 #include "../../Resources/Resource_Manager.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Water::Water(const glm::vec2& position, const glm::vec2& size, const float rotation)
-: Game_Object(position, size, rotation),Sprites(Resource_Manager::Get_Sprite("water")),W_Sprite_Animator(Sprites),
+Water::Water(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer)
+: Game_Object(position, size, rotation, layer),Sprites(Resource_Manager::Get_Sprite("water")),W_Sprite_Animator(Sprites),
   Block_Offsets{ glm::vec2(0, Size.y / 2.f),glm::vec2(Size.x / 2.f, Size.y / 2.f),glm::vec2(0, 0),glm::vec2(Size.x / 2.f, 0) }
 {
 }

@@ -21,7 +21,7 @@ namespace RenderEngine
 class Player_Tank : public Game_Object
 {
 public:
-	Player_Tank(const float velocity,const glm::vec2 position,const glm::vec2 size);
+	Player_Tank(const float velocity,const glm::vec2 position,const glm::vec2 size, const float layer);
 
 	/*-------------------------------------------------------*/
 	/* Orientation Movement Enum */

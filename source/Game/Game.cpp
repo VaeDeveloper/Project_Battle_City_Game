@@ -104,7 +104,7 @@ bool Game::Init()
 
 
 	/* Loding Player in level */
-	Player_Tank_Actor = std::make_unique<Player_Tank>(0.0000001f, glm::vec2(0), glm::vec2(16.f, 16.f));
+	Player_Tank_Actor = std::make_unique<Player_Tank>(0.0000001f, glm::vec2(0), glm::vec2(16.f, 16.f), 1.f);
 
 
 	/* Loading number levels: Get_Levels()[number_level] */

@@ -60,7 +60,7 @@ Sprite::Sprite(std::shared_ptr<Texture2D> texture, std::string initial_subtextur
 
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Sprite::Render(const glm::vec2& position, const glm::vec2& size, const float rotation, const size_t frame_id) const
+void Sprite::Render(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer , const size_t frame_id) const
 {
 	if (Last_Frame_ID != frame_id)
 	{
@@ -91,6 +91,7 @@ void Sprite::Render(const glm::vec2& position, const glm::vec2& size, const floa
 	model = glm::scale(model, glm::vec3(size, 1.0f));
 
 	Shader->Set_Matrix4("model_mat", model);
+	Shader->Set_Float("layer", layer);
 
 	glActiveTexture(GL_TEXTURE0);
 	Texture->Bind_Texture();

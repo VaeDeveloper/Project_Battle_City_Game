@@ -4,8 +4,8 @@
 #include "../../Resources/Resource_Manager.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Brick_Wall::Brick_Wall(const EBrick_Wall_Type brick_wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation)
-: Game_Object(position, size, rotation), Curr_Brick_State{ EBrick_State::Destroyed,EBrick_State::Destroyed,EBrick_State::Destroyed,EBrick_State::Destroyed },
+Brick_Wall::Brick_Wall(const EBrick_Wall_Type brick_wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer)
+: Game_Object(position, size, rotation,layer), Curr_Brick_State{ EBrick_State::Destroyed,EBrick_State::Destroyed,EBrick_State::Destroyed,EBrick_State::Destroyed },
   Block_Offsets{glm::vec2(0, Size.y / 2.f),glm::vec2(Size.x / 2.f, Size.y / 2.f),glm::vec2(0, 0),glm::vec2(Size.x / 2.f, 0)
 }
 {

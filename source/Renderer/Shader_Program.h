@@ -37,8 +37,11 @@ namespace RenderEngine
 		/* Use shaders method */
 		void Use_Shader() const;
 
-		/* Sets the shader uniform */
+		/* Sets the shader uniform int */
 		void Set_Int(const std::string& name, const GLint value);
+
+		/* Sets the shader uniform float */
+		void Set_Float(const std::string& name, const GLfloat value);
 
 		/* Set Matrix for Screen Space*/
 		void Set_Matrix4(const std::string& name, const glm::mat4& matrix);
