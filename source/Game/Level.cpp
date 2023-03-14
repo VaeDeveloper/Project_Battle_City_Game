@@ -105,13 +105,9 @@ Level::Level(std::vector<std::string> level_discr)
 			curr_left_offset += BLOCK_SIZE;
 			
 		}
+		
 		curr_bottom_offset -= BLOCK_SIZE;
-
-
 	}
-
-
-
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Level::Render() const

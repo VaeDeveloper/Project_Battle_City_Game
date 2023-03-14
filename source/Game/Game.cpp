@@ -93,15 +93,22 @@ bool Game::Init()
 		return false;
 	}
 
+
+	/* Camera Projection */
 	glm::mat4 projection_matrix = glm::ortho(0.0f, static_cast<float>(Window_Size.x), 0.0f, static_cast<float>(Window_Size.y), -100.0f, 100.0f);
 
+	
 	sprite_shader_program->Use_Shader();
 	sprite_shader_program->Set_Int("tex", 0);
 	sprite_shader_program->Set_Matrix4("projection_mat", projection_matrix);
 
+
+	/* Loding Player in level */
 	Player_Tank_Actor = std::make_unique<Player_Tank>(0.0000001f, glm::vec2(0), glm::vec2(16.f, 16.f));
 
-	ALevel = std::make_unique<Level>(Resource_Manager::Get_Levels()[0]);
+
+	/* Loading number levels: Get_Levels()[number_level] */
+	ALevel = std::make_unique<Level>(Resource_Manager::Get_Levels()[1]);
 
 	return true;
 }
