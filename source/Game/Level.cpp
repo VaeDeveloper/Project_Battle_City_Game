@@ -11,8 +11,6 @@
 #include "GameObjects\Eagle.h"
 #include "GameObjects\Border.h"
 
-unsigned BLOCK_SIZE = 16;
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 std::shared_ptr<Game_Object> Create_Game_Obj_From_Discr(const char descr, const glm::vec2& position, const glm::vec2& size, const float rotation)
 {
@@ -88,7 +86,7 @@ std::shared_ptr<Game_Object> Create_Game_Obj_From_Discr(const char descr, const 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Level::Level(std::vector<std::string> level_discr)
-:Width(0), Heigth(0), Map_Objects{}
+:Width(0), Height(0), Map_Objects{}
 {
 	if (level_discr.empty())
 	{
@@ -97,11 +95,20 @@ Level::Level(std::vector<std::string> level_discr)
 	}
 
 	Width = level_discr[0].length();
-	Heigth = level_discr.size();
+	Height = level_discr.size();
 
-	Map_Objects.reserve(Width * Heigth + 4);
+	/* curr Player 1 and Player 2 position */
+	Player_Respawn_1 = { BLOCK_SIZE * (Width / 2 - 1), BLOCK_SIZE / 2 };
+	Player_Respawn_2 = { BLOCK_SIZE * (Width / 2 + 3), BLOCK_SIZE / 2 };
 
-	unsigned curr_bottom_offset = static_cast<unsigned>(BLOCK_SIZE * (Heigth - 1) + BLOCK_SIZE / 2.0f);
+	/* curr Enemy 1, 2 ,3 position */
+	Enemy_Respawn_1 = { BLOCK_SIZE					  , BLOCK_SIZE * Height - BLOCK_SIZE / 2 };
+	Enemy_Respawn_2 = { BLOCK_SIZE * (Width / 2 + 1)  , BLOCK_SIZE * Height - BLOCK_SIZE / 2 };
+	Enemy_Respawn_3 = { BLOCK_SIZE * Width            , BLOCK_SIZE * Height - BLOCK_SIZE / 2 };
+
+	Map_Objects.reserve(Width * Height + 4);
+
+	unsigned curr_bottom_offset = static_cast<unsigned>(BLOCK_SIZE * (Height - 1) + BLOCK_SIZE / 2.0f);
 
 	for (const std::string& curr_row : level_discr)
 	{
@@ -109,7 +116,33 @@ Level::Level(std::vector<std::string> level_discr)
 
 		for (const char curr_element : curr_row)
 		{
-			Map_Objects.emplace_back(Create_Game_Obj_From_Discr(curr_element, glm::vec2(curr_left_offset, curr_bottom_offset), glm::vec2(BLOCK_SIZE, BLOCK_SIZE),0.f));
+			switch (curr_element)
+			{
+			case 'K':
+				Player_Respawn_1 = { curr_left_offset, curr_bottom_offset };
+				break;
+
+			case 'L':
+				Player_Respawn_2 = { curr_left_offset, curr_bottom_offset };
+				break;
+
+			case 'M':
+				Enemy_Respawn_1 = { curr_left_offset, curr_bottom_offset };
+				break;
+
+			case 'N':
+				Enemy_Respawn_2 = { curr_left_offset, curr_bottom_offset };
+				break;
+
+			case 'O':
+				Enemy_Respawn_3 = { curr_left_offset, curr_bottom_offset };
+				break;
+
+			default:
+				Map_Objects.emplace_back(Create_Game_Obj_From_Discr(curr_element, glm::vec2(curr_left_offset, curr_bottom_offset), glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.f));
+				break;
+			}
+
 			curr_left_offset += BLOCK_SIZE;
 		}
 		
@@ -118,7 +151,7 @@ Level::Level(std::vector<std::string> level_discr)
 
 
 
-	int top_height = Heigth * BLOCK_SIZE + BLOCK_SIZE / 2;
+	int top_height = Height * BLOCK_SIZE + BLOCK_SIZE / 2;
 
 	/* Bottom Border */
 	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, 0.0f), glm::vec2(Width * BLOCK_SIZE, BLOCK_SIZE / 2.0f), 0.0f, 0.0f));
@@ -127,10 +160,10 @@ Level::Level(std::vector<std::string> level_discr)
 	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, top_height), glm::vec2(Width * BLOCK_SIZE, BLOCK_SIZE / 2.f), 0.0f, 0.f));
 
 	/* Left Border */
-	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2(0.0f, 0.0f), glm::vec2(BLOCK_SIZE, (Heigth * BLOCK_SIZE) * BLOCK_SIZE), 0.0f, 0.0f));
+	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2(0.0f, 0.0f), glm::vec2(BLOCK_SIZE, (Height * BLOCK_SIZE) * BLOCK_SIZE), 0.0f, 0.0f));
 
 	/* Right Border */
-	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2((Width + 1) * BLOCK_SIZE, 0.0f), glm::vec2(BLOCK_SIZE * 2.0f, (Heigth * BLOCK_SIZE) * BLOCK_SIZE), 0.0f, 0.f));
+	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2((Width + 1) * BLOCK_SIZE, 0.0f), glm::vec2(BLOCK_SIZE * 2.0f, (Height * BLOCK_SIZE) * BLOCK_SIZE), 0.0f, 0.f));
 
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -163,6 +196,6 @@ size_t Level::Get_Level_Width() const
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 size_t Level::Get_Level_Height() const
 {
-	return (Heigth + 1) * BLOCK_SIZE;
+	return (Height + 1) * BLOCK_SIZE;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
