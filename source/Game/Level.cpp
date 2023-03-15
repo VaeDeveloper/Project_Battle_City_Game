@@ -86,7 +86,8 @@ std::shared_ptr<Game_Object> Create_Game_Obj_From_Discr(const char descr, const 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Level::Level(std::vector<std::string> level_discr)
-:Width(0), Height(0), Map_Objects{}
+:Width(0), Height(0), Map_Objects{}, Player_Respawn_1(0), Player_Respawn_2(0), 
+ Enemy_Respawn_1(0), Enemy_Respawn_2(0),Enemy_Respawn_3(0)
 {
 	if (level_discr.empty())
 	{
@@ -98,17 +99,17 @@ Level::Level(std::vector<std::string> level_discr)
 	Height = level_discr.size();
 
 	/* curr Player 1 and Player 2 position */
-	Player_Respawn_1 = { BLOCK_SIZE * (Width / 2 - 1), BLOCK_SIZE / 2 };
-	Player_Respawn_2 = { BLOCK_SIZE * (Width / 2 + 3), BLOCK_SIZE / 2 };
+	Player_Respawn_1 = { Block_Size * (Width / 2 - 1), Block_Size / 2 };
+	Player_Respawn_2 = { Block_Size * (Width / 2 + 3), Block_Size / 2 };
 
 	/* curr Enemy 1, 2 ,3 position */
-	Enemy_Respawn_1 = { BLOCK_SIZE					  , BLOCK_SIZE * Height - BLOCK_SIZE / 2 };
-	Enemy_Respawn_2 = { BLOCK_SIZE * (Width / 2 + 1)  , BLOCK_SIZE * Height - BLOCK_SIZE / 2 };
-	Enemy_Respawn_3 = { BLOCK_SIZE * Width            , BLOCK_SIZE * Height - BLOCK_SIZE / 2 };
+	Enemy_Respawn_1 = { Block_Size					  , Block_Size * Height - Block_Size / 2 };
+	Enemy_Respawn_2 = { Block_Size * (Width / 2 + 1)  , Block_Size * Height - Block_Size / 2 };
+	Enemy_Respawn_3 = { Block_Size * Width            , Block_Size * Height - Block_Size / 2 };
 
 	Map_Objects.reserve(Width * Height + 4);
 
-	unsigned curr_bottom_offset = static_cast<unsigned>(BLOCK_SIZE * (Height - 1) + BLOCK_SIZE / 2.0f);
+	unsigned curr_bottom_offset = static_cast<unsigned>(Block_Size * (Height - 1) + Block_Size / 2.0f);
 
 	for (const std::string& curr_row : level_discr)
 	{
@@ -139,31 +140,31 @@ Level::Level(std::vector<std::string> level_discr)
 				break;
 
 			default:
-				Map_Objects.emplace_back(Create_Game_Obj_From_Discr(curr_element, glm::vec2(curr_left_offset, curr_bottom_offset), glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.f));
+				Map_Objects.emplace_back(Create_Game_Obj_From_Discr(curr_element, glm::vec2(curr_left_offset, curr_bottom_offset), glm::vec2(Block_Size, Block_Size), 0.f));
 				break;
 			}
 
-			curr_left_offset += BLOCK_SIZE;
+			curr_left_offset += Block_Size;
 		}
 		
-		curr_bottom_offset -= BLOCK_SIZE;
+		curr_bottom_offset -= Block_Size;
 	}
 
 
 
-	int top_height = Height * BLOCK_SIZE + BLOCK_SIZE / 2;
+	int top_height = Height * Block_Size + Block_Size / 2;
 
 	/* Bottom Border */
-	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, 0.0f), glm::vec2(Width * BLOCK_SIZE, BLOCK_SIZE / 2.0f), 0.0f, 0.0f));
+	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2(Block_Size, 0.0f), glm::vec2(Width * Block_Size, Block_Size / 2.0f), 0.0f, 0.0f));
 
 	/* Top Border */
-	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, top_height), glm::vec2(Width * BLOCK_SIZE, BLOCK_SIZE / 2.f), 0.0f, 0.f));
+	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2(Block_Size, top_height), glm::vec2(Width * Block_Size, Block_Size / 2.f), 0.0f, 0.f));
 
 	/* Left Border */
-	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2(0.0f, 0.0f), glm::vec2(BLOCK_SIZE, (Height * BLOCK_SIZE) * BLOCK_SIZE), 0.0f, 0.0f));
+	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2(0.0f, 0.0f), glm::vec2(Block_Size, (Height * Block_Size) * Block_Size), 0.0f, 0.0f));
 
 	/* Right Border */
-	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2((Width + 1) * BLOCK_SIZE, 0.0f), glm::vec2(BLOCK_SIZE * 2.0f, (Height * BLOCK_SIZE) * BLOCK_SIZE), 0.0f, 0.f));
+	Map_Objects.emplace_back(std::make_shared<Border>(glm::vec2((Width + 1) * Block_Size, 0.0f), glm::vec2(Block_Size * 2.0f, (Height * Block_Size) * Block_Size), 0.0f, 0.f));
 
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -191,11 +192,11 @@ void Level::Update(const uint64_t delta)
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 size_t Level::Get_Level_Width() const
 {
-	return (Width + 3) * BLOCK_SIZE;
+	return (Width + 3) * Block_Size;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 size_t Level::Get_Level_Height() const
 {
-	return (Height + 1) * BLOCK_SIZE;
+	return (Height + 1) * Block_Size;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
