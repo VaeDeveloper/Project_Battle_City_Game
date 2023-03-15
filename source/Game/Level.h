@@ -35,7 +35,7 @@ public:
 	const glm::vec2& Get_Enemy_Respawn_3() const { return Enemy_Respawn_3; }
 	/*-------------------------------------------------------------*/
 
-	unsigned Block_Size = 16;
+	static constexpr unsigned Block_Size = 16;
 
 
 private:
