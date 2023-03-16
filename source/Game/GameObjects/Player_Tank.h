@@ -57,6 +57,8 @@ public:
 
 private:
 	bool Move;													/* Moving Boolean */
+	bool bSpawning;												/* Spawning ? */
+	bool hasShield;												/* has Shield ? */
 	double Velocity;											/* Speed velocity float */
 	glm::vec2 Move_Offset;										/* Vector Movement offset */
 	EOrientation Orientation;									/* Orientation Enum */
@@ -72,8 +74,14 @@ private:
 	RenderEngine::Sprite_Animator Sprite_Anim_Bottom;
 	RenderEngine::Sprite_Animator Sprite_Anim_Left;
 	RenderEngine::Sprite_Animator Sprite_Anim_Right;
-	//================================================================================================================================================================
 
+	///* Tank Sprite Spawn and Animatior Spawn Sprite*/
+	//std::shared_ptr<RenderEngine::Sprite> Tank_Sprite_Spawn;
+	//RenderEngine::Sprite_Animator Sprite_Animatior_Spawn;
+	//
+	///* Tank Sprite Shiled And Animator Shiled Sprite */
+	//std::shared_ptr<RenderEngine::Sprite> Tank_Sprite_Shield;
+	//RenderEngine::Sprite_Animator Sprite_Animatior_Shield;
 
 };
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
