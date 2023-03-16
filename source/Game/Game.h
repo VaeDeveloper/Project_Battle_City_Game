@@ -22,11 +22,11 @@ class Game
 {
 public:
 	~Game();
-	Game(const glm::ivec2 window_size);				/* constr */
+	Game(const glm::ivec2 window_size);				/* constr	   */
 
 	/*-------------------------------------------------------------*/
 	void Render();									/* Game Render */
-	void Update(const uint64_t delta_time);			/* Update Game */
+	void Update(const double delta_time);			/* Update Game */
 	void Set_Key(const int key, const int action);	/* Keybinding  */
 	bool Init();									/* Initilize   */
 	size_t Get_Curr_Level_Width() const;			
@@ -34,11 +34,11 @@ public:
 	/*-------------------------------------------------------------*/
 
 private:
-	/*-------------------------------------------------------------*/
-	std::array<bool, 349> Keys;						/* Array Key bind */
-	glm::ivec2 Window_Size;							/* Window Size    */
+	/*----------------------------------------------------------------------------------*/
+	std::array<bool, 349> Keys;						/* Array Key bind					*/
+	glm::ivec2 Window_Size;							/* Window Size					    */
 	EGame_State Current_Game_States;				/* Game State enum class (uns char) */
-	std::unique_ptr<Player_Tank> Player_Tank_Actor;	/* Player Actor   */
+	std::unique_ptr<Player_Tank> Player_Tank_Actor;	/* Player Actor						*/
 	std::unique_ptr<Level> ALevel;
 };
 //-------------------------------------------------------------------------------------------------------------------------------------

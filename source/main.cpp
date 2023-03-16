@@ -110,19 +110,18 @@ int main(int argc, char** argv)
 	{
 		Resource_Manager::Set_Executable_Path(argv[0]);
 		game->Init();
-		glfwSetWindowSize(main_window,static_cast<int>( game->Get_Curr_Level_Width()), static_cast<int>(game->Get_Curr_Level_Height()));
+		glfwSetWindowSize(main_window,static_cast<int>(4 * game->Get_Curr_Level_Width()), static_cast<int>(4 * game->Get_Curr_Level_Height()));
 
 		auto last_time = std::chrono::high_resolution_clock::now();
 
 		/* Render LOOP */
 		while (!glfwWindowShouldClose(main_window))
 		{
-
 			/* Poll for and process events */
 			glfwPollEvents();
 
 			auto current_time = std::chrono::high_resolution_clock::now();
-			uint64_t duration = std::chrono::duration_cast<std::chrono::nanoseconds>(current_time - last_time).count();
+			double duration = std::chrono::duration<double, std::milli>(current_time - last_time).count();
 			last_time = current_time;
 
 			/* Update duration */
@@ -136,7 +135,6 @@ int main(int argc, char** argv)
 
 			/* Swap front and back buffers */
 			glfwSwapBuffers(main_window);
-
 		}
 
 		/* exit the game poiner NULLPTR*/

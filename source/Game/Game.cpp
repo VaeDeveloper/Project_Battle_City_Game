@@ -39,7 +39,7 @@ void Game::Render()
 		ALevel->Render();
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Game::Update(const uint64_t delta_time)
+void Game::Update(const double delta_time)
 {
 	if (ALevel)
 		ALevel->Update(delta_time);
@@ -109,9 +109,7 @@ bool Game::Init()
 
 
 	/* Loding Player in level */
-	Player_Tank_Actor = std::make_unique<Player_Tank>(0.0000001f, ALevel->Get_Player_Respawn_1(), glm::vec2(Level::Block_Size, Level::Block_Size), 0.f);
-
-
+	Player_Tank_Actor = std::make_unique<Player_Tank>(0.05, ALevel->Get_Player_Respawn_1(), glm::vec2(Level::Block_Size, Level::Block_Size), 0.f);
 
 	return true;
 }

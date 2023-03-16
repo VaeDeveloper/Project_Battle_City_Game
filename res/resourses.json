@@ -217,15 +217,15 @@
         "frames" : [
             {
                 "subTexture" : "water1",
-                "duration"   : 500000000
+                "duration"   : 500
             },
             {
                 "subTexture" : "water2",
-                "duration"   : 500000000
+                "duration"   : 500
             },
             {
                 "subTexture" : "water3",
-                "duration"   : 500000000
+                "duration"   : 500
             }
         ]
     },
@@ -418,11 +418,11 @@
         "frames" : [
             {
                 "subTexture" : "bigExplosion1_bottom_right",
-                "duration"   : 500000000
+                "duration"   : 500
             },
             {
                 "subTexture" : "bigExplosion2_bottom_right",
-                "duration"   : 500000000
+                "duration"   : 500
             }
         ]
     },
@@ -480,11 +480,11 @@
             [        
                  {
                      "subTexture"       : "yellowType1_Top1",
-                     "duration"         : 500000000
+                     "duration"         : 500
                  },     
                  {      
                      "subTexture"       : "yellowType1_Top2",
-                     "duration"         : 500000000
+                     "duration"         : 500
                  }
             ]        
         },
@@ -498,11 +498,11 @@
             [        
                  {
                      "subTexture"       : "yellowType1_Bottom1",
-                     "duration"         : 500000000
+                     "duration"         : 500
                  },      
                  {       
                      "subTexture"       : "yellowType1_Bottom2",
-                     "duration"         : 500000000
+                     "duration"         : 500
                  }       
             ]        
         }, 
@@ -516,12 +516,12 @@
             [
                 {
                     "subTexture"        : "yellowType1_Left1",
-                    "duration"          : 500000000
+                    "duration"          : 500
                 },
 
                 {
                     "subTexture"        : "yellowType1_Left2",
-                    "duration"          : 500000000
+                    "duration"          : 500
 
                 }
             ]
@@ -537,12 +537,12 @@
             [
                 {
                     "subTexture"        : "yellowType1_Right1",
-                    "duration"          : 500000000
+                    "duration"          : 500
                 },
 
                 {
                     "subTexture"        : "yellowType1_Right2",
-                    "duration"          : 500000000
+                    "duration"          : 500
 
                 }
             ]

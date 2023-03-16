@@ -76,7 +76,7 @@ void Brick_Wall::Render() const
 	Render_Brick(EBrick_Location::Bottom_Right);
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Brick_Wall::Update(const uint64_t delta)
+void Brick_Wall::Update(const double delta)
 {
 }
 void Brick_Wall::Render_Brick(const EBrick_Location brick_location) const

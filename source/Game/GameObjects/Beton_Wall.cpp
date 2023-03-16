@@ -57,7 +57,7 @@ void Beton_Wall::Render() const
 	Render_Block(EBlock_Location::Bottom_Right);
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Beton_Wall::Update(const uint64_t delta)
+void Beton_Wall::Update(const double delta)
 {
 }
 void Beton_Wall::Render_Block(const EBlock_Location block_location) const

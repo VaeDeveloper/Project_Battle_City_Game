@@ -21,7 +21,7 @@ public:
 
 	/*-------------------------------------------------------------*/
 	void Render() const;
-	void Update(const uint64_t delta);
+	void Update(const double delta);
 	size_t Get_Level_Width() const;
 	size_t Get_Level_Height() const;
 

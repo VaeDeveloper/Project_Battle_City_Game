@@ -65,7 +65,7 @@ public:
 
 	/* Override */
 	virtual void Render() const override;
-	virtual void Update(const uint64_t delta) override;
+	virtual void Update(const double delta) override;
 
 private:
 	void Render_Brick(const EBrick_Location brick_location) const;

@@ -21,7 +21,7 @@ namespace RenderEngine
 class Player_Tank : public Game_Object
 {
 public:
-	Player_Tank(const float velocity,const glm::vec2 position,const glm::vec2 size, const float layer);
+	Player_Tank(const double velocity,const glm::vec2 position,const glm::vec2 size, const float layer);
 
 	/*-------------------------------------------------------*/
 	/* Orientation Movement Enum */
@@ -41,7 +41,7 @@ public:
 	void Render() const override;
 
 	/* Update Animation Player Sprite */
-	void Update(const uint64_t delta_seconds) override;
+	void Update(const double delta_seconds) override;
 	/*-------------------------------------------------------*/
 
 
@@ -57,7 +57,7 @@ public:
 
 private:
 	bool Move;													/* Moving Boolean */
-	float Velocity;												/* Speed velocity float */
+	double Velocity;											/* Speed velocity float */
 	glm::vec2 Move_Offset;										/* Vector Movement offset */
 	EOrientation Orientation;									/* Orientation Enum */
 	

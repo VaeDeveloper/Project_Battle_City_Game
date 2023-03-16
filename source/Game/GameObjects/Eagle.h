@@ -29,7 +29,7 @@ public:
 
 	/* Override */
 	virtual void Render() const override;
-	virtual void Update(const uint64_t delta) override;
+	virtual void Update(const double delta) override;
 
 private:
 	/* Sprite Object */

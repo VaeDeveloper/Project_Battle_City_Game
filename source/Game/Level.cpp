@@ -179,7 +179,7 @@ void Level::Render() const
 	}
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Level::Update(const uint64_t delta)
+void Level::Update(const double delta)
 {
 	for (const auto& curr_map_object : Map_Objects)
 	{

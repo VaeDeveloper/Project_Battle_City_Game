@@ -35,7 +35,7 @@ public:
 	virtual void Render() const override;
 
 	/* Update */
-	void Update(const uint64_t delta) override;
+	void Update(const double delta) override;
 
 
 private:

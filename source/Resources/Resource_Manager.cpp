@@ -208,6 +208,7 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 	}
 
 	/* get parse shaders */
+	/*--------------------------------------------------------*/
 	auto shaders_it = document.FindMember("shaders");
 
 	if (shaders_it != document.MemberEnd())
@@ -223,6 +224,7 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 	}
 
 	/* get parse texture atlas */
+	/*--------------------------------------------------------*/
 	auto tex_attlas_it= document.FindMember("textureAtlases");
 
 	if (tex_attlas_it != document.MemberEnd())
@@ -249,6 +251,7 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 	}
 
 	/* get parse level sprite */
+	/*--------------------------------------------------------*/
 	auto sprite_it = document.FindMember("sprites");
 
 	if (sprite_it != document.MemberEnd())
@@ -277,7 +280,7 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 				for (const auto& curr_frame : frames_array)
 				{
 					const std::string subtexture_str = curr_frame["subTexture"].GetString();
-					const uint64_t duration = curr_frame["duration"].GetUint64();
+					const double duration = curr_frame["duration"].GetDouble();
 
 					const auto p_texture_atlas = Get_Texture(texture_atlas);
 					const auto p_subtexture = p_texture_atlas->Get_SubTexture(subtexture_str);
@@ -292,6 +295,7 @@ bool Resource_Manager::Load_JSON_Resources(const std::string& json_path)
 
 
 	/* get parse level */
+	/*--------------------------------------------------------*/
 	auto levels_it = document.FindMember("levels");
 
 	if (levels_it != document.MemberEnd())

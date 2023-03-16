@@ -22,8 +22,7 @@ namespace RenderEngine
 	class Sprite
 	{
 	public:
-
-		//============================================================================================================================================================
+		/*-----------------------------------*/
 		struct Frame_Discription 
 		{
 			Frame_Discription(const glm::vec2 left_bottom_uv, const glm::vec2 right_top_uv, const uint64_t duration)
@@ -31,12 +30,12 @@ namespace RenderEngine
 
 			glm::vec2 Left_Bottom_UV;
 			glm::vec2 Right_Top_UV;
-			uint64_t Duration;
+			double Duration;
 		};
-		//============================================================================================================================================================
+		/*-----------------------------------*/
 
 
-		//============================================================================================================================================================
+		/*-----------------------------------*/
 		~Sprite();
 
 		/*	Use the actual constructor for this class */
@@ -45,23 +44,24 @@ namespace RenderEngine
 			const std::shared_ptr<Shader_Program> shader_program);
 
 
-		//============================================================================================================================================================
-		/*	It is forbidden to use a constructor without parameters and a constructor with a parameter of this class*/
+		/*-----------------------------------*/
+		/*	It is forbidden to use a constructor
+		without parameters and a constructor with
+		a parameter of this class*/
 		Sprite(const Sprite&) = delete;
 		Sprite& operator=(const Sprite&) = delete;
 		//============================================================================================================================================================
 
 
-		//============================================================================================================================================================
+		/*-----------------------------------*/
 		void Render(const glm::vec2& position, const glm::vec2& size, const float rotation,const float layer = 0, const size_t frame_id = 0) const;	/* Render */
-		uint64_t Get_Frame_Duration(const size_t frame_id) const;																/* Getter Frame Duration */
+		double Get_Frame_Duration(const size_t frame_id) const;																/* Getter Frame Duration */
 		size_t Get_Frames_Count() const;
 		void Insert_Frame(std::vector<Frame_Discription> frames_discriptions);
-		
-		//============================================================================================================================================================
+		/*-----------------------------------*/
 
 	protected:
-		//============================================================================================================================================================
+		/*-----------------------------------*/
 		std::shared_ptr<Texture2D> Texture;
 		std::shared_ptr<Shader_Program> Shader;
 
@@ -72,7 +72,7 @@ namespace RenderEngine
 
 		std::vector<Frame_Discription> Frame_Discriptions;
 		mutable size_t Last_Frame_ID;
-		//============================================================================================================================================================
+		/*-----------------------------------*/
 	};
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------

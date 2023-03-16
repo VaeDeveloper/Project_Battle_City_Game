@@ -99,7 +99,7 @@ void Sprite::Render(const glm::vec2& position, const glm::vec2& size, const floa
 	Renderer::Draw(Vertex_Array_Obj, Index_Pixel_Buffer, *Shader);
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-uint64_t Sprite::Get_Frame_Duration(const size_t frame_id) const
+double Sprite::Get_Frame_Duration(const size_t frame_id) const
 {
 	return Frame_Discriptions[frame_id].Duration;
 }

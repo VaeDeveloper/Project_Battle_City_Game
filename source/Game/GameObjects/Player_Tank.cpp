@@ -4,7 +4,7 @@
 #include "../../Resources/Resource_Manager.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Player_Tank::Player_Tank( const float velocity, const glm::vec2 position, const glm::vec2 size, const float layer)
+Player_Tank::Player_Tank( const double velocity, const glm::vec2 position, const glm::vec2 size, const float layer)
 : Game_Object(position,size, 0.f, layer),Orientation(EOrientation::Top), Move(false),Velocity(velocity), Move_Offset(glm::vec2(0.0f, 1.0f)),
   Tank_Sprite_Top(Resource_Manager::Get_Sprite("Tank_Top_State")), Tank_Sprite_Bottom(Resource_Manager::Get_Sprite("Tank_Bottom_State")),
   Tank_Sprite_Left(Resource_Manager::Get_Sprite("Tank_Left_State")), Tank_Sprite_Right(Resource_Manager::Get_Sprite("Tank_Right_State")),
@@ -75,12 +75,13 @@ void Player_Tank::Move_Player(const bool move)
 	Move = move;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Player_Tank::Update(const uint64_t delta_seconds)
+void Player_Tank::Update(const double delta_seconds)
 {
 	if (Move)
 	{
-		Position += delta_seconds * Velocity * Move_Offset;
-		
+		Position.x += static_cast<float>(delta_seconds * Velocity * Move_Offset.x);
+		Position.y += static_cast<float>(delta_seconds * Velocity * Move_Offset.y);
+
 		switch (Orientation)
 		{
 		case Player_Tank::EOrientation::Top:
