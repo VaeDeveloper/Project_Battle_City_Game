@@ -1,0 +1,11 @@
+Language: Cpp
+BasedOnStyle: Microsoft 
+IndentWidth: '4'
+UseTab: Never
+BreakBeforeBraces: Allman
+ColumnLimit: '300'
+PointerAlignment: Left
+AllowShortFunctionsOnASingleLine: Inline
+BinPackParameters: false
+BreakConstructorInitializers : BeforeColon 
+EmptyLineBeforeAccessModifier : LogicalBlock

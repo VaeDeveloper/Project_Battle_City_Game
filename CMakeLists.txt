@@ -56,6 +56,9 @@ add_executable(${PROJECT_NAME}
 
 	source/System/Timer.cpp
 	source/System/Timer.h
+
+	source/Physics/Physics_Engine.cpp
+	source/Physics/Physics_Engine.h
 )
 
 
