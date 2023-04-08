@@ -4,10 +4,10 @@
 #include "../../Resources/Resource_Manager.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Player_Tank::Player_Tank(const double velocity, const glm::vec2 position, const glm::vec2 size, const float layer)
-    : Game_Object(position, size, 0.f, layer), Orientation(EOrientation::Top), Move(false), Velocity(velocity), Move_Offset(glm::vec2(0.0f, 1.0f)), Tank_Sprite_Top(Resource_Manager::Get_Sprite("Tank_Top_State")), Tank_Sprite_Bottom(Resource_Manager::Get_Sprite("Tank_Bottom_State")),
-      Tank_Sprite_Left(Resource_Manager::Get_Sprite("Tank_Left_State")), Tank_Sprite_Right(Resource_Manager::Get_Sprite("Tank_Right_State")), Sprite_Anim_Top(Tank_Sprite_Top), Sprite_Anim_Bottom(Tank_Sprite_Bottom), Sprite_Anim_Left(Tank_Sprite_Left), Sprite_Anim_Right(Tank_Sprite_Right),
-      Tank_Sprite_Spawn(Resource_Manager::Get_Sprite("respawn")), Sprite_Animatior_Spawn(Tank_Sprite_Spawn), Tank_Sprite_Shield(Resource_Manager::Get_Sprite("shield")), Sprite_Animatior_Shield(Tank_Sprite_Shield), bIsSpawning(true), bHasShield(false)
+Player_Tank::Player_Tank(const double max_velocity, const glm::vec2 position, const glm::vec2 size, const float layer)
+: Game_Object(position, size, 0.f, layer), Orientation(EOrientation::Top), Max_Velocity(max_velocity), Tank_Sprite_Top(Resource_Manager::Get_Sprite("Tank_Top_State")), Tank_Sprite_Bottom(Resource_Manager::Get_Sprite("Tank_Bottom_State")),
+  Tank_Sprite_Left(Resource_Manager::Get_Sprite("Tank_Left_State")), Tank_Sprite_Right(Resource_Manager::Get_Sprite("Tank_Right_State")), Sprite_Anim_Top(Tank_Sprite_Top), Sprite_Anim_Bottom(Tank_Sprite_Bottom), Sprite_Anim_Left(Tank_Sprite_Left), Sprite_Anim_Right(Tank_Sprite_Right),
+  Tank_Sprite_Spawn(Resource_Manager::Get_Sprite("respawn")), Sprite_Animatior_Spawn(Tank_Sprite_Spawn), Tank_Sprite_Shield(Resource_Manager::Get_Sprite("shield")), Sprite_Animatior_Shield(Tank_Sprite_Shield), bIsSpawning(true), bHasShield(false)
 {
 
     /* Start Respawn Timer Callback */
@@ -66,7 +66,7 @@ void Player_Tank::Render() const
         if (bHasShield)
         {
             /* Render Shield Animation */
-            Tank_Sprite_Shield->Render(Position, Size, Rotation, Layer, Sprite_Animatior_Shield.Get_Current_Frame());
+            Tank_Sprite_Shield->Render(Position, Size, Rotation, Layer + 0.1f, Sprite_Animatior_Shield.Get_Current_Frame());
         }
     }
 }
@@ -82,33 +82,29 @@ void Player_Tank::Set_Orientation(const EOrientation orientation)
     switch (Orientation)
     {
     case EOrientation::Top:
-        Move_Offset.x = 0.0f;
-        Move_Offset.y = 1.0f;
+        Direction.x = 0.0f;
+        Direction.y = 1.0f;
         break;
 
     case EOrientation::Bottom:
-        Move_Offset.x = 0.0f;
-        Move_Offset.y = -1.0f;
+        Direction.x = 0.0f;
+        Direction.y = -1.0f;
         break;
 
     case EOrientation::Left:
-        Move_Offset.x = -1.0f;
-        Move_Offset.y = 0.0f;
+        Direction.x = -1.0f;
+        Direction.y = 0.0f;
         break;
 
     case EOrientation::Right:
-        Move_Offset.x = 1.0f;
-        Move_Offset.y = 0.0f;
+        Direction.x = 1.0f;
+        Direction.y = 0.0f;
         break;
     default:
         break;
     }
 }
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Player_Tank::Move_Player(const bool move)
-{
-    Move = move;
-}
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Player_Tank::Update(const double delta_seconds)
 {
@@ -127,12 +123,8 @@ void Player_Tank::Update(const double delta_seconds)
             Shield_Timer.Update(delta_seconds);
         }
 
-        if (Move)
+        if (Velocity > 0.0)
         {
-            //* Update Shield Animation 
-            Position.x += static_cast<float>(delta_seconds * Velocity * Move_Offset.x);
-            Position.y += static_cast<float>(delta_seconds * Velocity * Move_Offset.y);
-
             switch (Orientation)
             {
             case Player_Tank::EOrientation::Top:

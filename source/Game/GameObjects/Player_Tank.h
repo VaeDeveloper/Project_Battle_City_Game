@@ -19,7 +19,7 @@ class Sprite; /* f.d */
 class Player_Tank : public Game_Object
 {
   public:
-    Player_Tank(const double velocity, const glm::vec2 position, const glm::vec2 size, const float layer);
+    Player_Tank(const double max_velocity, const glm::vec2 position, const glm::vec2 size, const float layer);
 
     /*-------------------------------------------------------*/
     /* Orientation Movement Enum */
@@ -46,16 +46,14 @@ class Player_Tank : public Game_Object
     /* Setter Orientation Player on game view*/
     void Set_Orientation(const EOrientation orientation);
 
-    /* Move Player Method*/
-    void Move_Player(const bool move);
+    /* Getter Velocity */
+    double Get_Max_Velocity() const { return Max_Velocity; }
     /*-------------------------------------------------------*/
 
   private:
-    bool Move;                        /* Moving Boolean */
     bool bIsSpawning;                 /* Spawning ? */
     bool bHasShield;                  /* has Shield ? */
-    double Velocity;                  /* Speed velocity float */
-    glm::vec2 Move_Offset;            /* Vector Movement offset */
+    double Max_Velocity;              /* Speed velocity float */
     EOrientation Orientation;         /* Orientation Enum */
 
     /* Sprte pointer*/

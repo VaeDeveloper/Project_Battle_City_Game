@@ -38,7 +38,7 @@ private:
 	std::array<bool, 349> Keys;						/* Array Key bind					*/
 	glm::ivec2 Window_Size;							/* Window Size					    */
 	EGame_State Current_Game_States;				/* Game State enum class (uns char) */
-	std::unique_ptr<Player_Tank> Player_Tank_Actor;	/* Player Actor						*/
-	std::unique_ptr<Level> ALevel;
+	std::shared_ptr<Player_Tank> Player_Tank_Actor;	/* Player Actor						*/
+    std::shared_ptr<Level> ALevel;
 };
 //-------------------------------------------------------------------------------------------------------------------------------------

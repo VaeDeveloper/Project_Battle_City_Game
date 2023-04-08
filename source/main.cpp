@@ -8,6 +8,7 @@
 #include "Game\Game.h"
 #include "Renderer\Renderer.h"
 #include "Resources\Resource_Manager.h"
+#include "Physics\Physics_Engine.h"
 
 static constexpr unsigned int SCALE = 3;
 static constexpr unsigned width = 13 * 16, height = 14 * 16;
@@ -105,6 +106,9 @@ int main(int argc, char** argv)
         Resource_Manager::Set_Executable_Path(argv[0]);
         game->Init();
 
+        /* Physics Initialization */
+        PhysicsEngine::Init();
+
         /* Size Window for Game */
         glfwSetWindowSize(main_window, static_cast<int>(4 * game->Get_Curr_Level_Width()), static_cast<int>(4 * game->Get_Curr_Level_Height()));
 
@@ -118,11 +122,14 @@ int main(int argc, char** argv)
 
             /* Current Time Duration */
             auto current_time = std::chrono::high_resolution_clock::now();
-            double duration = std::chrono::duration<double, std::milli>(current_time - last_time).count();
+            double delta_time = std::chrono::duration<double, std::milli>(current_time - last_time).count();
             last_time = current_time;
 
             /* Update duration */
-            game->Update(duration);
+            game->Update(delta_time);
+
+            /* Physics Update */
+            PhysicsEngine::Update(delta_time);
 
             /* Clear */
             RenderEngine::Renderer::Clear();
