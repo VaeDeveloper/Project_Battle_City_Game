@@ -46,6 +46,7 @@ class Player_Tank : public Game_Object
     /* Setter Orientation Player on game view*/
     void Set_Orientation(const EOrientation orientation);
 
+
     /* Getter Velocity */
     double Get_Max_Velocity() const { return Max_Velocity; }
     /*-------------------------------------------------------*/

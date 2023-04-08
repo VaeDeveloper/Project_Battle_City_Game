@@ -104,7 +104,6 @@ void Player_Tank::Set_Orientation(const EOrientation orientation)
         break;
     }
 }
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Player_Tank::Update(const double delta_seconds)
 {

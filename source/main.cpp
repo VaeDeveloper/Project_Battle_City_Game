@@ -104,10 +104,11 @@ int main(int argc, char** argv)
 
     {
         Resource_Manager::Set_Executable_Path(argv[0]);
-        game->Init();
 
         /* Physics Initialization */
         PhysicsEngine::Init();
+        game->Init();
+
 
         /* Size Window for Game */
         glfwSetWindowSize(main_window, static_cast<int>(4 * game->Get_Curr_Level_Width()), static_cast<int>(4 * game->Get_Curr_Level_Height()));
