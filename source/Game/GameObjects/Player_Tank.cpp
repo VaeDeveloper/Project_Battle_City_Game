@@ -145,4 +145,11 @@ void Player_Tank::Update(const double delta_seconds)
         }
     }
 }
+void Player_Tank::Set_Velocity(const double velocity)
+{
+    if (!bIsSpawning)
+    {
+        Velocity = velocity;
+    }
+}
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------

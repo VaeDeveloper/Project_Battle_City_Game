@@ -39,6 +39,9 @@ class Player_Tank : public Game_Object
 
     /* Update Animation Player Sprite */
     void Update(const double delta_seconds) override;
+
+    virtual void Set_Velocity(const double velocity) override;
+
     /*-------------------------------------------------------*/
 
     /*-------------------------------------------------------*/
@@ -46,16 +49,15 @@ class Player_Tank : public Game_Object
     /* Setter Orientation Player on game view*/
     void Set_Orientation(const EOrientation orientation);
 
-
     /* Getter Velocity */
     double Get_Max_Velocity() const { return Max_Velocity; }
     /*-------------------------------------------------------*/
 
   private:
-    bool bIsSpawning;                 /* Spawning ? */
-    bool bHasShield;                  /* has Shield ? */
-    double Max_Velocity;              /* Speed velocity float */
-    EOrientation Orientation;         /* Orientation Enum */
+    bool bIsSpawning;         /* Spawning ? */
+    bool bHasShield;          /* has Shield ? */
+    double Max_Velocity;      /* Speed velocity float */
+    EOrientation Orientation; /* Orientation Enum */
 
     /* Sprte pointer*/
     std::shared_ptr<RenderEngine::Sprite> Tank_Sprite_Top;
@@ -72,7 +74,7 @@ class Player_Tank : public Game_Object
     ///* Tank Sprite Spawn and Animatior Spawn Sprite*/
     std::shared_ptr<RenderEngine::Sprite> Tank_Sprite_Spawn;
     RenderEngine::Sprite_Animator Sprite_Animatior_Spawn;
-    
+
     /* Tank Sprite Shiled And Animator Shiled Sprite */
     std::shared_ptr<RenderEngine::Sprite> Tank_Sprite_Shield;
     RenderEngine::Sprite_Animator Sprite_Animatior_Shield;
