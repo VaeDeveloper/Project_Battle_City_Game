@@ -1,31 +1,29 @@
-#pragma once 
+#pragma once
 
 #include "Game_Object.h"
 
-#include <memory>
-#include <glm/vec2.hpp>
 #include <array>
-
+#include <glm/vec2.hpp>
+#include <memory>
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  Border Game Object
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 namespace RenderEngine
 {
-	class Sprite;
+class Sprite;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 class Border : public Game_Object
 {
-public:
-	
-	Border(const glm::vec2& position,  const glm::vec2& size, const float rotation, const float layer);
+  public:
+    Border(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
 
-	/* Override */
-	virtual void Render() const override;
+    /* Override */
+    virtual void Render() const override;
 
-private:
-	/* Sprite Object */
-	std::shared_ptr<RenderEngine::Sprite> Sprites;
+  private:
+    /* Sprite Object */
+    std::shared_ptr<RenderEngine::Sprite> Sprites;
 };
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

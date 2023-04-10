@@ -16,6 +16,8 @@ namespace Physics
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 struct AABB
 {
+    AABB(const glm::vec2 bottom_left, const glm::vec2 top_right) : Bottom_Left(bottom_left), Top_Right(top_right) {}
+
     glm::vec2 Bottom_Left;
     glm::vec2 Top_Right;
 };
@@ -46,6 +48,10 @@ class PhysicsEngine
     static void Set_Current_Level(std::shared_ptr<Level> level);
 
   private:
+    static bool Has_Intersection(const std::vector<AABB>& col_1, const glm::vec2& pos_1, 
+                                 const std::vector<AABB>& col_2, const glm::vec2& pos_2);
+
+
     /* All Dynamic Objects who used Physics */
     static std::unordered_set<std::shared_ptr<Game_Object>> Dynamic_Objects;
 

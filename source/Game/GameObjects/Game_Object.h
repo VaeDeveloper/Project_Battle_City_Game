@@ -1,6 +1,9 @@
 #pragma once
 
 #include <glm/vec2.hpp>
+#include <vector>
+
+#include "../../Physics/Physics_Engine.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //  Game_Object
@@ -20,6 +23,11 @@ class Game_Object
     virtual glm::vec2& Get_Current_Direction() { return Direction; }
     virtual void Set_Velocity(const double velocity);
 
+    /* Getter vector Colliders */
+    const std::vector<Physics::AABB>& Get_Colliders() const { return Colliders; }
+
+    const glm::vec2& Get_Size() const { return Size; }
+
   protected:
     float Layer;
     float Rotation;
@@ -30,5 +38,8 @@ class Game_Object
     glm::vec2 Size;
     glm::vec2 Position;
     glm::vec2 Direction;
+
+    /* Collision Colliders */
+    std::vector<Physics::AABB> Colliders;
 };
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

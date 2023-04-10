@@ -29,7 +29,7 @@ void GLFW_Window_Size_Callback(GLFWwindow* window, int width, int height)
     unsigned viewport_left_offset = 0;
     unsigned viewport_bottom_offset = 0;
 
-    if (static_cast<float>(window_size.x / window_size.y) > aspect_ratio)
+    if (static_cast<float>(window_size.x) / window_size.y > aspect_ratio)
     {
         viewport_width = static_cast<unsigned>(window_size.y * aspect_ratio);
         viewport_left_offset = (window_size.x - viewport_width) / 2;
@@ -142,7 +142,8 @@ int main(int argc, char** argv)
             glfwSwapBuffers(main_window);
         }
 
-        /* exit the game poiner NULLPTR*/
+        /* exit the game poiner NULLPTR*/ 
+        Physics::PhysicsEngine::Destroy();
         game = nullptr;
         Resource_Manager::Unload_All_Resources();
     }

@@ -29,6 +29,8 @@ Player_Tank::Player_Tank(const double max_velocity, const glm::vec2 position, co
         {
             bHasShield = false;
         });
+
+    Colliders.emplace_back(glm::vec2(0), Size); // !!! 
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Player_Tank::Render() const

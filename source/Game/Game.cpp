@@ -21,7 +21,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Game::~Game() {}
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Game::Game(const glm::ivec2 window_size) : Current_Game_States(EGame_State::Pause), Window_Size(window_size)
+Game::Game(const glm::ivec2 window_size) : Window_Size(window_size) ,Current_Game_States(EGame_State::Pause)
 {
     Keys.fill(false);
 }
@@ -98,15 +98,18 @@ bool Game::Init()
     Window_Size.y = static_cast<int>(ALevel->Get_Level_Height());
     Physics::PhysicsEngine::Set_Current_Level(ALevel);
 
-    glm::mat4 projection_matrix = glm::ortho(0.0f, static_cast<float>(Window_Size.x), 0.0f, static_cast<float>(Window_Size.y), -100.0f, 100.0f);
+    glm::mat4 projection_matrix = glm::ortho(0.0f, static_cast<float>(Window_Size.x),
+                                             0.0f, static_cast<float>(Window_Size.y),
+                                            -100.0f, 100.0f);
 
     sprite_shader_program->Use_Shader();
     sprite_shader_program->Set_Int("tex", 0);
     sprite_shader_program->Set_Matrix4("projection_mat", projection_matrix);
 
     /* Loding Player in level */
-    Player_Tank_Actor = std::make_unique<Player_Tank>(0.05, ALevel->Get_Player_Respawn_1(), glm::vec2(Level::Block_Size, Level::Block_Size), 0.f);
+    Player_Tank_Actor = std::make_unique<Player_Tank>(0.05, ALevel->Get_Player_Respawn_1(), glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.f);
     Physics::PhysicsEngine::Add_Dynamic_Game_Object(Player_Tank_Actor);
+
     return true;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

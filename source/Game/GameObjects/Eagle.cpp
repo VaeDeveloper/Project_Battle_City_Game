@@ -9,6 +9,7 @@ Eagle::Eagle(const glm::vec2& position, const glm::vec2& size, const float rotat
   Block_Offsets{ glm::vec2(0, Size.y / 2.f),glm::vec2(Size.x / 2.f, Size.y / 2.f),glm::vec2(0, 0),glm::vec2(Size.x / 2.f, 0) },
   Eagle_State(EEagle_State::Alive)
 {
+    Colliders.emplace_back(glm::vec2(0), Size);
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Eagle::Render() const

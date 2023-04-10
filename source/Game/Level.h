@@ -32,11 +32,16 @@ class Level
     const glm::vec2& Get_Enemy_Respawn_3() const { return Enemy_Respawn_3; }
     /*-------------------------------------------------------------*/
 
-    static constexpr unsigned Block_Size = 16;
+    std::vector<std::shared_ptr<Game_Object>> Get_Object_InArea(const glm::vec2& bottom_left, const glm::vec2& top_right);
+
+    static constexpr unsigned BLOCK_SIZE = 16;
 
   private:
-    size_t Width;
-    size_t Height;
+    size_t Width_Block;
+    size_t Height_Block;
+
+    unsigned Width_Pixels = 0;
+    unsigned Height_Pixels = 0;
 
     std::vector<std::shared_ptr<Game_Object>> Map_Objects;
 
