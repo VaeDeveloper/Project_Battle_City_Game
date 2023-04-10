@@ -30,6 +30,8 @@ class PhysicsEngine
     /* Add Game Object */
     static void Add_Dynamic_Game_Object(std::shared_ptr<Game_Object> game_object);
 
+    static void Set_Current_Level();
+
   private:
     /* All Dynamic Objects who used Physics */
     static std::unordered_set<std::shared_ptr<Game_Object>> Dynamic_Objects;
