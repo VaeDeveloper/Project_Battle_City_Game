@@ -1,19 +1,20 @@
 #include "Physics_Engine.h"
 
 #include "../Game/GameObjects/Game_Object.h"
-
+#include "../Game/Level.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-std::unordered_set<std::shared_ptr<Game_Object>> PhysicsEngine::Dynamic_Objects;
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void PhysicsEngine::Init()
+namespace Physics
 {
-
-}
+std::unordered_set<std::shared_ptr<Game_Object>> PhysicsEngine::Dynamic_Objects;
+std::shared_ptr<Level> PhysicsEngine::Current_Level;
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void PhysicsEngine::Init() {}
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void PhysicsEngine::Destroy()
 {
     Dynamic_Objects.clear();
+    Current_Level.reset();
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void PhysicsEngine::Update(const double delta_time)
@@ -22,9 +23,7 @@ void PhysicsEngine::Update(const double delta_time)
     {
         if (curr_object->Get_Current_Velocity() > 0.0)
         {
-            curr_object->Get_Current_Position() += curr_object->Get_Current_Direction()
-                                                * static_cast<float>(curr_object->Get_Current_Velocity()
-                                                * delta_time);
+            curr_object->Get_Current_Position() += curr_object->Get_Current_Direction() * static_cast<float>(curr_object->Get_Current_Velocity() * delta_time);
         }
     }
 }
@@ -33,4 +32,11 @@ void PhysicsEngine::Add_Dynamic_Game_Object(std::shared_ptr<Game_Object> game_ob
 {
     Dynamic_Objects.insert(std::move(game_object));
 }
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void PhysicsEngine::Set_Current_Level(std::shared_ptr<Level> level)
+{
+    Current_Level.swap(level);
+}
+
+} // namespace Physics
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

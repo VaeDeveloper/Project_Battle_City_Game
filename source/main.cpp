@@ -106,7 +106,7 @@ int main(int argc, char** argv)
         Resource_Manager::Set_Executable_Path(argv[0]);
 
         /* Physics Initialization */
-        PhysicsEngine::Init();
+        Physics::PhysicsEngine::Init();
         game->Init();
 
 
@@ -130,7 +130,7 @@ int main(int argc, char** argv)
             game->Update(delta_time);
 
             /* Physics Update */
-            PhysicsEngine::Update(delta_time);
+            Physics::PhysicsEngine::Update(delta_time);
 
             /* Clear */
             RenderEngine::Renderer::Clear();

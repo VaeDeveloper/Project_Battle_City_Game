@@ -91,11 +91,12 @@ bool Game::Init()
     }
 
     /* Loading number levels: Get_Levels()[number_level] */
-    ALevel = std::make_unique<Level>(Resource_Manager::Get_Levels()[1]);
+    ALevel = std::make_shared<Level>(Resource_Manager::Get_Levels()[1]);
 
     /* Camera Projection */
     Window_Size.x = static_cast<int>(ALevel->Get_Level_Width());
     Window_Size.y = static_cast<int>(ALevel->Get_Level_Height());
+    Physics::PhysicsEngine::Set_Current_Level(ALevel);
 
     glm::mat4 projection_matrix = glm::ortho(0.0f, static_cast<float>(Window_Size.x), 0.0f, static_cast<float>(Window_Size.y), -100.0f, 100.0f);
 
@@ -105,7 +106,7 @@ bool Game::Init()
 
     /* Loding Player in level */
     Player_Tank_Actor = std::make_unique<Player_Tank>(0.05, ALevel->Get_Player_Respawn_1(), glm::vec2(Level::Block_Size, Level::Block_Size), 0.f);
-    PhysicsEngine::Add_Dynamic_Game_Object(Player_Tank_Actor);
+    Physics::PhysicsEngine::Add_Dynamic_Game_Object(Player_Tank_Actor);
     return true;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
