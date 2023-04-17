@@ -16,7 +16,11 @@ namespace Physics
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 struct AABB
 {
-    AABB(const glm::vec2 bottom_left, const glm::vec2 top_right) : Bottom_Left(bottom_left), Top_Right(top_right) {}
+    AABB(const glm::vec2 bottom_left, const glm::vec2 top_right)
+    : Bottom_Left(bottom_left), Top_Right(top_right) 
+    {
+        //**//
+    }
 
     glm::vec2 Bottom_Left;
     glm::vec2 Top_Right;

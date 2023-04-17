@@ -60,9 +60,21 @@ void PhysicsEngine::Update(const double delta_time)
                 }
             }
 
+            /* */
             if (!has_collision)
             {
                 curr_object->Get_Current_Position() = new_position;
+            }
+            else
+            {
+                if (curr_object->Get_Current_Direction().x != 0.0f)
+                {
+                    curr_object->Get_Current_Position() = glm::vec2(static_cast<unsigned>(curr_object->Get_Current_Position().x / 8.0f + 0.5f) * 8.0f, curr_object->Get_Current_Position().y);
+                }
+                else if (curr_object->Get_Current_Direction().y != 0.0f)
+                {
+                    curr_object->Get_Current_Position() = glm::vec2(curr_object->Get_Current_Position().x, static_cast<unsigned>(curr_object->Get_Current_Position().y / 8.0f + 0.5f) * 8.0f);
+                }
             }
         }
     }
