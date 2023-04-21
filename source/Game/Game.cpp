@@ -67,6 +67,11 @@ void Game::Update(const double delta_time)
             Player_Tank_Actor->Set_Velocity(0.0);
         }
 
+        if (Player_Tank_Actor && Keys[GLFW_KEY_SPACE])
+        {
+            Player_Tank_Actor->Fire();
+        }
+
         Player_Tank_Actor->Update(delta_time);
     }
 }

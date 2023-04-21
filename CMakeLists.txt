@@ -54,8 +54,7 @@ add_executable(${PROJECT_NAME}
 	source/Game/GameObjects/Border.h
 	source/Game/GameObjects/Bullet.cpp
 	source/Game/GameObjects/Bullet.h
-
-
+	
 	source/System/Timer.cpp
 	source/System/Timer.h
 

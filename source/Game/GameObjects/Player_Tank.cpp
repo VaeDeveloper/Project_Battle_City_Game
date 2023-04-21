@@ -3,11 +3,17 @@
 #include "../../Renderer/Sprite.h"
 #include "../../Resources/Resource_Manager.h"
 
+#include "Bullet.h"
+#include "../../Physics/Physics_Engine.h"
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Player_Tank::Player_Tank(const double max_velocity, const glm::vec2 position, const glm::vec2 size, const float layer)
-: Game_Object(position, size, 0.f, layer), Orientation(EOrientation::Top), Max_Velocity(max_velocity), Tank_Sprite_Top(Resource_Manager::Get_Sprite("Tank_Top_State")), Tank_Sprite_Bottom(Resource_Manager::Get_Sprite("Tank_Bottom_State")),
-  Tank_Sprite_Left(Resource_Manager::Get_Sprite("Tank_Left_State")), Tank_Sprite_Right(Resource_Manager::Get_Sprite("Tank_Right_State")), Sprite_Anim_Top(Tank_Sprite_Top), Sprite_Anim_Bottom(Tank_Sprite_Bottom), Sprite_Anim_Left(Tank_Sprite_Left), Sprite_Anim_Right(Tank_Sprite_Right),
-  Tank_Sprite_Spawn(Resource_Manager::Get_Sprite("respawn")), Sprite_Animatior_Spawn(Tank_Sprite_Spawn), Tank_Sprite_Shield(Resource_Manager::Get_Sprite("shield")), Sprite_Animatior_Shield(Tank_Sprite_Shield), bIsSpawning(true), bHasShield(false)
+: Game_Object(position, size, 0.f, layer), Orientation(EOrientation::Top), Current_Bullet(std::make_shared<Bullet>(0.1, Position + Size / 4.0f,Size / 2.0f ,Layer)),
+  Max_Velocity(max_velocity), Tank_Sprite_Top(Resource_Manager::Get_Sprite("Tank_Top_State")), Tank_Sprite_Bottom(Resource_Manager::Get_Sprite("Tank_Bottom_State")),
+  Tank_Sprite_Left(Resource_Manager::Get_Sprite("Tank_Left_State")), Tank_Sprite_Right(Resource_Manager::Get_Sprite("Tank_Right_State")), Sprite_Anim_Top(Tank_Sprite_Top),
+  Sprite_Anim_Bottom(Tank_Sprite_Bottom), Sprite_Anim_Left(Tank_Sprite_Left), Sprite_Anim_Right(Tank_Sprite_Right),
+  Tank_Sprite_Spawn(Resource_Manager::Get_Sprite("respawn")), Sprite_Animatior_Spawn(Tank_Sprite_Spawn), Tank_Sprite_Shield(Resource_Manager::Get_Sprite("shield")),
+  Sprite_Animatior_Shield(Tank_Sprite_Shield), bIsSpawning(true), bHasShield(false)
 {
 
     /* Start Respawn Timer Callback */
@@ -71,6 +77,12 @@ void Player_Tank::Render() const
             Tank_Sprite_Shield->Render(Position, Size, Rotation, Layer + 0.1f, Sprite_Animatior_Shield.Get_Current_Frame());
         }
     }
+
+    /* fire bullet render */
+    if (Current_Bullet->Is_Active())
+    {
+        Current_Bullet->Render();
+    }
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Player_Tank::Set_Orientation(const EOrientation orientation)
@@ -102,8 +114,18 @@ void Player_Tank::Set_Orientation(const EOrientation orientation)
         Direction.x = 1.0f;
         Direction.y = 0.0f;
         break;
+
     default:
         break;
+    }
+}
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void Player_Tank::Fire() 
+{
+    //if (!Current_Bullet->Is_Active())
+    {
+        Current_Bullet->Fire(Position + Size / 4.0f, Direction);
+        Physics::PhysicsEngine::Add_Dynamic_Game_Object(Current_Bullet);
     }
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------

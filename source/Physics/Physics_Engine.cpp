@@ -104,26 +104,28 @@ bool PhysicsEngine::Has_Intersection(const std::vector<AABB>& col_1, const glm::
 
             if (curr_colliders1_bot_left_world.x >= curr_colliders2_top_right_world.x)
             {
-                return false;
+                continue;
             }
 
             if (curr_colliders1_top_right_world.x <= curr_colliders2_bot_left_world.x)
             {
-                return false;
+                continue;
             }
 
             if (curr_colliders1_bot_left_world.y >= curr_colliders2_top_right_world.y)
             {
-                return false;
+                continue;
             }
 
             if (curr_colliders1_top_right_world.y <= curr_colliders2_bot_left_world.y)
             {
-                return false;
+                continue;
             }
+
+            return true;
         }
     }
-    return true;
+    return false;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 } // namespace Physics

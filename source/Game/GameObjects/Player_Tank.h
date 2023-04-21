@@ -15,12 +15,13 @@ namespace RenderEngine
 {
 class Sprite; /* f.d */
 }
+class Bullet;
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 class Player_Tank : public Game_Object
 {
   public:
     Player_Tank(const double max_velocity, const glm::vec2 position, const glm::vec2 size, const float layer);
-
+    
     /*-------------------------------------------------------*/
     /* Orientation Movement Enum */
     enum class EOrientation : uint8_t
@@ -51,6 +52,9 @@ class Player_Tank : public Game_Object
 
     /* Getter Velocity */
     double Get_Max_Velocity() const { return Max_Velocity; }
+
+    /* Fire Bullet */
+    void Fire();
     /*-------------------------------------------------------*/
 
   private:
@@ -58,6 +62,9 @@ class Player_Tank : public Game_Object
     bool bHasShield;          /* has Shield ? */
     double Max_Velocity;      /* Speed velocity float */
     EOrientation Orientation; /* Orientation Enum */
+
+    /* bullet ptr */
+    std::shared_ptr<Bullet> Current_Bullet;
 
     /* Sprte pointer*/
     std::shared_ptr<RenderEngine::Sprite> Tank_Sprite_Top;

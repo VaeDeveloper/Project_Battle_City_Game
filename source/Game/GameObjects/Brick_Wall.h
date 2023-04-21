@@ -16,6 +16,7 @@ class Sprite;
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 class Brick_Wall : public Game_Object
 {
+#pragma region ENUMS_BRICKs_
   public:
     enum class EBrick_Wall_Type : uint8_t /* Brick Wall Type */
     {
@@ -58,6 +59,9 @@ class Brick_Wall : public Game_Object
         Bottom_Right
     };
 
+#pragma endregion ENUMS_BRICKs_
+
+#pragma region Init_
     Brick_Wall(const EBrick_Wall_Type brick_wall_type, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
 
     /* Override */
@@ -70,5 +74,6 @@ class Brick_Wall : public Game_Object
     std::array<EBrick_State, 4> Curr_Brick_State;
     std::array<std::shared_ptr<RenderEngine::Sprite>, 15> Sprites;
     std::array<glm::vec2, 4> Block_Offsets;
+#pragma endregion Init_
 };
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
